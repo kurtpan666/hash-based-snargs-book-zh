@@ -1,18 +1,26 @@
+## 简体中文版翻译日志
+
+- 240524: 本书简体中文翻译工作开始。
+  - PAZK-zh-CN翻译经验教训表明，目前简体中文技术书籍出版青黄不接，编辑甚至不接受$\LaTeX$排版。与其浪费精力“怒其不争”，不如自己动手，通过开放互联网、社区合作的力量，尽己之所能，给出满足互联网/AI时代技术人需求的内容，以飨读者。翻译过程以“边学边翻”为原则，谨慎使用机器翻译，尽量保持原文意思。
+  - 新建文件夹`zh-CN`存放`snargs-book-zh` `.tex/.cls`文件，`figs/font`一并拷贝进入。由于上游库还在频繁更新，会定期sync并翻译新内容。主体部分应该已经稳定。
+  - `zh.cls`中`\RequirePackage{luatexja-fontspec}` `\setmainjfont{PingFang SC}` 以使用PingFang SC字体正确渲染中文字体。
+  - 修改了题目
+
 <h1 align="center">Building Cryptographic Proofs from Hash Functions</h1>
 
 A book by [Alessandro Chiesa](https://ic-people.epfl.ch/~achiesa/) and [Eylon Yogev](https://eylonyogev.github.io/).
 
 ## Content
 
-This book provides a comprehensive and rigorous treatment of cryptographic proofs based on *ideal* hash functions. This includes notable constructions of SNARGs (succinct non-interactive arguments) based on ideal hash functions. For example, STARKs (scalable transparent arguments of knowledge) are an example of such SNARGs.
+This book provides a comprehensive and rigorous treatment of cryptographic proofs based on _ideal_ hash functions. This includes notable constructions of SNARGs (succinct non-interactive arguments) based on ideal hash functions. For example, STARKs (scalable transparent arguments of knowledge) are an example of such SNARGs.
 
 We discuss several fundamental constructions, including:
 
-* the **Fiat&ndash;Shamir transformation**;
-* the **multi-round Fiat&ndash;Shamir transformation**;
-* the **Kilian transformation**;
-* the **Micali transformation**;
-* the **BCS (Ben-Sasson&ndash;Chiesa&ndash;Spooner) transformation**.
+- the **Fiat&ndash;Shamir transformation**;
+- the **multi-round Fiat&ndash;Shamir transformation**;
+- the **Kilian transformation**;
+- the **Micali transformation**;
+- the **BCS (Ben-Sasson&ndash;Chiesa&ndash;Spooner) transformation**.
 
 We provide detailed security definitions, security proofs, and optimizations. Along the way, we also discuss **Merkle commitment schemes** in detail, which play an important role in several of the aforementioned transformations.
 
