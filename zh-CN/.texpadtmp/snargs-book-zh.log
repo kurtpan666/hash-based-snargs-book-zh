@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.18.0 (TeX Live 2024)  (format=lualatex 2024.4.28)  24 MAY 2024 18:08
+This is LuaHBTeX, Version 1.18.0 (TeX Live 2024)  (format=lualatex 2024.4.28)  24 MAY 2024 18:58
  restricted system commands enabled.
  file:line:error style messages enabled.
 **snargs-book-zh.tex
@@ -2447,11 +2447,11 @@ LaTeX Font Info:    Font shape `JY3/PingFangSC(0)/b/n' will be
 (Font)              scaled to size 19.95642pt on input line 32.
 Package tocbasic Info: character protrusion at toc deactivated on input line 32.
 LaTeX Font Info:    Font shape `TU/lmroman10-regular.otf(0)/m/sl' in size <10.95> not available
-(Font)              Font shape `TU/lmroman10-regular.otf(0)/m/it' tried instead on input line 39.
+(Font)              Font shape `TU/lmroman10-regular.otf(0)/m/it' tried instead on input line 33.
 LaTeX Font Info:    Kanji font shape `JY3/PingFangSC(0)/m/sl' undefined
-(Font)              No change on input line 39.
+(Font)              No change on input line 33.
 LaTeX Font Info:    Font shape `TU/lmroman10-regular.otf(0)/b/sl' in size <10.95> not available
-(Font)              Font shape `TU/lmroman10-regular.otf(0)/b/it' tried instead on input line 39.
+(Font)              Font shape `TU/lmroman10-regular.otf(0)/b/it' tried instead on input line 33.
 
 Package fontspec Info: lmsans10-regular scale = 1.
 
@@ -2497,27 +2497,108 @@ Package fontspec Info: Font family 'lmsans10-regular.otf(1)' created for font
 (fontspec)             - 'bold italic small caps'  (b/scit) with NFSS spec.: 
 
 LaTeX Font Info:    Font shape `TU/lmsans10-regular.otf(1)/b/n' will be
-(Font)              scaled to size 10.95pt on input line 39.
+(Font)              scaled to size 10.95pt on input line 33.
 LaTeX Font Info:    Kanji font shape `JY3/PingFangSC(0)/m/sl' undefined
-(Font)              No change on input line 39.
+(Font)              No change on input line 33.
 LaTeX Font Info:    Kanji font shape `JY3/PingFangSC(0)/m/sl' undefined
-(Font)              No change on input line 39.
+(Font)              No change on input line 33.
 LaTeX Font Info:    Kanji font shape `JY3/PingFangSC(0)/m/sl' undefined
-(Font)              No change on input line 39.
+(Font)              No change on input line 33.
 LaTeX Font Info:    Kanji font shape `JY3/PingFangSC(0)/m/sl' undefined
-(Font)              No change on input line 39.
+(Font)              No change on input line 33.
 LaTeX Font Info:    Kanji font shape `JY3/PingFangSC(0)/m/sl' undefined
-(Font)              No change on input line 39.
+(Font)              No change on input line 33.
+ [3
+
+
+]
+chapter without number
+LaTeX Font Info:    Kanji font shape `JY3/PingFangSC(0)/m/sl' undefined
+(Font)              No change on input line 56.
+
+Package fontspec Info: lmsans10-regular scale = 1.
+
+LaTeX Font Info:    Kanji font shape `JY3/PingFangSC(0)/m/sl' undefined
+(Font)              No change on input line 56.
+LaTeX Font Info:    Kanji font shape `JY3/PingFangSC(0)/m/sl' undefined
+(Font)              No change on input line 56.
+LaTeX Font Info:    Kanji font shape `JY3/PingFangSC(0)/m/sl' undefined
+(Font)              No change on input line 56.
+LaTeX Font Info:    Kanji font shape `JY3/PingFangSC(0)/m/sl' undefined
+(Font)              No change on input line 56.
+LaTeX Font Info:    Kanji font shape `JY3/PingFangSC(0)/m/sl' undefined
+(Font)              No change on input line 56.
+[4
+
+]
+LaTeX Font Info:    Kanji font shape `JY3/PingFangSC(0)/m/sl' undefined
+(Font)              No change on input line 65.
+
+Package fontspec Info: lmsans10-regular scale = .95.
+
+
+Package fontspec Info: lmsans10-regular scale = .95.
+
+luaotfload | aux : font no 109 (nil) does not define feature smcp for script latn with language dflt
+
+Package fontspec Info: lmsans10-bold scale = .95.
+
+luaotfload | aux : font no 110 (nil) does not define feature smcp for script latn with language dflt
+
+Package fontspec Info: lmsans10-oblique scale = .95.
+
+luaotfload | aux : font no 111 (nil) does not define feature smcp for script latn with language dflt
+
+Package fontspec Info: lmsans10-boldoblique scale = .95.
+
+luaotfload | aux : font no 112 (nil) does not define feature smcp for script latn with language dflt
+
+Package fontspec Info: Font family 'lmsans10-regular.otf(2)' created for font
+(fontspec)             'lmsans10-regular.otf' with options
+(fontspec)             [Ligatures=TeX,Path=./fonts/,ItalicFont =
+(fontspec)             lmsans10-oblique.otf,BoldFont =
+(fontspec)             lmsans10-bold.otf,BoldItalicFont =
+(fontspec)             lmsans10-boldoblique.otf,Ligatures = {Common,
+(fontspec)             Discretionary, TeX},Scale=.95].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.:
+(fontspec)             <->s*[.95]"[./fonts/lmsans10-regular.otf]:mode=node;script=latn;language=dflt;+liga;+dlig;+tlig;"
+(fontspec)             - 'small caps'  (m/sc) with NFSS spec.: 
+(fontspec)             - 'bold' (b/n) with NFSS spec.:
+(fontspec)             <->s*[.95]"[./fonts/lmsans10-bold.otf]:mode=node;script=latn;language=dflt;+liga;+dlig;+tlig;"
+(fontspec)             - 'bold small caps'  (b/sc) with NFSS spec.: 
+(fontspec)             - 'italic' (m/it) with NFSS spec.:
+(fontspec)             <->s*[.95]"[./fonts/lmsans10-oblique.otf]:mode=node;script=latn;language=dflt;+liga;+dlig;+tlig;"
+(fontspec)             - 'italic small caps'  (m/scit) with NFSS spec.: 
+(fontspec)             - 'bold italic' (b/it) with NFSS spec.:
+(fontspec)             <->s*[.95]"[./fonts/lmsans10-boldoblique.otf]:mode=node;script=latn;language=dflt;+liga;+dlig;+tlig;"
+(fontspec)             - 'bold italic small caps'  (b/scit) with NFSS spec.: 
+
+LaTeX Font Info:    Font shape `TU/lmsans10-regular.otf(2)/b/n' will be
+(Font)              scaled to size 10.40245pt on input line 65.
+
+Package fontspec Info: lmsans10-regular scale = 1.
+
+LaTeX Font Info:    Kanji font shape `JY3/PingFangSC(0)/m/sl' undefined
+(Font)              No change on input line 65.
+LaTeX Font Info:    Kanji font shape `JY3/PingFangSC(0)/m/sl' undefined
+(Font)              No change on input line 65.
+LaTeX Font Info:    Kanji font shape `JY3/PingFangSC(0)/m/sl' undefined
+(Font)              No change on input line 65.
+LaTeX Font Info:    Kanji font shape `JY3/PingFangSC(0)/m/sl' undefined
+(Font)              No change on input line 65.
+LaTeX Font Info:    Kanji font shape `JY3/PingFangSC(0)/m/sl' undefined
+(Font)              No change on input line 65.
  (/usr/local/texlive/2024/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
 File: se-pdfdoc.def 2019/11/29 v1.12 stringenc: PDFDocEncoding
 ) (/usr/local/texlive/2024/texmf-dist/tex/generic/stringenc/se-utf32be.def
 File: se-utf32be.def 2019/11/29 v1.12 stringenc: UTF-32BE
-) [3
+) [5]
 
-
-]
-
-LaTeX Warning: Empty bibliography on input line 40.
+LaTeX Warning: Empty bibliography on input line 66.
 
 (/Users/kurtpan/Documents/KurtPan-GitHub/hash-based-snargs-book-zh/zh-CN/.texpadtmp/snargs-book-zh.aux)
  ***********
@@ -2530,19 +2611,19 @@ Package logreq Info: Writing requests to 'snargs-book-zh.run.xml'.
 )
 
 Here is how much of LuaTeX's memory you used:
- 54709 strings out of 476447
- 100000,2848258 words of node,token memory allocated
- 1262 words of node memory still in use:
-   10 hlist, 2 vlist, 5 rule, 2 glue, 4 kern, 1 glyph, 208 attribute, 93 glue_spec, 29 attribute_list, 3 write, 12 user_defined, 1 pdf_action nodes
-   avail lists: 1:6,2:10893,3:546,4:394,5:115,6:62,7:636,8:2,9:460,10:8,11:21,12:4
- 75489 multiletter control sequences out of 65536+600000
- 112 fonts using 147472567 bytes
- 124i,29n,164p,10909b,2112s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<./fonts/lmsans10-bold.otf><./fonts/lmroman10-regular.otf></System/Library/Fonts/PingFang.ttc></System/Library/Fonts/PingFang.ttc><./fonts/lmsans10-regular.otf></System/Library/Fonts/PingFang.ttc></System/Library/Fonts/PingFang.ttc>
-Output written on snargs-book-zh.pdf (3 pages, 69440 bytes).
+ 54773 strings out of 476447
+ 244157,2848258 words of node,token memory allocated
+ 1613 words of node memory still in use:
+   11 hlist, 2 vlist, 7 rule, 1 local_par, 6 glue, 4 kern, 2 penalty, 3 glyph, 330 attribute, 93 glue_spec, 40 attribute_list, 3 write, 13 user_defined, 1 pdf_action nodes
+   avail lists: 1:77,2:75111,3:821,4:514,5:123,6:78,7:7229,8:4,9:3526,10:25,11:21,12:4
+ 75550 multiletter control sequences out of 65536+600000
+ 113 fonts using 147608735 bytes
+ 124i,30n,165p,10909b,2247s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<./fonts/lmroman10-bold.otf><./fonts/lmsans10-bold.otf><./fonts/lmroman10-regular.otf></System/Library/Fonts/PingFang.ttc></System/Library/Fonts/PingFang.ttc><./fonts/lmsans10-regular.otf></System/Library/Fonts/PingFang.ttc></System/Library/Fonts/PingFang.ttc></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb>
+Output written on snargs-book-zh.pdf (5 pages, 164231 bytes).
 
-PDF statistics: 75 PDF objects out of 1000 (max. 8388607)
- 12 compressed objects within 1 object stream
- 7 named destinations out of 1000 (max. 131072)
- 37 words of extra memory for PDF output out of 10000 (max. 100000000)
+PDF statistics: 105 PDF objects out of 1000 (max. 8388607)
+ 25 compressed objects within 1 object stream
+ 10 named destinations out of 1000 (max. 131072)
+ 45 words of extra memory for PDF output out of 10000 (max. 100000000)
 

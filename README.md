@@ -5,6 +5,7 @@
   - 新建文件夹`zh-CN`存放`snargs-book-zh` `.tex/.cls`文件，`figs/font`一并拷贝进入。由于上游库还在频繁更新，会定期sync并翻译新内容。主体部分应该已经稳定。
   - `zh.cls`中`\RequirePackage{luatexja-fontspec}` `\setmainjfont{PingFang SC}` 以使用PingFang SC字体正确渲染中文字体。
   - 修改了题目
+  - 翻译了**前言**
 
 <h1 align="center">Building Cryptographic Proofs from Hash Functions</h1>
 
