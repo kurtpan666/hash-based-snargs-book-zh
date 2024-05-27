@@ -1,3 +1,6 @@
 \@ifundefined {etoctocstyle}{\let \etoc@startlocaltoc \@gobble \let \etoc@settocdepth \@gobble \let \etoc@depthtag \@gobble \let \etoc@setlocaltop \@gobble }{}
 \babel@toc {american}{}\relax 
 \contentsline {chapter}{\nonumberline 前言}{iv}{chapter*.3}%
+\contentsline {chapter}{\nonumberline 序言}{vi}{chapter*.4}%
+\contentsline {paragraph}{\nonumberline 最新版本}{vi}{paragraph*.6}%
+\contentsline {paragraph}{\nonumberline 许可证}{vi}{paragraph*.8}%

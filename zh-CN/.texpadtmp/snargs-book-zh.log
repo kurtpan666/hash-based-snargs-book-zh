@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.18.0 (TeX Live 2024)  (format=lualatex 2024.4.28)  24 MAY 2024 18:58
+This is LuaHBTeX, Version 1.18.0 (TeX Live 2024)  (format=lualatex 2024.4.28)  27 MAY 2024 16:56
  restricted system commands enabled.
  file:line:error style messages enabled.
 **snargs-book-zh.tex
@@ -2532,7 +2532,7 @@ LaTeX Font Info:    Kanji font shape `JY3/PingFangSC(0)/m/sl' undefined
 
 ]
 LaTeX Font Info:    Kanji font shape `JY3/PingFangSC(0)/m/sl' undefined
-(Font)              No change on input line 65.
+(Font)              No change on input line 62.
 
 Package fontspec Info: lmsans10-regular scale = .95.
 
@@ -2578,27 +2578,57 @@ Package fontspec Info: Font family 'lmsans10-regular.otf(2)' created for font
 (fontspec)             - 'bold italic small caps'  (b/scit) with NFSS spec.: 
 
 LaTeX Font Info:    Font shape `TU/lmsans10-regular.otf(2)/b/n' will be
-(Font)              scaled to size 10.40245pt on input line 65.
+(Font)              scaled to size 10.40245pt on input line 62.
 
 Package fontspec Info: lmsans10-regular scale = 1.
 
 LaTeX Font Info:    Kanji font shape `JY3/PingFangSC(0)/m/sl' undefined
-(Font)              No change on input line 65.
+(Font)              No change on input line 62.
 LaTeX Font Info:    Kanji font shape `JY3/PingFangSC(0)/m/sl' undefined
-(Font)              No change on input line 65.
+(Font)              No change on input line 62.
 LaTeX Font Info:    Kanji font shape `JY3/PingFangSC(0)/m/sl' undefined
-(Font)              No change on input line 65.
+(Font)              No change on input line 62.
 LaTeX Font Info:    Kanji font shape `JY3/PingFangSC(0)/m/sl' undefined
-(Font)              No change on input line 65.
+(Font)              No change on input line 62.
 LaTeX Font Info:    Kanji font shape `JY3/PingFangSC(0)/m/sl' undefined
+(Font)              No change on input line 62.
+ [5]
+chapter without number
+LaTeX Font Info:    Font shape `JY3/PingFangSC(0)/m/n' will be
+(Font)              scaled to size 6.73553pt on input line 65.
+LaTeX Font Info:    Font shape `JY3/PingFangSC(0)/m/n' will be
+(Font)              scaled to size 4.8111pt on input line 65.
+LaTeX Font Info:    Kanji font shape `JY3/PingFangSC(0)/m/it' undefined
 (Font)              No change on input line 65.
- (/usr/local/texlive/2024/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
+(load cache: extra_lmmono10-regular.luc)
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `lmtt' (encoding: TU).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+LaTeX Font Info:    Kanji font shape `JY3/PingFangSC(0)/m/sl' undefined
+(Font)              No change on input line 81.
+
+Package fontspec Info: lmsans10-regular scale = 1.
+
+LaTeX Font Info:    Kanji font shape `JY3/PingFangSC(0)/m/sl' undefined
+(Font)              No change on input line 81.
+LaTeX Font Info:    Kanji font shape `JY3/PingFangSC(0)/m/sl' undefined
+(Font)              No change on input line 81.
+LaTeX Font Info:    Kanji font shape `JY3/PingFangSC(0)/m/sl' undefined
+(Font)              No change on input line 81.
+LaTeX Font Info:    Kanji font shape `JY3/PingFangSC(0)/m/sl' undefined
+(Font)              No change on input line 81.
+LaTeX Font Info:    Kanji font shape `JY3/PingFangSC(0)/m/sl' undefined
+(Font)              No change on input line 81.
+(/usr/local/texlive/2024/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
 File: se-pdfdoc.def 2019/11/29 v1.12 stringenc: PDFDocEncoding
 ) (/usr/local/texlive/2024/texmf-dist/tex/generic/stringenc/se-utf32be.def
 File: se-utf32be.def 2019/11/29 v1.12 stringenc: UTF-32BE
-) [5]
+) [6
 
-LaTeX Warning: Empty bibliography on input line 66.
+]
+
+LaTeX Warning: Empty bibliography on input line 82.
 
 (/Users/kurtpan/Documents/KurtPan-GitHub/hash-based-snargs-book-zh/zh-CN/.texpadtmp/snargs-book-zh.aux)
  ***********
@@ -2611,19 +2641,19 @@ Package logreq Info: Writing requests to 'snargs-book-zh.run.xml'.
 )
 
 Here is how much of LuaTeX's memory you used:
- 54773 strings out of 476447
- 244157,2848258 words of node,token memory allocated
- 1613 words of node memory still in use:
-   11 hlist, 2 vlist, 7 rule, 1 local_par, 6 glue, 4 kern, 2 penalty, 3 glyph, 330 attribute, 93 glue_spec, 40 attribute_list, 3 write, 13 user_defined, 1 pdf_action nodes
-   avail lists: 1:77,2:75111,3:821,4:514,5:123,6:78,7:7229,8:4,9:3526,10:25,11:21,12:4
- 75550 multiletter control sequences out of 65536+600000
- 113 fonts using 147608735 bytes
+ 54880 strings out of 476447
+ 244155,2848258 words of node,token memory allocated
+ 1486 words of node memory still in use:
+   11 hlist, 2 vlist, 5 rule, 1 local_par, 5 glue, 4 kern, 1 penalty, 3 glyph, 282 attribute, 94 glue_spec, 36 attribute_list, 3 write, 13 user_defined, 1 pdf_action nodes
+   avail lists: 1:83,2:75163,3:822,4:524,5:122,6:84,7:7230,8:47,9:3528,10:28,11:21,12:4
+ 75651 multiletter control sequences out of 65536+600000
+ 158 fonts using 166659743 bytes
  124i,30n,165p,10909b,2247s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<./fonts/lmroman10-bold.otf><./fonts/lmsans10-bold.otf><./fonts/lmroman10-regular.otf></System/Library/Fonts/PingFang.ttc></System/Library/Fonts/PingFang.ttc><./fonts/lmsans10-regular.otf></System/Library/Fonts/PingFang.ttc></System/Library/Fonts/PingFang.ttc></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb>
-Output written on snargs-book-zh.pdf (5 pages, 164231 bytes).
+</usr/local/texlive/2024/texmf-dist/fonts/opentype/public/lm/lmmono10-regular.otf><./fonts/lmroman10-bold.otf><./fonts/lmsans10-bold.otf><./fonts/lmroman10-regular.otf></System/Library/Fonts/PingFang.ttc></System/Library/Fonts/PingFang.ttc><./fonts/lmsans10-regular.otf></System/Library/Fonts/PingFang.ttc></System/Library/Fonts/PingFang.ttc></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb>
+Output written on snargs-book-zh.pdf (6 pages, 195058 bytes).
 
-PDF statistics: 105 PDF objects out of 1000 (max. 8388607)
- 25 compressed objects within 1 object stream
- 10 named destinations out of 1000 (max. 131072)
- 45 words of extra memory for PDF output out of 10000 (max. 100000000)
+PDF statistics: 129 PDF objects out of 1000 (max. 8388607)
+ 30 compressed objects within 1 object stream
+ 16 named destinations out of 1000 (max. 131072)
+ 53 words of extra memory for PDF output out of 10000 (max. 100000000)
 
