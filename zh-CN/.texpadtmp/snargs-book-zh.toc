@@ -4,3 +4,7 @@
 \contentsline {chapter}{\nonumberline 序言}{vi}{chapter*.4}%
 \contentsline {paragraph}{\nonumberline 最新版本}{vi}{paragraph*.6}%
 \contentsline {paragraph}{\nonumberline 许可证}{vi}{paragraph*.8}%
+\contentsline {section}{\nonumberline 动机}{vi}{section*.9}%
+\contentsline {paragraph}{\nonumberline 重新执行问题}{vi}{paragraph*.11}%
+\contentsline {paragraph}{\nonumberline 避免重新执行}{vii}{paragraph*.13}%
+\contentsline {paragraph}{\nonumberline 应用}{vii}{paragraph*.15}%
