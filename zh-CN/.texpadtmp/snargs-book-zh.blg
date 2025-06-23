@@ -1,9 +1,9 @@
-[0] Config.pm:307> INFO - This is Biber 2.19
-[0] Config.pm:310> INFO - Logfile is '/Users/kurtpan/Documents/KurtPan-GitHub/hash-based-snargs-book-zh/zh-CN/.texpadtmp/snargs-book-zh.blg'
-[37] biber-darwin:340> INFO - === Mon May 27, 2024, 17:59:01
-[45] Biber.pm:419> INFO - Reading '/Users/kurtpan/Documents/KurtPan-GitHub/hash-based-snargs-book-zh/zh-CN/.texpadtmp/snargs-book-zh.bcf'
-[87] Biber.pm:979> INFO - Found 0 citekeys in bib section 0
-[96] bbl.pm:660> INFO - Writing '/Users/kurtpan/Documents/KurtPan-GitHub/hash-based-snargs-book-zh/zh-CN/.texpadtmp/snargs-book-zh.bbl' with encoding 'UTF-8'
-[96] bbl.pm:763> INFO - Output to /Users/kurtpan/Documents/KurtPan-GitHub/hash-based-snargs-book-zh/zh-CN/.texpadtmp/snargs-book-zh.bbl
-[96] Biber.pm:131> WARN - The file '/Users/kurtpan/Documents/KurtPan-GitHub/hash-based-snargs-book-zh/zh-CN/.texpadtmp/snargs-book-zh.bcf' does not contain any citations!
-[96] Biber.pm:133> INFO - WARNINGS: 1
+[0] Config.pm:308> INFO - This is Biber 2.20
+[0] Config.pm:311> INFO - Logfile is '/Users/kurtpan/Documents/GitHub/hash-based-snargs-book-zh/zh-CN/.texpadtmp/snargs-book-zh.blg'
+[29] biber-darwin:340> INFO - === Tue Jun 24, 2025, 00:04:34
+[37] Biber.pm:420> INFO - Reading '/Users/kurtpan/Documents/GitHub/hash-based-snargs-book-zh/zh-CN/.texpadtmp/snargs-book-zh.bcf'
+[65] Biber.pm:994> INFO - Found 0 citekeys in bib section 0
+[71] bbl.pm:676> INFO - Writing '/Users/kurtpan/Documents/GitHub/hash-based-snargs-book-zh/zh-CN/.texpadtmp/snargs-book-zh.bbl' with encoding 'UTF-8'
+[71] bbl.pm:779> INFO - Output to /Users/kurtpan/Documents/GitHub/hash-based-snargs-book-zh/zh-CN/.texpadtmp/snargs-book-zh.bbl
+[71] Biber.pm:131> WARN - The file '/Users/kurtpan/Documents/GitHub/hash-based-snargs-book-zh/zh-CN/.texpadtmp/snargs-book-zh.bcf' does not contain any citations!
+[71] Biber.pm:133> INFO - WARNINGS: 1

@@ -164,9 +164,26 @@
     Ligatures = {Common, Discretionary, TeX}
 ]{lmsans10-regular.otf}
 
-% 设置中文字体
-\setmainjfont{PingFang SC} % 使用PingFang SC字体
-%\setsansjfont{Microsoft YaHei}     % 无衬线中文字体
+% 设置中文字体（LuaTeX + luatexja 的简化但稳定配置）
+% 设置中日文字体，使用 LXGW WenKai Screen 字体
+\setmainjfont{LXGW WenKai Screen}[
+    BoldFont = LXGW WenKai,
+    BoldFeatures = {FakeBold=2.5},
+    YokoFeatures = {JFM=ujis},
+    TateFeatures = {JFM=ujisv}
+]
+
+% 设置字符范围参数，确保中文字符优先使用指定字体
+\ltjsetparameter{jacharrange={-2,-3,-8}} % 禁用某些日文字符范围
+\ltjsetparameter{yjabaselineshift=0pt}
+\ltjsetparameter{yalbaselineshift=0pt}
+
+% 定义额外的字体家族以备需要
+\newjfontfamily\wenkai{LXGW WenKai Screen}[BoldFont=LXGW WenKai,BoldFeatures={FakeBold=2.5}]
+
+% 为确保所有 CJK 字符都使用正确字体，可以设置额外的字体回退
+% \ltjsetparameter{yjabaselineshift=0pt}
+% \ltjsetparameter{yalbaselineshift=0pt}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -363,11 +380,11 @@
     \]%
     \endgroup
 }
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{corollary}[theorem]{Corollary}
-\newtheorem{definition}[theorem]{Definition}
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{claim}[theorem]{Claim}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{corollary}[theorem]{推论}
+\newtheorem{definition}[theorem]{定义}
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{claim}[theorem]{论断}
 \definecolor{theorembackgroundcolor}{HTML}{e0f3e0}
 \definecolor{theoremlinecolor}{HTML}{707a70}
 \theoremstyle{definition} % non-italics

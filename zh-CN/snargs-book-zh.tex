@@ -7,6 +7,872 @@
 %%%%% option "bookview" for 2-page layout, "singlepageview" for 1-page layout
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% MACROS
+
+\renewcommand{\enspace}{\ensuremath{\thinspace}}
+\newcommand{\defemph}[1]{\textbf{\emph{#1}}}
+\newcommand{\DoQuote}[1]{``#1''}
+\newcommand{\Bits}{\{0,1\}}
+\newcommand{\Malicious}[1]{\tilde{#1}}
+\newcommand{\Interact}[2]{\langle #1, #2 \rangle}
+\newcommand{\DefineEqual}{\vcentcolon=}
+\renewcommand{\vec}[1]{\bm{#1}}
+\newcommand{\concat}{\|}
+\newcommand{\AuxiliaryState}{\mathsf{aux}}
+\newcommand{\BlackBox}[1]{\mathcal{O}_{#1}}
+\newcommand{\EquationComment}[1]{\quad\text{\small{(#1)}}}
+\newcommand{\IndentedBullet}{\;\;\text{\tiny{$\bullet$}}\;}
+\newcommand{\TextAndInMath}{\;\text{ and }\;}
+
+\newboolean{InsertNewline}
+\setboolean{InsertNewline}{false}
+\newcommand{\MaybeNewline}{\ifthenelse{\boolean{InsertNewline}}{\newline}{}}
+
+
+%%%%% operators
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+%%%%% probability
+\newcommand{\Expectation}{\mathbb{E}}
+\newcommand{\Event}{E}
+\newcommand{\BadEvent}{\Event_{\mathrm{bad}}}
+\newcommand{\GivenExperiment}{\;\vert\;}
+\newcommand{\StateExperiment}[1]{
+\!\begin{array}{l}
+#1
+\end{array}\!}
+\newcommand{\ConditionedOn}{\;\vert\;}
+\newcommand{\ConditionedOnText}{{\textnormal{\textcolor{gray}{conditioned on}}}}
+\newcommand{\RandomVariableX}{X}
+\newcommand{\RandomVariableY}{Y}
+\newcommand{\RandomVariableZ}{Z}
+\newcommand{\RandomVariableSupport}{S}
+\newcommand{\StatisticalDistanceSymbol}{\Delta}
+\newcommand{\StatisticalDistance}[2]{\StatisticalDistanceSymbol\left(#1,#2\right)}
+\newcommand{\Negate}[1]{\overline{#1}}
+\newcommand{\idxland}[1]{\scalebox{1.3}{$\land$}_{#1}}
+\newcommand{\idxlor}[1]{\scalebox{1.3}{$\lor$}_{#1}}
+\newcommand{\idxcup}[1]{\scalebox{1.3}{$\cup$}_{#1}}
+\newcommand{\InversionEvent}{\Event_{\mathrm{inv}}}
+\newcommand{\CollisionEvent}{\Event_{\mathrm{col}}}
+\newcommand{\NotEqualEvent}{\Event_{\mathrm{tree}}}
+\newcommand{\NotEqualEventA}{\Event_{\mathrm{tree},1}}
+\newcommand{\NotEqualEventB}{\Event_{\mathrm{tree},2}}
+\newcommand{\SubsetEvent}{\Event_{\mathrm{sub}}}
+\newcommand{\Distribution}{\mathcal{D}}
+\newcommand{\RealSymbol}{{\scriptscriptstyle\mathrm{real}}}
+\newcommand{\SimSymbol}{{\scriptscriptstyle\mathrm{sim}}}
+\newcommand{\DecisionBit}{b}
+
+%%%%% parentheses
+\newcommand{\floor}[1]{\left\lfloor{#1}\right\rfloor}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\Cardinality}[1]{\left|{#1}\right|}
+\newcommand{\absvalue}[1]{|{#1}|}
+\newcommand{\AbsValue}[1]{\left|{#1}\right|}
+\newcommand{\SomeSize}[1]{|#1|}
+\newcommand{\BitSize}[1]{\mathrm{len}(#1)}
+
+%%%%% sets
+\newcommand{\Naturals}{\mathbb{N}}
+\newcommand{\Reals}{\mathbb{R}}
+
+%%%%% string operators
+\newcommand{\LeftSymbol}{\mathsf{L}}
+\newcommand{\RightSymbol}{\mathsf{R}}
+\newcommand{\StringLeftHalf}[1]{[#1]_{\scriptscriptstyle \LeftSymbol}}
+\newcommand{\StringRightHalf}[1]{[#1]_{\scriptscriptstyle \RightSymbol}}
+
+%%%%% relation, language
+\newcommand{\Relation}{\mathcal{R}}
+\newcommand{\Language}{\mathcal{L}}
+\newcommand{\GetLanguage}[1]{\Language(#1)}
+\newcommand{\LanguageTime}{\mathrm{time}_{\Language}}
+\newcommand{\RelationTime}{\mathrm{time}_{\Relation}}
+
+%%%%% indexed relation
+\newcommand{\IndexedRelation}{\mathcal{R}_{\mathrm{i}}}
+\newcommand{\GetRelation}[1]{\Relation(#1)}
+
+%%%%% index, instance, witness
+\newcommand{\Index}{\mathbbm{i}}
+\newcommand{\Instance}{\mathbbm{x}}
+\newcommand{\Witness}{\mathbbm{w}}
+\newcommand{\IndexSize}{k}
+\newcommand{\InstanceSize}{n}
+\newcommand{\AltInstance}{\mathbbm{y}}
+
+%%%%% uniform random string
+\newcommand{\URS}{\mathsf{urs}}
+
+%%%%% generic algorithms (not yet formatted)
+\newcommand{\ProtoIndexer}{I}
+\newcommand{\ProtoProver}{P}
+\newcommand{\ProtoVerifier}{V}
+\newcommand{\ProtoAdversary}{A}
+\newcommand{\ProtoExtractor}{E}
+\newcommand{\ProtoSimulator}{S}
+\newcommand{\ProtoSalt}{\tau}
+
+%%%%% generic parameters (not yet formatted)
+\newcommand{\ProtoCompletenessError}{c}
+\newcommand{\ProtoSoundnessError}{\epsilon}
+\newcommand{\ProtoKnowledgeError}{\kappa}
+\newcommand{\ProtoKnowledgeTime}{\mathbf{et}}
+\newcommand{\ProtoZKError}{z}
+\newcommand{\ProtoWIError}{z}
+\newcommand{\ProtoAlphabet}{\Sigma}
+\newcommand{\ProtoRoundComplexity}{\mathsf{k}}
+\newcommand{\ProtoProofLength}{\mathsf{l}}
+\newcommand{\ProtoQueryComplexity}{\mathsf{q}}
+\newcommand{\ProtoRandomnessComplexity}{\mathsf{r}}
+\newcommand{\ProtoRandomnessCardinality}{\mathsf{R}}
+\newcommand{\ProtoIndexerTime}{\mathsf{it}}
+\newcommand{\ProtoProverTime}{\mathsf{pt}}
+\newcommand{\ProtoVerifierTime}{\mathsf{vt}}
+\newcommand{\ProtoPToVComplexity}{\mathsf{pv}}
+\newcommand{\ProtoVToPComplexity}{\mathsf{vp}}
+\newcommand{\RoundIndex}{i}
+\newcommand{\AltRoundIndex}{j}
+\newcommand{\OtherRoundIndex}{m}
+\newcommand{\SRSuperscript}{\mathrm{sr}}
+\newcommand{\ProtoSRSoundnessError}{\ProtoSoundnessError^{\SRSuperscript}}
+\newcommand{\ProtoSRKnowledgeError}{\ProtoKnowledgeError^{\SRSuperscript}}
+\newcommand{\ProtoRBRSoundnessError}{\ProtoSoundnessError^{\RBRSuperscript}}
+\newcommand{\ProtoRBRKnowledgeError}{\ProtoKnowledgeError^{\RBRSuperscript}}
+\newcommand{\ProtoView}{\mathsf{View}}
+\newcommand{\ProtoTime}{\mathsf{Time}}
+
+%%%%% nondeterministic proofs
+\newcommand{\NPDecider}{D}
+\newcommand{\NPProof}{\pi}
+
+%%%%% generic probabilistic proofs
+\newcommand{\PPIndexer}{\mathbf{\ProtoIndexer}}
+\newcommand{\PPProver}{\mathbf{\ProtoProver}}
+\newcommand{\PPVerifier}{\mathbf{\ProtoVerifier}}
+
+%%%%% sigma protocols
+\newcommand{\SPSymbol}{\mathsf{SP}}
+\newcommand{\SPSubscript}{\scriptscriptstyle\mathrm{SP}}
+\newcommand{\SPFormat}[1]{\mathbf{#1}}
+\newcommand{\SPProver}{\SPFormat{\ProtoProver}_{\SPSubscript}}
+\newcommand{\SPVerifier}{\SPFormat{\ProtoVerifier}_{\SPSubscript}}
+\newcommand{\SPExtractor}{\SPFormat{\ProtoExtractor}_{\SPSubscript}}
+\newcommand{\SPSimulator}{\SPFormat{\ProtoSimulator}_{\SPSubscript}}
+\newcommand{\SPSoundnessError}{\ProtoSoundnessError_{\SPSubscript}}
+\newcommand{\SPZKError}{\ProtoZKError_{\SPSubscript}}
+\newcommand{\SPKnowledgeError}{\ProtoKnowledgeError_{\SPSubscript}}
+\newcommand{\SPKnowledgeTime}{\ProtoKnowledgeTime_{\SPSubscript}}
+\newcommand{\SPMaliciousProver}{\Malicious{\SPFormat{\ProtoProver}}_{\SPSubscript}}
+\newcommand{\SPSystem}{(\SPProver,\SPVerifier)}
+\newcommand{\SPCommitment}{\alpha_{1}}
+\newcommand{\SPCommitmentIndexed}[1]{\alpha_{1,#1}}
+\newcommand{\SPChallenge}{\rho}
+\newcommand{\SPChallengeIndexed}[1]{\rho_{#1}}
+\newcommand{\SPResponse}{\alpha_{2}}
+\newcommand{\SPResponseIndexed}[1]{\alpha_{2,#1}}
+\newcommand{\SPProverRandomness}{\xi}
+\newcommand{\SPProverRandomnessSet}{\mathcal{R}}
+\newcommand{\SPPToVComplexity}{\ProtoPToVComplexity}
+\newcommand{\SPRandomnessComplexity}{\ProtoRandomnessComplexity}
+\newcommand{\SPRandomnessCardinality}{2^{\ProtoRandomnessComplexity}}
+\newcommand{\SPView}[4]{\ProtoView_{\SPSubscript}(#1,#2,#3,#4)}
+\newcommand{\SPSampledView}{(\Instance,\SPCommitment,\SPChallenge,\SPResponse)}
+
+%%%%% interactive proofs
+\newcommand{\IPSymbol}{\mathsf{IP}}
+\newcommand{\IPSystem}{(\IPProver,\IPVerifier)}
+\newcommand{\IPSubscript}{\scriptscriptstyle\mathrm{IP}}
+\newcommand{\IPInteract}[2]{\Interact{#1}{#2}_{\IPSubscript}}
+\newcommand{\IPFormat}[1]{\mathbf{#1}}
+\newcommand{\IPProver}{\IPFormat{\ProtoProver}_{\IPSubscript}}
+\newcommand{\IPVerifier}{\IPFormat{\ProtoVerifier}_{\IPSubscript}}
+\newcommand{\IPExtractor}{\IPFormat{\ProtoExtractor}_{\IPSubscript}}
+\newcommand{\IPSimulator}{\IPFormat{\ProtoSimulator}_{\IPSubscript}}
+\newcommand{\IPSoundnessError}{\ProtoSoundnessError_{\IPSubscript}}
+\newcommand{\IPKnowledgeError}{\ProtoKnowledgeError_{\IPSubscript}}
+\newcommand{\IPKnowledgeTime}{\ProtoKnowledgeTime_{\IPSubscript}}
+\newcommand{\IPMaliciousProver}{\Malicious{\IPFormat{\ProtoProver}}_{\IPSubscript}}
+\newcommand{\IPZKError}{\ProtoZKError_{\IPSubscript}}
+\newcommand{\IPRoundComplexity}{\ProtoRoundComplexity}
+\newcommand{\IPRandomnessComplexity}{\ProtoRandomnessComplexity}
+\newcommand{\IPRandomnessCardinality}[1]{2^{\ProtoRandomnessComplexity_{#1}}}
+\newcommand{\IPMaxRandomnessComplexity}{\IPRandomnessComplexity_{{\scriptscriptstyle\mathsf{max}}}}
+\newcommand{\IPPToVComplexity}{\ProtoPToVComplexity}
+\newcommand{\IPVToPComplexity}{\ProtoVToPComplexity}
+\newcommand{\IPProverTime}{\ProtoProverTime}
+\newcommand{\IPVerifierTime}{\ProtoVerifierTime}
+\newcommand{\IPProverMessage}{\alpha}
+\newcommand{\IPProverRandomness}{\xi}
+\newcommand{\IPProverRandomnessSet}{\mathcal{R}}
+\newcommand{\IPVerifierRandomMessage}{\rho}
+\newcommand{\IPVerifierRandomness}{\rho}
+\newcommand{\IPTuple}[1]{(#1_{\RoundIndex})_{\RoundIndex \in [\IPRoundComplexity]}}
+\newcommand{\IPVerifierInput}{\Instance,\IPTuple{\IPProverMessage},\IPTuple{\IPVerifierRandomMessage}}
+\newcommand{\IPSampledView}{\big(\Instance,\IPVerifierRandomness,\IPTuple{\IPProverMessage}\big)}
+\newcommand{\IPPublicSampledView}{\big(\Instance,\IPTuple{\IPVerifierRandomMessage},\IPTuple{\IPProverMessage}\big)}
+\newcommand{\IPView}[4]{\ProtoView_{\IPSubscript}(#1,#2,#3,#4)}
+\newcommand{\IPTranscript}{(\IPTuple{\IPProverMessage},\IPTuple{\IPVerifierRandomMessage})}
+\newcommand{\IPAuxiliaryState}{\AuxiliaryState}
+
+%%%%% probabilistically checkable proofs
+\newcommand{\PCPSymbol}{\mathsf{PCP}}
+\newcommand{\PCPSubscript}{\scriptscriptstyle\mathrm{PCP}}
+\newcommand{\PCPFormat}[1]{\mathbf{#1}}
+\newcommand{\PCPProver}{\PCPFormat{\ProtoProver}_{\PCPSubscript}}
+\newcommand{\PCPVerifier}{\PCPFormat{\ProtoVerifier}_{\PCPSubscript}}
+\newcommand{\PCPExtractor}{\PCPFormat{\ProtoExtractor}_{\PCPSubscript}}
+\newcommand{\PCPSimulator}{\PCPFormat{\ProtoSimulator}_{\PCPSubscript}}
+\newcommand{\PCPMaliciousProver}{\Malicious{\PCPFormat{\ProtoProver}}_{\PCPSubscript}}
+\newcommand{\PCPSystem}{(\PCPProver,\PCPVerifier)}
+\newcommand{\PCPString}{\Pi}
+\newcommand{\PCPEntry}{a}
+\newcommand{\PCPEntries}{\vec{\PCPEntry}}
+\newcommand{\PCPQueryIndex}{j}
+\newcommand{\PCPQuerySet}{Q}
+\newcommand{\PCPVerifierRandomMessage}{\rho}
+\newcommand{\PCPSoundnessError}{\ProtoSoundnessError_{\PCPSubscript}}
+\newcommand{\PCPKnowledgeError}{\ProtoKnowledgeError_{\PCPSubscript}}
+\newcommand{\PCPZKError}{\ProtoZKError_{\PCPSubscript}}
+\newcommand{\PCPAlphabet}{\ProtoAlphabet}
+\newcommand{\PCPProofLength}{\ProtoProofLength}
+\newcommand{\PCPRandomnessComplexity}{\ProtoRandomnessComplexity}
+\newcommand{\PCPQueryComplexity}{\ProtoQueryComplexity}
+\newcommand{\PCPProverTime}{\ProtoProverTime}
+\newcommand{\PCPVerifierTime}{\ProtoVerifierTime}
+\newcommand{\PCPSampledView}{(\Instance,\PCPVerifierRandomMessage,\PCPQuerySet,\PCPEntries)}
+\newcommand{\PCPView}[4]{\ProtoView_{\PCPSubscript}(#1,#2,#3,#4)}
+\newcommand{\PCPLocalView}[2]{[#1,#2]}
+
+%%%%% interactive oracle proofs
+\newcommand{\IOPSymbol}{\mathsf{IOP}}
+\newcommand{\IOPSubscript}{\scriptscriptstyle\mathrm{IOP}}
+\newcommand{\IOPInteract}[2]{\Interact{#1}{#2}_{\IOPSubscript}}
+\newcommand{\IOPFormat}[1]{\mathbf{#1}}
+\newcommand{\IOPProver}{\IOPFormat{\ProtoProver}_{\IOPSubscript}}
+\newcommand{\IOPVerifier}{\IOPFormat{\ProtoVerifier}_{\IOPSubscript}}
+\newcommand{\IOPExtractor}{\IOPFormat{\ProtoExtractor}_{\IOPSubscript}}
+\newcommand{\IOPSimulator}{\IOPFormat{\ProtoSimulator}_{\IOPSubscript}}
+\newcommand{\IOPMaliciousProver}{\Malicious{\IOPFormat{\ProtoProver}}_{\IOPSubscript}}
+\newcommand{\IOPSystem}{(\IOPProver,\IOPVerifier)}
+\newcommand{\IOPString}{\Pi}
+\newcommand{\IOPProverMessage}{\alpha}
+\newcommand{\IOPVerifierMessage}{\beta}
+\newcommand{\IOPEntry}{a}
+\newcommand{\IOPEntries}{\vec{\IOPEntry}}
+\newcommand{\IOPQueryIndex}{j}
+\newcommand{\IOPQuerySet}{Q}
+\newcommand{\IOPVerifierRandomMessage}{\rho}
+\newcommand{\IOPSoundnessError}{\ProtoSoundnessError_{\IOPSubscript}}
+\newcommand{\IOPKnowledgeError}{\ProtoKnowledgeError_{\IOPSubscript}}
+\newcommand{\IOPKnowledgeTime}{\ProtoKnowledgeTime_{\IOPSubscript}}
+\newcommand{\IOPZKError}{\ProtoZKError_{\IOPSubscript}}
+\newcommand{\IOPRoundComplexity}{\ProtoRoundComplexity}
+\newcommand{\IOPAlphabet}{\ProtoAlphabet}
+\newcommand{\IOPProofLength}{\ProtoProofLength}
+\newcommand{\IOPRandomnessComplexity}{\ProtoRandomnessComplexity}
+\newcommand{\IOPMaxRandomnessComplexity}{\IOPRandomnessComplexity_{{\scriptscriptstyle\mathsf{max}}}}
+\newcommand{\IOPQueryComplexity}{\ProtoQueryComplexity}
+\newcommand{\IOPProverTime}{\ProtoProverTime}
+\newcommand{\IOPStrings}{(\IOPString_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}}
+\newcommand{\IOPStringsPrime}{(\IOPString'_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}}
+\newcommand{\IOPVerifierTime}{\ProtoVerifierTime}
+\newcommand{\IOPVerifierRandomMessages}{(\IOPVerifierRandomMessage_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}}
+\newcommand{\IOPVerifierRandomMessagesPrime}{(\IOPVerifierRandomMessage'_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}}
+\newcommand{\IOPTuple}[1]{(#1_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}}
+\newcommand{\IOPVerifierInput}{\Instance,\IOPVerifierRandomMessages}
+\newcommand{\IOPVerifierInputWithProverMessages}{\Instance,\IOPTuple{\IOPProverMessage},\IOPVerifierRandomMessages}
+\newcommand{\IOPSampledView}{(\Instance,\IOPVerifierRandomMessage,\IOPTuple{\IOPQuerySet},\IOPTuple{\PCPEntries})}
+\newcommand{\IOPPublicSampledView}{(\Instance,\IOPVerifierRandomMessages,\IOPTuple{\IOPQuerySet},\IOPTuple{\PCPEntries})}
+\newcommand{\IOPView}[4]{\ProtoView_{\IOPSubscript}(#1,#2,#3,#4)}
+\newcommand{\IOPLocalView}[2]{[#1_{\RoundIndex},#2_{\RoundIndex}]_{\RoundIndex \in [\IOPRoundComplexity]}}
+\newcommand{\IOPAuxiliaryState}{\AuxiliaryState}
+\newcommand{\IOPConvincingCondition}{\IOPVerifier^{\IOPStrings}\big(\IOPVerifierInput\big)}
+\newcommand{\IOPTranscript}{(\IOPTuple{\IOPString},\IOPTuple{\IOPVerifierRandomMessage})}
+
+%%%%% holographic probabilistic proofs
+\newcommand{\HIOPSubscript}{\scriptscriptstyle\mathrm{HIOP}}
+\newcommand{\HIOPSymbol}{\mathsf{HIOP}}
+\newcommand{\HIOPInteract}[2]{\Interact{#1}{#2}_{\HIOPSubscript}}
+\newcommand{\HIOPIndexer}{\IOPFormat{\ProtoIndexer}_{\HIOPSubscript}}
+\newcommand{\HIOPProver}{\IOPFormat{\ProtoProver}_{\HIOPSubscript}}
+\newcommand{\HIOPVerifier}{\IOPFormat{\ProtoVerifier}_{\HIOPSubscript}}
+\newcommand{\HIOPSystem}{(\HIOPIndexer,\HIOPProver,\HIOPVerifier)}
+\newcommand{\ProverEncodedIndex}{\Index_{{\scriptscriptstyle\mathrm{p}}}}
+\newcommand{\VerifierEncodedIndex}{\Index_{{\scriptscriptstyle\mathrm{v}}}}
+\newcommand{\HIOPIndexerTime}{\ProtoIndexerTime}
+\newcommand{\HIOPExtractor}{\IOPFormat{\ProtoExtractor}_{\HIOPSubscript}}
+\newcommand{\HIOPSimulator}{\IOPFormat{\ProtoSimulator}_{\HIOPSubscript}}
+\newcommand{\HIOPSRExtractor}{\HIOPExtractor^{\SRSuperscript}}
+\newcommand{\HIOPMaliciousProver}{\Malicious{\IOPFormat{\ProtoProver}}_{\HIOPSubscript}}
+\newcommand{\HIOPMaliciousSRProver}{\HIOPMaliciousProver^{\SRSuperscript}}
+
+\newcommand{\HIOPSoundnessError}{\ProtoSoundnessError_{\HIOPSubscript}}
+\newcommand{\HIOPKnowledgeError}{\ProtoKnowledgeError_{\HIOPSubscript}}
+\newcommand{\HIOPKnowledgeTime}{\ProtoKnowledgeTime_{\HIOPSubscript}}
+\newcommand{\HIOPZKError}{\ProtoZKError_{\HIOPSubscript}}
+\newcommand{\HIOPStateRestorationGame}[3]{\SRGameName{\HIOPSubscript}(#1,#2,#3)}
+\newcommand{\HIOPSRKnowledgeError}{\ProtoSRKnowledgeError_{\HIOPSubscript}}\newcommand{\HIOPSRSoundnessError}{\ProtoSRSoundnessError_{\HIOPSubscript}}
+\newcommand{\HIOPSRKnowledgeTime}{\ProtoKnowledgeTime_{\HIOPSubscript}^{\SRSuperscript}}
+
+\newcommand{\HIOPView}[5]{\ProtoView_{\IOPSubscript}(#1,#2,#3,#4,#5)}
+\newcommand{\HIOPSampledView}{(\Index,\Instance,\IOPVerifierRandomMessage,\IOPTuple{\IOPQuerySet},\IOPTuple{\PCPEntries})}
+\newcommand{\HIOPPublicSampledView}{(\Index,\Instance,\IOPVerifierRandomMessages,\IOPTuple{\IOPQuerySet},\IOPTuple{\PCPEntries})}
+\newcommand{\HIOPLocalView}[2]{[#1_{\RoundIndex},#2_{\RoundIndex}]_{\RoundIndex=0}^{\IOPRoundComplexity}}
+\newcommand{\PaintedHIOPLocalView}[2]{\Paint{[#1_{\IndexRoundSubscript},#2_{\IndexRoundSubscript}],\,}[#1_{\RoundIndex},#2_{\RoundIndex}]_{\RoundIndex=1}^{\IOPRoundComplexity}}
+
+\newcommand{\HIOPSRGameStateEntry}[1]{(\Index,\Instance,(\IOPString_{1},\dots,\IOPString_{#1}),(\SRSaltString_{1},\dots,\SRSaltString_{#1}))}
+\newcommand{\HIOPSROutput}{\big(\Index,\Instance,\IOPStrings,\SRSaltStrings{\IOPRoundComplexity},\IOPVerifierRandomMessages\big)}
+\newcommand{\HIOPConvincingCondition}{\HIOPVerifier^{\VerifierEncodedIndex,\IOPStrings}\big(\IOPVerifierInput\big)}
+
+%%%%% argument systems
+\newcommand{\NARGSymbol}{\mathsf{NARG}}
+\newcommand{\ARGSubscript}{\scriptscriptstyle\mathrm{ARG}}
+\newcommand{\ARGFormat}[1]{\mathcal{#1}}
+\newcommand{\ARGOracles}{\mathsf{cnf}}
+\newcommand{\ARGIndexer}{\ARGFormat{\ProtoIndexer}}
+\newcommand{\ARGProver}{\ARGFormat{\ProtoProver}}
+\newcommand{\ARGVerifier}{\ARGFormat{\ProtoVerifier}}
+\newcommand{\ARGSystem}{(\ARGProver,\ARGVerifier)}
+\newcommand{\ARGExtractor}{\ARGFormat{\ProtoExtractor}}
+\newcommand{\ARGKnowledgeTime}{\ProtoKnowledgeTime_{\ARGSubscript}}
+\newcommand{\ARGSimulator}{\ARGFormat{\ProtoSimulator}}
+\newcommand{\ARGSimulatorHybrid}{\ARGFormat{\ProtoSimulator}_{\mathrm{H}}}
+\newcommand{\ARGSimulatorHybridOne}{\ARGFormat{\ProtoSimulator}_{\mathrm{H1}}}
+\newcommand{\ARGSimulatorHybridTwo}{\ARGFormat{\ProtoSimulator}_{\mathrm{H2}}}
+\newcommand{\ARGAdversary}{\ARGFormat{\ProtoAdversary}}
+\newcommand{\ARGOutput}{\mathsf{out}}
+\newcommand{\ARGString}{\pi}
+\newcommand{\ARGCompletenessError}{\ProtoCompletenessError_{\ARGSubscript}}
+\newcommand{\ARGTargetSoundnessError}{\ProtoSoundnessError_{0}}
+\newcommand{\ARGNASoundnessError}{\ProtoSoundnessError_{\ARGSubscript}}
+\newcommand{\ARGSoundnessError}{\ProtoSoundnessError_{\ARGSubscript}}
+\newcommand{\ARGKnowledgeError}{\ProtoKnowledgeError_{\ARGSubscript}}
+\newcommand{\ARGONZKError}{\ProtoZKError_{\ARGSubscript}}
+\newcommand{\ARGOAZKError}{\ProtoZKError_{\ARGSubscript}}
+\newcommand{\ARGZKError}{\ProtoZKError_{\ARGSubscript}}
+\newcommand{\ARGWIError}{\ProtoWIError_{\ARGSubscript}}
+\newcommand{\ARGInteract}[2]{\Interact{#1}{#2}_{\scriptscriptstyle\mathrm{ARG}}}
+\newcommand{\ARGRepetitionParameter}{k}
+\newcommand{\ARGZKProgrammedList}{\ProgrammedList}
+\newcommand{\ARGProverRandomness}{\xi}
+\newcommand{\ARGProverRandomnessSet}{\mathcal{R}}
+
+%%%%% preprocessing argument systems
+\newcommand{\PNARGSymbol}{\mathsf{PNARG}}
+\newcommand{\PARGSystem}{(\ARGIndexer,\ARGProver,\ARGVerifier)}
+\newcommand{\ARGpik}{\mathsf{pik}}
+\newcommand{\ARGvik}{\mathsf{vik}}
+\newcommand{\ROTraceIndexer}{\ROTrace_{\scalebox{0.5}{$\ARGIndexer$}}}
+\newcommand{\IndexRoundSubscript}{0}
+
+%%%%% interactive arguments
+\newcommand{\IARGSymbol}{\mathsf{IARG}}
+\newcommand{\IARGRoundComplexity}{\ProtoRoundComplexity}
+\newcommand{\IARGProverMessage}{\alpha}
+\newcommand{\IARGVerifierRandomMessage}{\rho}
+\newcommand{\IARGRandomnessComplexity}{\ProtoRandomnessComplexity}
+\newcommand{\IARGVerifierInput}{\Instance,(\IARGProverMessage_{\RoundIndex})_{\RoundIndex \in [\IARGRoundComplexity]},(\IARGVerifierRandomMessage_{\RoundIndex})_{\RoundIndex \in [\IARGRoundComplexity]}}
+
+%%%%% argument complexities
+\newcommand{\ARGComplexityFormat}[1]{\mathbf{#1}}
+\newcommand{\ARGTimeI}{\ARGComplexityFormat{t}_{\scriptscriptstyle\ARGIndexer}}
+\newcommand{\ARGTimeP}{\ARGComplexityFormat{t}_{\scriptscriptstyle\ARGProver}}
+\newcommand{\ARGTimeV}{\ARGComplexityFormat{t}_{\scriptscriptstyle\ARGVerifier}}
+\newcommand{\ARGQueryI}{\ARGComplexityFormat{q}_{\scriptscriptstyle\ARGIndexer}}
+\newcommand{\ARGQueryP}{\ARGComplexityFormat{q}_{\scriptscriptstyle\ARGProver}}
+\newcommand{\ARGQueryV}{\ARGComplexityFormat{q}_{\scriptscriptstyle\ARGVerifier}}
+\newcommand{\ARGCommunication}{\ARGComplexityFormat{c}}
+\newcommand{\ARGPCommunication}{\ARGCommunication_{\scriptscriptstyle\ARGProver}}
+\newcommand{\ARGVCommunication}{\ARGCommunication_{\scriptscriptstyle\ARGVerifier}}
+\newcommand{\ARGLength}{\ARGComplexityFormat{s}}
+
+\newcommand{\ProverFailureProbability}[1]{\delta_{#1}}
+\newcommand{\ProverFailureProbabilityPrime}[1]{\delta'_{#1}}
+\newcommand{\ProverRunningTime}[1]{\tau_{#1}}
+\newcommand{\ProverRunningTimePrime}[1]{\tau'_{#1}}
+\newcommand{\ProverRoundRunningTime}[2]{\tau_{#1}^{(#2)}}
+
+%%%%% random oracle
+\newcommand\mathmiddlescript[1]{\vcenter{\hbox{$\scriptstyle #1$}}}
+
+\newcommand{\ROFunction}{f}
+\newcommand{\ROQueryBound}{t}
+\newcommand{\RODistribution}[1]{\mathcal{U}(#1)}
+\newcommand{\ROIODistribution}[2]{\mathcal{U}(#1 \scalebox{0.65}[1]{ $\to$ } #2)}
+\newcommand{\ROOutputAndTrace}[4]{#4 \xleftarrow{#3} {#2}^{#1}}
+\newcommand{\ROInputOutputAndTrace}[5]{#5 \xleftarrow{#4} {#2}^{#1}(#3)}
+\newcommand{\SecurityParameter}{\lambda}
+\newcommand{\PrivacyParameter}{s}
+\newcommand{\ROSaltSize}{n}
+\newcommand{\ROVectorLength}{k}
+\newcommand{\ROQuery}{x}
+\newcommand{\ROAnswer}{y}
+\newcommand{\ROQueryIndex}{j}
+\newcommand{\ROTrace}{\mathsf{tr}}
+\newcommand{\RORandTrace}{\ROTrace_{\RORandSymbol}}
+\newcommand{\ROTreeTrace}{\ROTrace_{\ROTreeSymbol}}
+\newcommand{\ROHonestTrace}{S}
+\newcommand{\ROTraceVerifier}{\ROTrace_{\scalebox{0.5}{$\ARGVerifier$}}}
+\newcommand{\ROTraceVerifierFast}{\ROTrace_{\FastFSSymbol,\scalebox{0.5}{$\ARGVerifier$}}}
+\newcommand{\ROTraceVerifierSlow}{\ROTrace_{\SlowFSSymbol,\scalebox{0.5}{$\ARGVerifier$}}}
+\newcommand{\ROAdversary}{\ProtoAdversary}
+\newcommand{\ROAdvState}{\AuxiliaryState}
+\newcommand{\ROInputSize}{\lambda}
+\newcommand{\ROOutputSize}{\sigma}
+\newcommand{\ROChosenOutputSize}{\ell}
+\newcommand{\RONumOutputChunks}{m}
+\newcommand{\MultiToSingle}{\mathsf{M2S}}
+\newcommand{\SingleToMulti}{\mathsf{S2M}}
+\newcommand{\GeneralAlgorithm}{M}
+\newcommand{\Lazy}[1]{\dot{#1}}
+\newcommand{\LazySub}[2]{\Lazy{#1}_{#2}}
+\newcommand{\LazySRRandomness}{\mathsf{r}\dot{\mathsf{n}}\mathsf{d}}
+\newcommand{\ROFunctionAlt}{g}
+
+\newcommand{\ROTreeSymbol}{\MTSubscript}
+\newcommand{\RORandSymbol}{\scriptscriptstyle \mathsf{\$}}
+\newcommand{\ROTreeFunction}{\ROFunction_{\ROTreeSymbol}}
+\newcommand{\RORandFunction}{\ROFunction_{\RORandSymbol}}
+\newcommand{\RORandRoundFunction}[1]{\ROFunction_{#1}}
+\newcommand{\ROFSFirstRoundSymbol}{\scriptscriptstyle \mathsf{1}}
+\newcommand{\ROFSFirstRoundFunction}{\ROFunction_{\ROFSFirstRoundSymbol}}
+
+\newcommand{\ROTreeQueryBound}{\ROQueryBound_{\ROTreeSymbol}}
+\newcommand{\RORandQueryBound}{\ROQueryBound_{\RORandSymbol}}
+\newcommand{\ROOpenTrace}{\ROTrace'}
+\newcommand{\ROProgram}[2]{#1[#2]}
+\newcommand{\ROProtocol}{\mathbb{P}}
+\newcommand{\ProgrammedList}{\mu}
+\newcommand{\xgetsbelow}[1]{\xleftarrow[#1]{}}
+
+\newcommand{\DeriveROFunction}[3]{g^{#1}(#2,#3)}
+
+%%%%% security level
+\newcommand{\SecurityLevel}{\kappa}
+\newcommand{\ParameterSet}{S}
+\newcommand{\ParameterChoice}{p}
+\newcommand{\ResourceBound}{t}
+\newcommand{\ErrorBound}{\epsilon}
+
+%%%%% cryptographic hash function
+\newcommand{\CHFunction}{g}
+
+%%%%% basic commitment scheme
+\newcommand{\CMSymbol}{\mathsf{CM}}
+\newcommand{\CMSubscript}{\scriptscriptstyle\CMSymbol}
+\newcommand{\CMConstructor}[3]{\CMSymbol[#1,#2,#3]}
+\newcommand{\CMCommit}{\CMSymbol.\mathsf{Commit}}
+\newcommand{\CMCheck}{\CMSymbol.\mathsf{Check}}
+\newcommand{\CMExtractor}{\CMSymbol.\mathsf{Extract}}
+\newcommand{\CMMultiExtractor}{\CMSymbol.\mathsf{MultiExtract}}
+\newcommand{\CMSimulator}{\CMSymbol.\mathsf{Simulate}}
+\newcommand{\CMMessageLength}{\ell}
+\newcommand{\CMSaltSize}{s}
+\newcommand{\CMCommitment}{\mathsf{cm}}
+\newcommand{\CMMessage}{\mathsf{m}}
+\newcommand{\CMSaltString}{\ProtoSalt}
+\newcommand{\CMBindingError}{\ProtoSoundnessError_{\CMSubscript}}
+\newcommand{\CMExtractionError}{\ProtoKnowledgeError_{\CMSubscript}}
+\newcommand{\CMHidingError}{z_{\CMSubscript}}
+\newcommand{\CMNumCommitments}{n}
+\newcommand{\CMAdversary}{\ProtoAdversary}
+
+%%%%% Merkle tree graph
+\newcommand{\MTGraph}{T}
+\newcommand{\MTVertexSet}{V}
+\newcommand{\MTEdgeSet}{E}
+\newcommand{\MTGraphVertex}{v}
+\newcommand{\MTGraphLeaf}{v}
+\newcommand{\MTDepth}{d}
+\newcommand{\MTPath}{\mathsf{path}}
+\newcommand{\MTCoPath}{\mathsf{copath}}
+\newcommand{\MTPathIndex}[2]{\mathsf{p}(#1,#2)}
+\newcommand{\MTPathCoIndex}[2]{\bar{\mathsf{p}}(#1,#2)}
+\newcommand{\MTLayer}{j}
+
+%%%%% Merkle commitment scheme
+\newcommand{\MTSymbol}{\mathsf{MT}}
+\newcommand{\MTSubscript}{{\scriptscriptstyle\mathrm{MT}}}
+\newcommand{\MTConstructor}[4]{\MTSymbol[#1,#2,#3,#4]}
+\newcommand{\MTCommit}{\MTSymbol.\mathsf{Commit}}
+\newcommand{\MTOpen}{\MTSymbol.\mathsf{Open}}
+\newcommand{\MTCheck}{\MTSymbol.\mathsf{Check}}
+\newcommand{\MTExtractor}{\MTSymbol.\mathsf{Extract}}
+\newcommand{\MTMultiExtractor}{\MTSymbol.\mathsf{MultiExtract}}
+\newcommand{\MTSimulator}{\MTSymbol.\mathsf{Simulate}}
+\newcommand{\MTSimulateRoot}{\MTSymbol.\mathsf{SimulateRoot}}
+\newcommand{\MTAdversary}{\ProtoAdversary}
+\newcommand{\MTZKRootError}{\ProtoZKError_{\MTSubscript}^{\mathrm{rt}}}
+\newcommand{\MTZKProofError}{\ProtoZKError_{\MTSubscript}}
+\newcommand{\MTMessageLength}{\CMMessageLength}
+\newcommand{\MTSaltSize}{s}
+\newcommand{\MTAlphabet}{\ProtoAlphabet}
+\newcommand{\MTVertexLabels}{C}
+\newcommand{\MTVertexLabel}{c}
+\newcommand{\MTVertexLabelByName}[2]{\MTVertexLabel_{(#1,#2)}}
+\newcommand{\MTVertexLabelByPath}[2]{\MTVertexLabel_{\MTPathIndex{#1}{#2}}}
+\newcommand{\MTVertexLabelByCoPath}[2]{\MTVertexLabel_{\MTPathCoIndex{#1}{#2}}}
+\newcommand{\MTLeftVertexLabel}{\MTVertexLabel_{\LeftSymbol}}
+\newcommand{\MTRightVertexLabel}{\MTVertexLabel_{\RightSymbol}}
+\newcommand{\MTCommitment}{\mathsf{rt}}
+\newcommand{\MTTrapdoor}{\mathsf{td}}
+\newcommand{\MTAuthPath}{\mathsf{auth}}
+\newcommand{\MTProof}{\mathsf{pf}}
+\newcommand{\MTMessageIndex}{i}
+\newcommand{\MTMessageIndexSet}{I}
+\newcommand{\MTMessageIndexSetSize}{q}
+\newcommand{\MTMessageEntry}{m}
+\newcommand{\MTMessageVector}{\mathbf{\MTMessageEntry}}
+\newcommand{\MTMessageSubVector}{\mathbf{a}}
+\newcommand{\MTSaltString}{\ProtoSalt}
+\newcommand{\MTSaltStrings}{\vec{\ProtoSalt}}
+\newcommand{\MTLeafQueries}{\ROTrace_{{\scriptscriptstyle\mathrm{leaf}}}}
+\newcommand{\MTInternalQueries}{\ROTrace_{{\scriptscriptstyle\mathrm{inner}}}}
+\newcommand{\MTOtherQueries}{\ROTrace_{{\scriptscriptstyle\mathrm{other}}}}
+\newcommand{\MTDeriveVertexSet}{\MTSymbol.\mathsf{CoSet}}
+\newcommand{\MTPathVertexSet}{A}
+\newcommand{\MTCoPathOptVertexSet}{\MTVertexSet^{\star}(\MTGraph_{\MTMessageLength},\MTMessageIndexSet)}
+\newcommand{\MTCoPathVarVertexSet}{B^{\star}}
+\newcommand{\MTMetric}{g}
+\newcommand{\MTCompressOpening}{\MTSymbol.\mathsf{Compress}}
+\newcommand{\MTExpandOpening}{\MTSymbol.\mathsf{Expand}}
+\newcommand{\MTNumCommitments}{\CMNumCommitments}
+\newcommand{\MTNumOpenings}{k}
+\newcommand{\MTCommitmentIndex}{i}
+\newcommand{\MTConfigIndex}{j}
+\newcommand{\MTTraceEntrySize}{w}
+\newcommand{\MTArity}{a}
+\newcommand{\MTMultiSymbol}{\scriptscriptstyle{\mathrm{m}}}
+\newcommand{\MTMultiMultiSymbol}{\scriptscriptstyle{\mathrm{mm}}}
+\newcommand{\MTBindingError}{\ProtoSoundnessError_{\MTSubscript}}
+\newcommand{\MTOtherBindingError}{\ProtoSoundnessError_{\MTSubscript}^{\scriptscriptstyle{\mathrm{h}}}}
+\newcommand{\MTExtractionError}{\ProtoKnowledgeError_{\MTSubscript}}
+\newcommand{\MTMultiExtractionError}{\ProtoKnowledgeError_{\MTSubscript}^{\MTMultiSymbol}}
+\newcommand{\MTMultiMultiExtractionError}{\ProtoKnowledgeError_{\MTSubscript}^{\MTMultiMultiSymbol}}
+\newcommand{\MTExtractorTimeSymbol}{\ProtoKnowledgeTime_{\MTSubscript}}
+\newcommand{\MTMultiExtractorTimeSymbol}{\ProtoKnowledgeTime_{\MTSubscript}^{\MTMultiSymbol}}
+\newcommand{\MTMultiMultiExtractorTimeSymbol}{\ProtoKnowledgeTime_{\MTSubscript}^{\MTMultiMultiSymbol}}
+\newcommand{\MTExtractorTimeFunction}[5]{\MTExtractorTimeSymbol(#1,#2,#3,#4,#5)}
+\newcommand{\MTMultiExtractorTimeFunction}[6]{\MTMultiExtractorTimeSymbol(#1,#2,#3,#4,#5,#6)}
+\newcommand{\MTMultiMultiExtractorTimeFunction}[6]{\MTMultiMultiExtractorTimeSymbol(#1,#2,#3,#4,#5,#6)}
+
+%%%%% Merkle commitment scheme with indices
+\newcommand{\MTIdxCommit}[1]{\MTSymbol_{#1}.\mathsf{Commit}}
+\newcommand{\MTIdxOpen}[1]{\MTSymbol_{#1}.\mathsf{Open}}
+\newcommand{\MTIdxCheck}[1]{\MTSymbol_{#1}.\mathsf{Check}}
+\newcommand{\MTIdxExtractor}[1]{\MTSymbol_{#1}.\mathsf{Extract}}
+\newcommand{\MTIdxSimulator}[1]{\MTSymbol_{#1}.\mathsf{Simulate}}
+
+%%%%% randomness salts
+\newcommand{\RandSaltString}{\ProtoSalt}
+\newcommand{\RandSaltSize}{s}
+
+%%%%% all transformations
+\newcommand{\FormatTransName}[1]{\bm{\mathsf{#1}}}
+\newcommand{\FSonSPSymbol}{\FormatTransName{FS}_{\SPSubscript}}
+\newcommand{\FSonIPSymbol}{\FormatTransName{FS}_{\IPSubscript}}
+\newcommand{\FastFSonIPSymbol}{\FormatTransName{FS}_{\IPSubscript}^{\star}}
+\newcommand{\KilianSymbol}{\FormatTransName{Kilian}}
+\newcommand{\MicaliSymbol}{\FormatTransName{Micali}}
+\newcommand{\IBCSSymbol}{\FormatTransName{iBCS}}
+\newcommand{\BCSSymbol}{\FormatTransName{BCS}}
+\newcommand{\COSSymbol}{\FormatTransName{COS}}
+\newcommand{\FormatTransInputs}[3]{[#1,#2,#3]}
+\newcommand{\FSonSPTransformation}[3]{\FSonSPSymbol\FormatTransInputs{#1}{#2}{#3}}
+\newcommand{\FSonIPTransformation}[3]{\FSonIPSymbol\FormatTransInputs{#1}{#2}{#3}}
+\newcommand{\FastFSonIPTransformation}[3]{\FastFSonIPSymbol\FormatTransInputs{#1}{#2}{#3}}
+\newcommand{\KilianTransformation}[3]{\KilianSymbol\FormatTransInputs{#1}{#2}{#3}}
+\newcommand{\MicaliTransformation}[3]{\MicaliSymbol\FormatTransInputs{#1}{#2}{#3}}
+\newcommand{\IBCSTransformation}[3]{\IBCSSymbol\FormatTransInputs{#1}{#2}{#3}}
+\newcommand{\BCSTransformation}[3]{\BCSSymbol\FormatTransInputs{#1}{#2}{#3}}
+\newcommand{\COSTransformation}[3]{\COSSymbol\FormatTransInputs{#1}{#2}{#3}}
+\newcommand{\FSonSPText}{Fiat--Shamir transformation for SPs\xspace}
+\newcommand{\FSonIPText}{Fiat--Shamir transformation for public-coin IPs\xspace}
+\newcommand{\FastFSonIPText}{fast Fiat--Shamir transformation for public-coin IPs\xspace}
+\newcommand{\KilianText}{Kilian transformation\xspace}
+\newcommand{\MicaliText}{Micali transformation\xspace}
+\newcommand{\IBCSText}{iBCS transformation\xspace}
+\newcommand{\BCSText}{Ben-Sasson--Chiesa--Spooner (BCS) transformation\xspace}
+\newcommand{\COSText}{Chiesa--Ojha--Spooner (COS) transformation\xspace}
+
+%%%%% Fiat--Shamir transformation for SPs
+\newcommand{\SPFSARGString}{(\SPCommitment,\SPResponse,\RandSaltString)}
+
+%%%%% Fiat--Shamir transformation for IPs
+\newcommand{\SlowFSSymbol}{\mathsf{slow}}
+\newcommand{\FastFSSymbol}{\mathsf{fast}}
+\newcommand{\FSFirstQuery}{(\Instance,\IPProverMessage_{1},\RandSaltString_{1})}
+\newcommand{\SlowFSLaterQuery}[1]{\big(\Instance,(\IPProverMessage_{1},\dots,\IPProverMessage_{#1}),(\RandSaltString_{1},\dots,\RandSaltString_{#1})\big)}
+\newcommand{\FastFSLaterQuery}[1]{(\IPVerifierRandomMessage_{#1-1},\IPProverMessage_{#1},\RandSaltString_{#1})}
+\newcommand{\FSARGString}{\big(\IPTuple{\IPProverMessage},\IPTuple{\RandSaltString}\big)}
+\newcommand{\FSTranscriptExtractor}{\mathsf{FS}.\mathsf{Backtrack}}
+\newcommand{\SlowFSMaliciousProver}{\Malicious{\ARGProver}_{\SlowFSSymbol}}
+\newcommand{\FastFSMaliciousProver}{\Malicious{\ARGProver}_{\FastFSSymbol}}
+\newcommand{\FastFSMappingOracle}{\mathsf{F2SAlgo}}
+\newcommand{\FastTraceToSlowTrace}{\mathsf{F2STrace}}
+\newcommand{\FastToSRTrace}{\mathsf{FastToSRTrace}}
+\newcommand{\FastTraceToSlowTraceTime}{O(\IPMaxRandomnessComplexity \cdot \IPRoundComplexity \cdot \ROQueryBound \cdot \log \ROQueryBound)}
+\newcommand{\ARGSlowKnowledgeError}{\ProtoKnowledgeError_{\SlowFSSymbol}}
+\newcommand{\FSToSR}{\mathsf{FStoSR}}
+
+%%%%% Kilian transformation
+
+%%%%% Micali transformation
+\newcommand{\MicaliFSQuery}{(\Instance,\MTCommitment,\RandSaltString)}
+\newcommand{\MicaliARGString}{(\MTCommitment,\PCPQuerySet,\PCPEntries,\MTProof,\RandSaltString)}
+
+%%%%% iBCS transformation
+\newcommand{\IBCSProver}{\ARGProver_{\mathsf{i}}}
+\newcommand{\IBCSVerifier}{\ARGVerifier_{\mathsf{i}}}
+\newcommand{\IBCSMaliciousSRProver}{\Malicious{\ARGProver}_{\mathsf{i}}^{\SRSuperscript}}
+
+%%%%% BCS transformation
+\newcommand{\BCSFSFirstQuery}{(\Instance,\MTCommitment_{1},\RandSaltString_{1})}
+\newcommand{\BCSFSLaterQuery}[1]{(\IOPVerifierRandomMessage_{#1-1},\MTCommitment_{#1},\RandSaltString_{#1})}
+\newcommand{\BCSARGString}{\big((\MTCommitment_{\RoundIndex},\IOPQuerySet_{\RoundIndex},\IOPEntries_{\RoundIndex},\MTProof_{\RoundIndex},\RandSaltString_{\RoundIndex})\big)_{\RoundIndex \in [\IOPRoundComplexity]}}
+\newcommand{\IPTraceToIOPTrace}{\mathsf{IP2IOPTrace}}
+
+%%%%% COS transformation
+\newcommand{\HashedIndex}{\IOPVerifierRandomMessage_{\IndexRoundSubscript}}
+\newcommand{\COSARGString}{\Big((\IOPQuerySet_{\IndexRoundSubscript},\IOPEntries_{\IndexRoundSubscript},\MTProof_{\IndexRoundSubscript}),\big((\MTCommitment_{\RoundIndex},\IOPQuerySet_{\RoundIndex},\IOPEntries_{\RoundIndex},\MTProof_{\RoundIndex},\RandSaltString_{\RoundIndex})\big)_{\RoundIndex \in [\IOPRoundComplexity]}\Big)}
+\newcommand{\PaintedCOSARGString}{\Big(\Paint{(\IOPQuerySet_{\IndexRoundSubscript},\IOPEntries_{\IndexRoundSubscript},\MTProof_{\IndexRoundSubscript}),\,}\big((\MTCommitment_{\RoundIndex},\IOPQuerySet_{\RoundIndex},\IOPEntries_{\RoundIndex},\MTProof_{\RoundIndex},\RandSaltString_{\RoundIndex})\big)_{\RoundIndex \in [\IOPRoundComplexity]}\Big)}
+\newcommand{\COSFSFirstQuery}{(\HashedIndex,\Instance,\MTCommitment_{1},\RandSaltString_{1})}
+\newcommand{\PaintedCOSFSFirstQuery}{(\Paint{\HashedIndex,\,}\Instance,\MTCommitment_{1},\RandSaltString_{1})}
+
+\newcommand{\BCSSubscript}{\scriptscriptstyle\mathrm{BCS}}
+\newcommand{\BCSProver}{\ARGProver_{\BCSSubscript}}
+\newcommand{\BCSVerifier}{\ARGVerifier_{\BCSSubscript}}
+
+\newcommand{\COSSubscript}{\scriptscriptstyle\mathrm{COS}}
+\newcommand{\COSIndexer}{\ARGIndexer_{\COSSubscript}}
+\newcommand{\COSProver}{\ARGProver_{\COSSubscript}}
+\newcommand{\COSVerifier}{\ARGVerifier_{\COSSubscript}}
+
+\newcommand{\COSToBCSTrace}{\mathsf{COSToBCSTrace}}
+\newcommand{\ExtraTimeofCOSToBCSProver}{O(\RORandQueryBound \cdot \SecurityParameter \cdot \log \ROIndexHashQueryBound + \SecurityParameter \cdot \ROIndexHashQueryBound \cdot \log \ROIndexHashQueryBound)}
+\newcommand{\TimeofCOSToBCSTrace}{O(\IOPMaxRandomnessComplexity \cdot \ROQueryBound + \RORandQueryBound \cdot \SecurityParameter \cdot \log \ROIndexHashQueryBound + \SecurityParameter \cdot \ROIndexHashQueryBound \cdot \log \ROIndexHashQueryBound)}
+
+\newcommand{\ROIndexHashFunction}{\ROFunction_{\IndexRoundSubscript}}
+\newcommand{\ROIndexHashQueryBound}{\ROQueryBound_{\IndexRoundSubscript}}
+\newcommand{\ROIndexTreeFunction}{\ROFunction_{\ROTreeSymbol_{\IndexRoundSubscript}}}
+\newcommand{\ROIndexTreeQueryBound}{\ROQueryBound_{\ROTreeSymbol_{\IndexRoundSubscript}}}
+
+\newcommand{\LazyROTreeFunction}{\Lazy{\ROFunction}_{\ROTreeSymbol}}
+\newcommand{\LazyROIndexHashFunction}{\Lazy{\ROFunction}_{\IndexRoundSubscript}}
+\newcommand{\LazyROIndexTreeFunction}{\Lazy{\ROFunction}_{\ROTreeSymbol_{\IndexRoundSubscript}}}
+
+%%%%% state restoration soundness
+\newcommand{\SRBudget}{t}
+\newcommand{\SRSaltSize}{s}
+\newcommand{\SRSaltString}{\sigma}
+\newcommand{\SRSaltStrings}[1]{(\SRSaltString_{\RoundIndex})_{\RoundIndex \in [#1]}}
+\newcommand{\SRSaltStringsPrime}[1]{(\SRSaltString'_{\RoundIndex})_{\RoundIndex \in [#1]}}
+\newcommand{\SRIteration}{j}
+\newcommand{\SRMoveIndex}{a}
+\newcommand{\IPSRGameStateEntry}[1]{(\Instance,(\IPProverMessage_{1},\dots,\IPProverMessage_{#1}),(\SRSaltString_{1},\dots,\SRSaltString_{#1}))}
+\newcommand{\IOPSRGameStateEntry}[1]{(\Instance,(\IOPString_{1},\dots,\IOPString_{#1}),(\SRSaltString_{1},\dots,\SRSaltString_{#1}))}
+\newcommand{\IOPSRGameStateEntryPrime}[1]{(\Instance',(\IOPString'_{1},\dots,\IOPString'_{#1}),(\SRSaltString'_{1},\dots,\SRSaltString'_{#1}))}
+\newcommand{\SRRandomness}{\mathsf{rnd}}
+\newcommand{\SRTrace}{\ROTrace^{\SRSuperscript}}
+\newcommand{\SRTraceFull}{\ROTrace^{\SRSuperscript}_{\scriptscriptstyle\mathrm{full}}}
+\newcommand{\SRGameName}[1]{\mathsf{Game}_{#1}^{\SRSuperscript}}
+\newcommand{\SPStateRestorationGame}[3]{\SRGameName{\SPSubscript}(#1,#2,#3)}
+\newcommand{\IPStateRestorationGame}[3]{\SRGameName{\IPSubscript}(#1,#2,#3)}
+\newcommand{\PCPStateRestorationGame}[3]{\SRGameName{\PCPSubscript}(#1,#2,#3)}
+\newcommand{\IOPStateRestorationGame}[3]{\SRGameName{\IOPSubscript}(#1,#2,#3)}
+\newcommand{\SPSRSoundnessError}{\ProtoSRSoundnessError_{\SPSubscript}}
+\newcommand{\IPSRSoundnessError}{\ProtoSRSoundnessError_{\IPSubscript}}
+\newcommand{\PCPSRSoundnessError}{\ProtoSRSoundnessError_{\PCPSubscript}}
+\newcommand{\IOPSRSoundnessError}{\ProtoSRSoundnessError_{\IOPSubscript}}
+\newcommand{\SPSRKnowledgeError}{\ProtoSRKnowledgeError_{\SPSubscript}}
+\newcommand{\SPSRKnowledgeTime}{\ProtoKnowledgeTime_{\SPSubscript}^{\SRSuperscript}}
+\newcommand{\IPSRKnowledgeError}{\ProtoSRKnowledgeError_{\IPSubscript}}
+\newcommand{\IPSRKnowledgeTime}{\ProtoKnowledgeTime_{\IPSubscript}^{\SRSuperscript}}
+\newcommand{\PCPSRKnowledgeError}{\ProtoSRKnowledgeError_{\PCPSubscript}}
+\newcommand{\IOPSRKnowledgeError}{\ProtoSRKnowledgeError_{\IOPSubscript}}
+\newcommand{\IOPSRKnowledgeTime}{\ProtoKnowledgeTime_{\IOPSubscript}^{\SRSuperscript}}
+\newcommand{\SPSRExtractor}{\SPExtractor^{\SRSuperscript}}
+\newcommand{\IPSRExtractor}{\IPExtractor^{\SRSuperscript}}
+\newcommand{\PCPSRExtractor}{\PCPExtractor^{\SRSuperscript}}
+\newcommand{\IOPSRExtractor}{\IOPExtractor^{\SRSuperscript}}
+\newcommand{\SPMaliciousSRProver}{\SPMaliciousProver^{\SRSuperscript}}
+\newcommand{\IPMaliciousSRProver}{\IPMaliciousProver^{\SRSuperscript}}
+\newcommand{\PCPMaliciousSRProver}{\PCPMaliciousProver^{\SRSuperscript}}
+\newcommand{\IOPMaliciousSRProver}{\IOPMaliciousProver^{\SRSuperscript}}
+\newcommand{\IPSROutput}{(\Instance,\IPTuple{\IPProverMessage},\SRSaltStrings{\IPRoundComplexity},\IPTuple{\IPVerifierRandomMessage})}
+\newcommand{\IPSROutputPrime}{(\Instance',\IPTuple{\IPProverMessage'},\IPTuple{\SRSaltString'},\IPTuple{\IPVerifierRandomMessage'})}
+\newcommand{\IBCSSROutput}{(\Instance,(\IPProverMessage_{\RoundIndex})_{\RoundIndex \in [\IPRoundComplexity+1]},\SRSaltStrings{\IPRoundComplexity},\IPTuple{\IPVerifierRandomMessage})}
+\newcommand{\IOPSROutput}{\big(\Instance,\IOPStrings,\SRSaltStrings{\IOPRoundComplexity},\IOPVerifierRandomMessages\big)}
+\newcommand{\IOPSROutputPrime}{\big(\Instance',\IOPStringsPrime,\SRSaltStringsPrime{\IOPRoundComplexity},\IOPVerifierRandomMessagesPrime\big)}
+
+%%%%% special soundness
+\newcommand{\SSSuperscript}{\mathrm{ss}}
+\newcommand{\SSArity}{a}
+\newcommand{\SSFork}{F}
+\newcommand{\SSTree}{T}
+\newcommand{\SPSSExtractor}{\SPExtractor^{\SSSuperscript}}
+\newcommand{\IPSSExtractor}{\IPExtractor^{\SSSuperscript}}
+\newcommand{\SPSSKnowledgeTime}{\ProtoKnowledgeTime_{\SPSubscript}^{\SSSuperscript}}
+\newcommand{\IPSSKnowledgeTime}{\ProtoKnowledgeTime_{\IPSubscript}^{\SSSuperscript}}
+\newcommand{\SSForkFinder}{\mathsf{ForkFinder}}
+\newcommand{\SSSRForkFinder}{\mathsf{SRForkFinder}}
+\newcommand{\SSTreeFinder}{\mathsf{TreeFinder}}
+\newcommand{\SSSRTreeFinder}{\mathsf{SRTreeFinder}}
+\newcommand{\SSFinderRandomness}{\zeta}
+\newcommand{\SSFinderRandomnessSet}{\mathcal{Z}}
+\newcommand{\SSRemainingRandomness}{S}
+\newcommand{\SSBranches}{B}
+\newcommand{\SSLeftFlag}{\mathfrak{f}}
+\newcommand{\SSConsistencyFlag}{\mathfrak{c}}
+\newcommand{\SSFinderOutput}{\mathsf{out}}
+\newcommand{\SSFail}{\mathsf{fail}}
+\newcommand{\SSPartialProverMessages}{(\IPProverMessage_{\RoundIndex}')_{\RoundIndex=1}^{j}}
+\newcommand{\SSPartialSRSaltStrings}{(\SRSaltString_{\RoundIndex}')_{\RoundIndex=1}^{j}}
+\newcommand{\SSPartialVerifierMessages}{(\IPVerifierRandomMessage_{\RoundIndex}')_{\RoundIndex=1}^{j}}
+%%%%% special soundness to (standard or state-restoration) knowledge soundness
+\newcommand{\SSGoodChallengeNumber}{Y}
+\newcommand{\SSFinderHasFound}{Z}
+\newcommand{\SSKappa}{\kappa}
+\newcommand{\SSWinningProbability}{w}
+\newcommand{\SSFinderTime}{B}
+\newcommand{\SSSRMoveSet}{T}
+\newcommand{\SSProverMessagePrefix}[1]{{\boldsymbol\IPProverMessage}_{#1}}
+\newcommand{\SSVerifierMessagePrefix}[1]{{\boldsymbol\IPVerifierRandomMessage}_{#1}}
+\newcommand{\SSSRSaltStringPrefix}[1]{{\boldsymbol\SRSaltString}_{#1}}
+\newcommand{\SRPseudoOutput}{\left(\IPSROutputPrime,\DecisionBit\right)}
+\newcommand{\SRPseudoDecision}[1]{D_{#1}}
+\newcommand{\PuncturedOracles}[2]{U_{#1,#2}}
+\newcommand{\PuncturedOracle}{g}
+\newcommand{\EqualsPunctured}[1]{=_{#1}}
+\newcommand{\SSFinderTimeSimple}[1]{\SSFinderTime_{#1}}
+\newcommand{\SSFinderTimeEqualWin}[1]{\SSFinderTime_{#1,1}}
+\newcommand{\SSFinderTimeEqualLose}[1]{\SSFinderTime_{#1,0}}
+\newcommand{\SSFinderTimeNotEqual}[1]{\SSFinderTime_{#1,\neq}}
+\newcommand{\SSFinderNumEqualWin}[1]{M_{#1,1}}
+\newcommand{\SSFinderNumEqualLose}[1]{M_{#1,0}}
+\newcommand{\SSFinderNumNotEqual}[1]{M_{#1,\neq}}
+\newcommand{\SRFixAllButAnswer}[1]{\Event_{#1,\ROQuery_{#1},\PuncturedOracle}}
+\newcommand{\SRYesAnswers}[1]{u_{\ROQuery_{#1},\PuncturedOracle}}
+\newcommand{\SRNoAnswers}[1]{v_{\ROQuery_{#1},\PuncturedOracle}}
+
+%%%%% round-by-round soundness
+\newcommand{\RBRSuperscript}{\mathrm{rbr}}
+\newcommand{\RBRState}{\mathsf{RBRState}}
+\newcommand{\RBRIOPInput}[1]{(\Instance,\IOPTranscriptLongTuple{#1})}
+\newcommand{\RBRIOPInputPrime}[1]{(\Instance',\IOPTranscriptLongTuplePrime{#1})}
+\newcommand{\IOPEmptyTranscript}{\emptyset}
+\newcommand{\IOPTranscriptSymbol}{\mathsf{trc}}
+\newcommand{\IOPTranscriptLongTuple}[1]{(\IOPString_{1},\IOPVerifierRandomMessage_{1},\dots,\IOPString_{#1},\IOPVerifierRandomMessage_{#1})}
+\newcommand{\IOPTranscriptLongTuplePrime}[1]{(\IOPString'_{1},\IOPVerifierRandomMessage_{1},\dots,\IOPString'_{#1},\IOPVerifierRandomMessage_{#1})}
+\newcommand{\RBRSoundnessError}{\ProtoRBRSoundnessError_{\IOPSubscript}}
+\newcommand{\RBRSoundnessErrorIdx}[1]{\ProtoRBRSoundnessError_{\IOPSubscript,#1}}
+\newcommand{\RBRKnowledgeError}{\ProtoRBRKnowledgeError_{\IOPSubscript}}
+\newcommand{\RBRKnowledgeErrorIdx}[1]{\ProtoRBRKnowledgeError_{\IOPSubscript,#1}}
+\newcommand{\IOPRBRExtractor}{\IOPExtractor^{\RBRSuperscript}}
+\newcommand{\IOPMaliciousRBRProver}{\IOPMaliciousProver^{\RBRSuperscript}}
+
+%%%%% negative hyper-geometric distribution
+\newcommand{\NHGSubscript}{\scriptscriptstyle\mathrm{NHG}}
+\newcommand{\NHGTotalNumber}{N}
+\newcommand{\NHGGoodNumber}{B}
+\newcommand{\NHGTargetNumber}{b}
+\newcommand{\NHGSampledGood}{\RandomVariableX_{\NHGSubscript}}
+\newcommand{\NHGSampledBad}{\RandomVariableY_{\NHGSubscript}}
+
+%%%%% error bounds for random oracle properties
+\newcommand{\ROOWExpression}[2]{\frac{#2}{2^{#1}}}
+\newcommand{\ROOWEntropyExpression}[1]{\frac{\ROQueryBound}{2^{#1}}}
+\newcommand{\ROOWEntropyExpressionVector}[2]{\left(\frac{\ROQueryBound}{2^{#1}}\right)^{#2}}
+\newcommand{\ROPExpression}[1]{\frac{1}{2^{#1}}}
+\newcommand{\ROCRExpression}[2]{\frac{1}{2} \cdot \frac{(#2-1) \cdot #2}{2^{#1}}}
+\newcommand{\ROCommonExpression}[2]{\frac{1}{2} \cdot \frac{#2^2}{2^{#1}}}
+
+%%%%% error bounds for commitments
+\newcommand{\CMBindingExpression}[2]{\frac{1}{2} \cdot \frac{#2^2}{2^{#1}}}
+\newcommand{\CMExtractabilityExpression}[2]{\CMBindingExpression{#1}{#2}}
+\newcommand{\CMMultiExtractabilityExpression}[3]{\frac{1}{2} \cdot \frac{#2^2}{2^{#1}} + \frac{#3 \cdot #2}{2^{#1}}}
+\newcommand{\CMHidingExpressionFinite}[2]{\frac{#2}{2^{#1}}}
+\newcommand{\CMHidingExpressionInfinite}[1]{3 \sqrt{\ROOutputSize \CMMessageLength #1} \cdot 2^{-\frac{#1 - \ROOutputSize}{2}}}
+
+\newcommand{\MTBindingExpression}[2]{\frac{1}{2} \cdot \frac{#2^2}{2^{#1}}}
+\newcommand{\MTHonestBindingExpression}[3]{\frac{1}{2} \cdot \frac{(#2+2 \cdot #3)^{2}}{2^{#1}}}
+\newcommand{\MTExtractabilityExpression}[4]{\ROCRExpression{#1}{#2} + \frac{2 \cdot (#4+1) \cdot #3}{2^{#1}}}
+\newcommand{\MTExtractabilityShortExpression}[2]{\frac{1}{2} \cdot \frac{#2^2}{2^{#1}}}
+\newcommand{\MTExtractabilityCondition}[3]{#1 \geq 4 \cdot (#3+1) \cdot #2}
+\newcommand{\MTMultiExtractabilityShortExpression}[2]{2 \cdot \frac{#2^2}{2^{#1}}}
+\newcommand{\MTMultiExtractabilityCondition}[3]{6 \cdot #2 \cdot (#3+1) \leq #1}
+\newcommand{\MTMultiMultiExtractabilityShortExpression}[2]{2 \cdot \frac{#2^2}{2^{#1}}}
+\newcommand{\MTMultiMultiExtractabilityCondition}[3]{6 \cdot #2 \cdot (#3+1) \leq #1}
+\newcommand{\MTRootPrivacyError}{\frac{\MTMessageLength \cdot \ROQueryBound}{2^{\MTSaltSize}} + \frac{\MTMessageLength \cdot \ROQueryBound}{2^{2\ROOutputSize}}}
+\newcommand{\MTPathPrivacyError}{\sum_{\MTLayer \in [\MTDepth]} \MTZKRootError(\ROOutputSize,2^{\MTDepth-\MTLayer},\MTSaltSize,\ROQueryBound)}
+\newcommand{\MTProofPrivacyError}{\MTMessageIndexSetSize \cdot \MTPathPrivacyError}
+\newcommand{\MTProofPrivacyExpression}{\frac{\MTMessageIndexSetSize \cdot \MTMessageLength \cdot \ROQueryBound}{2^{\MTSaltSize}} + \frac{\MTMessageIndexSetSize \cdot \MTMessageLength \cdot \ROQueryBound}{2^{2\ROOutputSize}}}
+
+%%%%% error bounds for NARGs
+\newcommand{\FSErrorExpression}[1][\ROQueryBound]{\frac{#1^2}{2^{\SecurityParameter}}}
+\newcommand{\BCSSimplifiedError}{3 \cdot \frac{\ROQueryBound^2}{2^{\SecurityParameter}}}
+\newcommand{\FSSPZKExpression}{\SPZKError(\InstanceSize)+\frac{\ROQueryBound}{2^{\RandSaltSize}}}
+\newcommand{\FSIPSoundnessExpression}{\IPSRSoundnessError(\PrivacyParameter,\ROQueryBound,\InstanceSize)+\FSErrorExpression}
+\newcommand{\FSIPKnowledgeExpression}{\IPSRKnowledgeError(\PrivacyParameter,\ROQueryBound,\InstanceSize)+\FSErrorExpression}
+\newcommand{\FSIPZKExpression}{\IPZKError(\InstanceSize)+\frac{\ROQueryBound}{2^{\RandSaltSize}}}
+\newcommand{\MicaliSoundnessExpression}{(\ROQueryBound +1)\cdot\PCPSoundnessError(\InstanceSize) \MaybeNewline +\MTMultiExtractionError(\SecurityParameter,\ROQueryBound,\PCPProofLength,\ROQueryBound+1,1)}
+\newcommand{\MicaliKnowledgeExpression}{(\ROQueryBound+1)\cdot\PCPKnowledgeError(\InstanceSize) \MaybeNewline +\MTMultiExtractionError(\SecurityParameter,\ROQueryBound,\PCPProofLength,\ROQueryBound+1,1)}
+\newcommand{\MicaliZKExpression}{\PCPZKError(\InstanceSize) \MaybeNewline +\MTZKProofError(\SecurityParameter,\PCPProofLength(\InstanceSize),\PrivacyParameter,\PCPQueryComplexity(\InstanceSize),\ROQueryBound)\MaybeNewline +\frac{\ROQueryBound}{2^{\RandSaltSize}}}
+\newcommand{\BCSAdditiveError}{\MTMultiMultiExtractionError(\SecurityParameter,\ROQueryBound,\IOPProofLength,(\ROQueryBound+1)\cdot\IOPRoundComplexity,\IOPRoundComplexity) \MaybeNewline + \FSErrorExpression}
+\newcommand{\BCSSoundnessExpression}{\IOPSRSoundnessError(\SecurityParameter+\RandSaltSize,\ROQueryBound,\InstanceSize)\MaybeNewline+\BCSAdditiveError}
+\newcommand{\BCSKnowledgeExpression}{\IOPSRKnowledgeError(\SecurityParameter+\RandSaltSize,\ROQueryBound,\InstanceSize)\MaybeNewline+\BCSAdditiveError}
+\newcommand{\BCSZKExpression}{\IOPZKError(\InstanceSize) \MaybeNewline +\MTZKProofError(\SecurityParameter,\IOPProofLength(\InstanceSize),\PrivacyParameter,\IOPQueryComplexity(\InstanceSize),\ROQueryBound) \MaybeNewline + \frac{\ROQueryBound}{2^{\RandSaltSize}}}
+\newcommand{\COSErrorExpression}[1][\ROQueryBound]{\MTHonestBindingExpression{\SecurityParameter}{\ROIndexTreeQueryBound}{\IOPProofLength_{\IndexRoundSubscript}}+\frac{1}{2} \cdot \frac{\ROIndexHashQueryBound^2}{2^{\SecurityParameter}}}
+\newcommand{\COSAdditiveError}{\MTMultiMultiExtractionError(\SecurityParameter,\ROQueryBound,\IOPProofLength,(\ROQueryBound+1)\cdot\IOPRoundComplexity,\IOPRoundComplexity) \MaybeNewline + \FSErrorExpression \MaybeNewline + \frac{4 \cdot \IOPProofLength_{\IndexRoundSubscript}^2}{2^{\SecurityParameter}}}
+\newcommand{\COSSoundnessExpression}{\HIOPSRSoundnessError(\SecurityParameter+\RandSaltSize,\ROQueryBound,\IndexSize,\InstanceSize)\MaybeNewline + \COSAdditiveError}
+\newcommand{\COSKnowledgeExpression}{\HIOPSRKnowledgeError(\SecurityParameter+\RandSaltSize,\ROQueryBound,\IndexSize,\InstanceSize) \MaybeNewline +\COSAdditiveError}
+\newcommand{\COSZKExpression}{\HIOPZKError(\IndexSize,\InstanceSize) \MaybeNewline +\MTZKProofError(\SecurityParameter,\IOPProofLength(\IndexSize,\InstanceSize),\PrivacyParameter,\IOPQueryComplexity(\IndexSize,\InstanceSize),\ROQueryBound) \MaybeNewline + \frac{\ROQueryBound}{2^{\RandSaltSize}}}
+\newcommand{\COSSimplifiedError}{4 \cdot \frac{\ROQueryBound^{2}}{2^{\SecurityParameter}}}
+\newcommand{\COSCondition}{2\cdot \IOPProofLength_{\IndexRoundSubscript} \leq \ROQueryBound}
+
+%%%%% error bounds for IARGs
+\newcommand{\KilianSoundnessErrorExpression}{\PCPSoundnessError(\InstanceSize)+\MTExtractionError(\SecurityParameter,\ROQueryBound,\PCPProofLength)}
+\newcommand{\IBCSSoundnessErrorExpression}{\IOPSoundnessError(\InstanceSize)+\MTMultiMultiExtractionError(\SecurityParameter,\ROQueryBound,\IOPProofLength,\IOPRoundComplexity,\IOPRoundComplexity)}
+
+%%%%% errors bounds from special soundness
+\newcommand{\IPKowledgeErrorMainFromSS}{\prod_{\RoundIndex \in [\IPRoundComplexity]} \left( 1 - \frac{\SSArity_{\RoundIndex}-1}{\IPRandomnessCardinality{\RoundIndex}} \right)}
+\newcommand{\IPKowledgeErrorFromSS}{1-\IPKowledgeErrorMainFromSS}
+\newcommand{\IPKowledgeErrorSimpleFromSS}{\sum_{\RoundIndex \in [\IPRoundComplexity]} \frac{\SSArity_{\RoundIndex}-1}{\IPRandomnessCardinality{\RoundIndex}}}
+\newcommand{\IPSRKowledgeErrorMainFromSS}{\IPKowledgeErrorMainFromSS}
+\newcommand{\IPSRKowledgeErrorFromSS}{(\SRBudget+1) \cdot \left(1-\IPSRKowledgeErrorMainFromSS \right)}
+
+%%%%% maximum error up to instance size bound
+\newcommand{\MaxSoundness}[1]{\max\, \big\{ #1 \;\big\vert\;\Instance \in \Bits^{*} \text{ with } \SomeSize{\Instance} \leq \InstanceSize \text{ and } \Instance \notin \GetLanguage{\Relation} \big\}}
+\newcommand{\MaxKnowledge}[1]{\max\, \big\{ #1 \;\big\vert\;\Instance \in \Bits^{*} \text{ with } \SomeSize{\Instance} \leq \InstanceSize \big\}}
+\newcommand{\MaxZK}[1]{\max\, \big\{ #1 \;\big\vert\; \Instance,\Witness \in \Bits^{*} \text{ with } \SomeSize{\Instance} \leq \InstanceSize \text{ and } (\Instance,\Witness) \in \Relation \big\}}
+
+%%%%% maximum error up to index and instance size bound
+\newcommand{\MaxIndexedSoundness}[1]{\max\, \big\{ #1 \;\big\vert\;\Index,\Instance \in \Bits^{*} \text{ with } \SomeSize{\Index} \leq \IndexSize \text{ and }\SomeSize{\Instance} \leq \InstanceSize \text{ and } (\Index,\Instance) \notin \GetLanguage{\IndexedRelation} \big\}}
+\newcommand{\MaxIndexedKnowledge}[1]{\max\, \left\{ #1 \;\middle\vert\;
+\begin{array}{l}
+\Index,\Instance \in \Bits^{*} \text{ with } \\
+\SomeSize{\Index} \leq \IndexSize \,,\, \SomeSize{\Instance} \leq \InstanceSize
+\end{array}
+\right\}}
+\newcommand{\MaxIndexedZK}[1]{\max\, \big\{ #1 \;\big\vert\;\Index,\Instance,\Witness \in \Bits^{*} \text{ with } \SomeSize{\Index} \leq \IndexSize \text{ and } \SomeSize{\Instance} \leq \InstanceSize \text{ and } (\Index,\Instance,\Witness) \in \IndexedRelation \big\}}
+
+%%%%% long executions
+\newcommand{\ShortExecution}[2]{#1 \gets #2}
+\newcommand{\LongExecution}[2]{#1 \gets \\ \quad#2}
+\newcommand{\LongExecutionOver}[3]{#1 \xleftarrow{#3} \\ \quad#2}
+\newcommand{\LongExecutionOverBelow}[4]{#1 \xleftarrow[#4]{#3} \\ \quad#2}
+\newcommand{\ShortExecutionOverBelow}[4]{#1 \xleftarrow[#4]{#3} #2}
+\newcommand{\ShortExecutionOver}[3]{#1 \xleftarrow{#3} #2}
+\newcommand{\LongExecutionBelow}[3]{#1 \xgetsbelow{#3} \\ \quad#2}
+\newcommand{\ShortExecutionBelow}[3]{#1 \xgetsbelow{#3} #2}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \begin{document}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -130,6 +996,660 @@ Dan Boneh \\
 这些及其他应用在学术界、工业界和政府的多个社区中引起了对密码学证明的极大兴趣。这种更广泛的兴趣需要关于密码学证明的材料更易于访问和系统化，以有效地满足超出少数专家的受众的需求。
 
 \cleardoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mainmatter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\addtocontents{toc}{\vspace{1.15\baselineskip}}
+\chapter{数学背景}
+\label{chapter:mathematical-background}
+
+我们介绍本书中使用的基本数学记号和事实。
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{符号约定}
+\label{section:notation}
+
+\parhead{集合}
+我们用 $\Cardinality{S}$ 表示集合 $S$ 的基数（即元素个数）；如果 $S$ 的元素个数为无限，则 $\Cardinality{S} \DefineEqual \infty$。我们用 $\Reals$ 表示实数集，用 $\Naturals$ 表示正整数集 ${1,2,\dots}$，并用 $[n]$ 表示正整数集 ${1,2,\dots,n}$。对于 $k \in {0,1,\dots,n}$，我们用 $\binom{[n]}{k}$ 表示所有从 $[n]$ 中选取 $k$ 个元素的子集所组成的集合；这类子集的数量为 $\binom{n}{k} \DefineEqual \frac{n!}{k! \cdot (n-k)!}$。我们用 ${x_{1},\dots,x_{n}}$ 表示包含元素 $x_{1},\dots,x_{n}$ 的集合；该集合的基数为 $x_{1},\dots,x_{n}$ 中不同元素的个数（重复元素只计一次）。给定一个集合 $S$，我们记 ${x_{i}}_{i \in S}$ 表示这样一个集合：对每个 $i\in S$，都包含元素 $x_{i}$；例如，${x_{i}}_{i \in [n]}={x_{1},\dots,x_{n}}$。
+
+\parhead{元组}
+元组是元素的有序列表。我们用 $(x_{i})_{i \in [n]}$ 表示元组 $(x_{1},\ldots,x_{n})$；更一般地，$(x_{i})_{i \in S}$ 表示一个元组，其条目根据给定集合 $S$ 的惯例顺序进行索引。元组中重复的元素会在相应位置多次出现。通过嵌套括号可以得到元组的元组；例如，$((x_{i},y_{i},z_{i}))_{i \in [n]}$ 表示元组的元组 $((x_{1},y_{1},z_{1}),\dots,(x_{n},y_{n},z_{n}))$。如果 $x$ 是一个条目由集合 $S$ 索引的元组，则对每个 $i\in S$，$x[i]$ 表示 $x$ 的第 $i$ 个条目；更一般地，对于子集 $T\subseteq S$，$x[T]$ 表示将 $x$ 中索引在 $T$ 内的条目取出后构成的元组。例如，如果 $x = (x_{i})_{i \in {1,4,7}}$，则 $x[7]=x_{7}$，$x[{1,7}]=(x_{i})_{i \in {1,7}}$。
+
+\parhead{字符串}
+设 $\ProtoAlphabet$ 为一个有限字母表（即有限集合）。在 $\ProtoAlphabet$ 上的字符串是一个定义在某个有序集合 $D$ 上的函数 $x \colon D \to \ProtoAlphabet$，其取值属于 $\ProtoAlphabet$；特别地，$x$ 是一个元组 $(x_{i})_{i \in D}$，其中每个条目 $x_{i}$ 都是字母表 $\ProtoAlphabet$ 的元素。通常 $D=[n]$（$n\in\Naturals$），此时我们可以通过列举符号的序列来书写字符串；例如，$001$ 表示字符串 $x \colon [3]\to\Bits$，其中 $x_{1}=0$、$x_{2}=0$、$x_{3}=1$。我们用 $\concat$ 表示字符串连接；例如 $00 \concat 1$ 表示字符串 $001$。
+
+对于每个 $n \in \Naturals$，我们用 $\ProtoAlphabet^{n}$ 表示所有长度为 $n$ 的 $\ProtoAlphabet$ 上的字符串的集合：
+\begin{equation*}
+\ProtoAlphabet^{n}
+\DefineEqual
+\left\{
+x \colon [n] \to \ProtoAlphabet
+\right\}
+=
+\left\{
+(x_{i})_{i \in [n]} : \forall i \in [n], x_{i} \in \ProtoAlphabet
+\right\}
+\enspace.
+\end{equation*}
+
+我们用 $\ProtoAlphabet^{*} \DefineEqual \cup_{n \in \Naturals} \ProtoAlphabet^{n}$ 表示所有有限长度 $\ProtoAlphabet$ 上的字符串的集合。
+
+给定一个有序集合 $D$，我们用 $\ProtoAlphabet^{D}$ 表示所有长度为 $\Cardinality{D}$ 且条目由 $D$ 的元素索引的 $\ProtoAlphabet$ 上的字符串的集合：
+\begin{equation*}
+\ProtoAlphabet^{D}
+\DefineEqual
+\left\{
+x \colon D \to \ProtoAlphabet
+\right\}
+=
+\left\{
+(x_{i})_{i \in D} : \forall i \in D, x_{i} \in \ProtoAlphabet
+\right\}
+\enspace.
+\end{equation*}
+例如，如果 $\ProtoAlphabet = \Bits$ 且 $D = {1,8,9}$，则字符串 $x \in \ProtoAlphabet^{D}=\Bits^{{1,8,9}}$ 可以具有以下取值：$x[1]=0$、$x[8]=1$、$x[9]=0$。
+
+\parhead{位长}
+二进制字符串是字母表 $\ProtoAlphabet=\Bits$ 上的字符串。我们用 $\BitSize{x}$ 表示二进制字符串 $x\in\Bits^{*}$ 的长度；例如 $\BitSize{001}=3$。如果 $x$ 不是二进制字符串，则 $\BitSize{x}$ 表示将 $x$ 适当表示为二进制字符串后的长度。例如，若 $x\in\ProtoAlphabet^{n}$，则可通过将 $x$ 中的每个符号表示为一个 $\ceil{\log_{2}\Cardinality{\ProtoAlphabet}}$ 位的二进制字符串，得到 $\BitSize{x} = n \cdot \ceil{\log_{2}\Cardinality{\ProtoAlphabet}}$。若 $x\in\ProtoAlphabet^{D}$，则将 $x$ 视为由 $n=\Cardinality{D}$ 对 $(i,x_{i})$ 组成的列表，其中每对由一个 $\ceil{\log_{2}\Cardinality{D}}$ 位的二进制字符串（编码索引 $i$）和一个 $\ceil{\log_{2}\Cardinality{\ProtoAlphabet}}$ 位的二进制字符串（编码符号 $x_{i}$）组成，从而 $\BitSize{x} = n \cdot (\ceil{\log_{2}\Cardinality{D}} + \ceil{\log_{2}\Cardinality{\ProtoAlphabet}})$。
+
+\parhead{抽样}
+我们用 $a \gets D$ 表示按照分布 $D$ 抽样得到 $a$ 的过程。类似地，给定一个有限集合 $S$，我们用 $a \gets S$ 表示按照对 $S$ 上的均匀分布抽样得到 $a$ 的过程。
+
+\parhead{渐近符号}
+我们使用标准的渐近符号。例如，给定两个函数 $f,g \colon \Naturals \to \Reals$，我们分别用 $f(n)=O(g(n))$ 和 $f(n)=\Omega(g(n))$ 表示存在常数 $c>0$，使得对所有足够大的 $n$，都有 $f(n)\le c\cdot g(n)$ 和 $f(n)\ge c\cdot g(n)$。此外，我们用 $f(n)=o(g(n))$ 和 $f(n)=\omega(g(n))$ 分别表示对每个常数 $c>0$，当 $n$ 足够大时，均有 $f(n)\le c\cdot g(n)$ 和 $f(n)\ge c\cdot g(n)$。我们还使用符号 $\poly(n)$ 表示某个未指明的多项式上界函数，即 $n^{O(1)}$；更一般地，$\poly(n_{1},n_{2},\dots)$ 表示 $(n_{1}+n_{2}+\cdots)^{O(1)}$。
+
+\parhead{语言与关系}
+关系 $\Relation$ 是由实例-证据对 $(\Instance,\Witness)$ 所组成的集合。对应的语言 $\GetLanguage{\Relation}$ 是那些存在证据 $\Witness$ 使得 $(\Instance,\Witness)\in \Relation$ 的实例 $\Instance$ 的集合。我们用 $\SomeSize{\Instance}$ 表示实例的大小；这可以是描述 $\Instance$ 所需的比特数（即 $\BitSize{\Instance}$）或其他适用于关系 $\Relation$ 的度量。
+
+\parhead{算法}
+我们非正式地将算法称为在适当计算模型上运行的过程。如果我们不关心算法的时间或空间复杂度（例如当考虑无界对手时），则底层计算模型无关紧要。（无论是单带图灵机、多带图灵机、寄存器机或其他均可。）如果我们讨论算法的时间或空间复杂度，则假设算法在类似现代计算机的寄存器机上运行（具有有限指令集并能对具有适当字长的内存进行读写随机访问）。我们同时考虑确定性算法和（访问一定长度随机位串的）随机化算法。
+
+如果一个算法的运行时间由其输入大小的某个多项式上界，则称该算法在多项式时间内运行。（若算法有多个输入，则考虑它们大小之和。）
+
+\parhead{交互式算法}
+如果算法 $A$ 在多次输入-输出调用之间保持状态，则称 $A$ 为\emph{交互式}。对于输入序列 $a_{1},a_{2},a_{3},\dots$，$A$ 的输出如下：
+\begin{equation*}
+b_{1} \gets A(a_{1}),;
+b_{2} \gets A(a_{2}),;
+b_{3} \gets A(a_{3}),;
+\dots
+\enspace.
+\end{equation*}
+有时，将一次执行传递到下一次执行的状态显式化会更有帮助，此时我们将算法 $A$ 视为无状态：
+\begin{equation*}
+(b_{1},\AuxiliaryState_{1}) \gets A(a_{1}),;
+(b_{2},\AuxiliaryState_{2}) \gets A(\AuxiliaryState_{1},a_{2}),;
+(b_{3},\AuxiliaryState_{3}) \gets A(\AuxiliaryState_{2},a_{3}),;
+\dots
+\enspace.
+\end{equation*}
+
+\parhead{黑盒}
+有时我们描述一种算法，它将其他算法作为输入，并且仅依赖于它们的输入-输出功能（通过在特定输入上运行并获得相应输出），而不使用它们的具体实现。我们称此时这些算法被用作\emph{黑盒}。
+
+设 $A$ 和 $B$ 为算法。若 $A$ 在某些输入上多次调用 $B$，并且除此之外不“查看”$B$ 的实现细节，则称\emph{$A$ 将 $B$ 用作黑盒}，记为 $A(\BlackBox{B})$。更正式地说，若对于任意表示相同功能的两个算法 $B_{1}$ 和 $B_{2}$，都有 $A(\BlackBox{B_{1}})=A(\BlackBox{B_{2}})$，则满足上述定义。
+
+若 $B$ 是交互式算法，则定义 $\BlackBox{B}$ 为 $B$ 的\emph{无状态}表示的黑盒，即给定 $B$ 的内部状态和输入，返回相应输出及新的内部状态的函数的黑盒。具体地，$A(\BlackBox{B})$ 可以在输入序列 $a_{1},a_{2},a_{3},\dots$ 上与 $B$ 交互，如下所示：
+\begin{equation*}
+(b_{1},\AuxiliaryState_{1}) \gets \BlackBox{B}(a_{1}),;
+(b_{2},\AuxiliaryState_{2}) \gets \BlackBox{B}(\AuxiliaryState_{1},a_{2}),;
+(b_{3},\AuxiliaryState_{3}) \gets \BlackBox{B}(\AuxiliaryState_{2},a_{3}),;
+\dots
+\enspace.
+\end{equation*}
+
+在上述黑盒调用序列中存在一个微妙的技术细节。从（$B$ 的无状态表示中）传递给 $A$ 的内部状态 $(\AuxiliaryState_{i})_{i}$ 可能包含关于算法 $B$ 的 \emph{非黑盒} 信息（例如 $B$ 的代码）；此外，这些内部状态可能很大（例如，如果 $B$ 效率低下，则可能呈指数规模），这会影响 $A$ 的效率。然而，$A$ 只对 $B$ 的输入-输出行为感兴趣，我们希望确
+
+\begin{figure}[htp!]
+\centering
+\includegraphics[width=0.3\textwidth]{\FigureFolder/inclusive-exclusive-diagram}
+\caption[3个事件的两两和三重交互。]{事件 $\Event_{1},\Event_{2},\Event_{3}$ 的两两和三重交集示意图。}
+\label{figure:inclusive-exclusive-diagram}
+\end{figure}
+
+一般情况称为\emph{容斥原理}，它提供了一种将 $n$ 个事件 $\Event_{1},\ldots,\Event_{n}$ 的并集的概率表示为它们所有交集概率（带符号）之和的方法。
+
+\begin{lemma}[inclusion–exclusion principle]
+\label{lemma-inclusion-exclusion}
+对于任意 $n$ 个事件 $\Event_{1},\ldots,\Event_{n}$，有
+\begin{align*}
+  \Pr\left[\idxlor{i \in [n]} \Event_{i} \right] =
+  \sum_{k \in [n]}
+    \left(
+    (-1)^{k+1}
+    \cdot
+    \sum_{\substack{I \subseteq [n] \\ \text{with } \Cardinality{I}=k}} \Pr\left[\idxland{i \in I} \Event_{i} \right]
+    \right)
+\enspace.
+\end{align*}
+\end{lemma}
+
+上述引理中的等式可能不便于使用，因为它涉及了大量项。下面关于 $\idxlor{i \in [n]} \Event_{i}$ 的概率的陈述更易使用：它分别在事件 $\Event_{i}$ 的个体概率和它们两两交集 $\Event_{i} \land \Event_{j}$ 的概率基础上给出了一个下界和上界。
+
+\begin{lemma}[simple inclusion–exclusion principle]
+\label{lemma:inclusion-exclusion-2}
+对于任意 $n$ 个事件 $\Event_{1},\ldots,\Event_{n}$，
+\begin{align*}
+\sum_{i \in [n]} \Pr[\Event_{i}] -
+\sum_{\substack{i,j \in [n] \\ \text{with } i \neq j}} \Pr[\Event_{i} \land \Event_{j}]
+\leq
+\Pr
+\left[\idxlor{i \in [n]} \Event_{i} \right]
+\leq
+\sum_{i \in [n]} \Pr[\Event_{i}]
+\enspace.
+\end{align*}
+\end{lemma}
+
+\begin{proof}
+我们对事件数量 $n$ 进行归纳证明。
+
+\emph{基例：$n \in \{1,2,3\}$。}
+当 $n=1$ 时，由于引理中的各表达式均为 $\Pr[\Event_{1}]$，结论显然成立。至于 $n=2$ 和 $n=3$ 的情况，我们在引理之前的讨论中已分别加以证明。
+
+\emph{归纳步骤：$n>1$。}
+假设对于任意 $n'\in[n-1]$，该引理都已成立。定义事件
+\[
+  \Event^{*} \DefineEqual \idxlor{i \in [n-1]} \Event_{i}.
+\]
+由对 $n'=n-1$ 的归纳假设，可得
+\begin{align}
+\label{equation:inclusion-exclusion-2-eq1}
+\sum_{i \in [n-1]} \Pr[\Event_{i}] -
+\sum_{\substack{i,j \in [n-1] \\ \text{with } i \neq j}} \Pr[\Event_{i} \land \Event_{j}]
+\leq
+\Pr\bigl[\Event^{*}\bigr]
+\leq
+\sum_{i \in [n-1]} \Pr[\Event_{i}]
+\enspace.
+\end{align}
+
+首先证明上界。对事件 $\Event^{*}$ 和 $\Event_{n}$ 应用 $n'=2$ 的归纳假设，并结合 \Cref{equation:inclusion-exclusion-2-eq1}，得到
+\begin{align*}
+\Pr\bigl[\Event^{*} \lor \Event_{n}\bigr]
+&\leq \Pr[\Event^{*}] + \Pr[\Event_{n}]
+\leq \sum_{i \in [n-1]} \Pr[\Event_{i}] + \Pr[\Event_{n}]
+= \sum_{i \in [n]} \Pr[\Event_{i}]
+\enspace.
+\end{align*}
+
+接下来证明下界。将已证上界应用于事件集合 $\{\Event_{i} \land \Event_{n}\}_{i \in [n]}$，得到
+\begin{align}
+\label{equation:inclusion-exclusion-2-eq2}
+\Pr\bigl[\idxlor{i \in [n]} (\Event_{i} \land \Event_{n})\bigr]
+\leq \sum_{i \in [n]}\Pr[\Event_{i} \land \Event_{n}]
+\enspace.
+\end{align}
+再对 $\Event^{*}$ 和 $\Event_{n}$ 应用 $n'=2$ 的归纳假设，结合 \Cref{equation:inclusion-exclusion-2-eq1,equation:inclusion-exclusion-2-eq2}，可得
+\begin{align*}
+& \Pr\bigl[\Event^{*} \lor \Event_{n}\bigr]
+\\ &\geq
+\Pr[\Event^{*}] + \Pr[\Event_{n}] - \Pr[\Event^{*} \land \Event_{n}]
+\\ &\geq
+\Bigl(\sum_{i \in [n-1]} \Pr[\Event_{i}] - \sum_{\substack{i,j \in [n-1] \\ \text{with } i \neq j}} \Pr[\Event_{i} \land \Event_{j}]\Bigr)
++ \Pr[\Event_{n}] - \Pr[\Event^{*} \land \Event_{n}]
+\\ &=
+\sum_{i \in [n]} \Pr[\Event_{i}]
+- \sum_{\substack{i,j \in [n-1] \\ \text{with } i \neq j}} \Pr[\Event_{i} \land \Event_{j}]
+- \Pr\bigl[\idxlor{i \in [n]} (\Event_{i} \land \Event_{n})\bigr]
+\\ &\geq
+\sum_{i \in [n]} \Pr[\Event_{i}]
+-
+\sum_{\substack{i,j \in [n] \\ \text{with } i \neq j}} \Pr[\Event_{i} \land \Event_{j}]
+\enspace.
+\end{align*}
+\end{proof}
+
+我们通过涉及随机变量的表达式来描述事件。在本书中，随机变量取值为二进制字符串或实数。在后者情况下，二元随机变量指仅取 0 或 1 值的随机变量。
+
+\parhead{Random variables}
+如果 $\RandomVariableX$ 是一个取值于有限集合 $\RandomVariableSupport \subseteq \Reals$ 的随机变量，则其\emph{期望}定义为：
+\begin{equation*}
+\Expectation[\RandomVariableX]
+\DefineEqual
+\sum_{x \in \RandomVariableSupport}
+x \cdot \Pr[\RandomVariableX=x]
+\enspace.
+\end{equation*}
+随机变量 $\RandomVariableX$ 和 $\RandomVariableY$ 独立当且仅当对任意 $x,y$ 有
+\[
+\Pr[\RandomVariableX=x \land \RandomVariableY=y]
+=
+\Pr[\RandomVariableX=x] \cdot \Pr[\RandomVariableY=y].
+\]
+更一般地，随机变量 $\RandomVariableX_{1},\dots,\RandomVariableX_{n}$ 独立当且仅当对任意 $x_{1},\dots,x_{n}$ 有
+\[
+\Pr\bigl[\idxland{i \in [n]} \RandomVariableX_{i}=x_{i}\bigr]
+=
+\prod_{i \in [n]} \Pr[\RandomVariableX_{i}=x_{i}].
+\]
+
+大数定律指出，给定一列相互独立且同分布的随机变量 $\{\RandomVariableX_{i}\}_{i \in \Naturals}$，$\Expectation[\RandomVariableX]$ 是
+$\frac{1}{n} \sum_{i \in [n]} \RandomVariableX_{i}$
+在 $n \to \infty$ 时的极限。$\frac{1}{n} \sum_{i \in [n]} \RandomVariableX_{i}$ 与 $\Expectation[\RandomVariableX]$ 的偏离随 $n$ 变化的情况由\emph{浓缩不等式}刻画。其中一个例子是以下（加性）\emph{Chernoff 界}。
+
+\begin{lemma}[Chernoff bound]
+\label{lemma:chernoff-bound}
+令独立的二元随机变量 $\RandomVariableX_{1},\ldots,\RandomVariableX_{n}$ 满足
+$\Pr[\RandomVariableX_{i}=1] = p_{i}$。令
+$\RandomVariableX \DefineEqual \sum_{i \in [n]} \RandomVariableX_{i}$
+和
+$\mu \DefineEqual \Expectation[\RandomVariableX] = \sum_{i \in [n]} p_{i}$。
+对于任意 $\delta \in (0,1)$，有
+\begin{align*}
+\Pr[\AbsValue{\RandomVariableX - \mu} \geq \delta \cdot \mu]
+\leq 2 \cdot e^{-\frac{\mu \delta^2}{3}}
+\enspace.
+\end{align*}
+\end{lemma}
+
+\parhead{Statistical distance}
+我们以全变差距离来度量两个随机变量的统计距离，如下定义。
+
+\begin{definition}
+\label{definition:statistical-distance}
+取值于有限集合 $\RandomVariableSupport$ 的随机变量 $\RandomVariableX$ 和 $\RandomVariableY$ 之间的\emph{统计距离}定义为
+\begin{equation}
+\label{definition:statistical-distance-def1}
+\StatisticalDistance{\RandomVariableX}{\RandomVariableY}
+\DefineEqual
+\frac{1}{2} \sum_{a \in \RandomVariableSupport} \AbsValue{\Pr[\RandomVariableX=a]-\Pr[\RandomVariableY=a]}
+\enspace.
+\end{equation}
+等价地，统计距离也可定义为
+\begin{equation}
+\label{definition:statistical-distance-def2}
+\StatisticalDistance{\RandomVariableX}{\RandomVariableY}
+\DefineEqual
+\max_{\RandomVariableSupport' \subseteq \RandomVariableSupport} \AbsValue{\Pr[\RandomVariableX \in \RandomVariableSupport']-\Pr[\RandomVariableY \in \RandomVariableSupport']}
+\enspace.
+\end{equation}
+\end{definition}
+
+我们将证明上述两种定义（\Cref{definition:statistical-distance-def1,definition:statistical-distance-def2}）是等价的。
+
+\begin{claim}
+使用 \Cref{definition:statistical-distance-def1} 给出的定义与使用 \Cref{definition:statistical-distance-def2} 给出的定义等价。
+\end{claim}
+
+\begin{proof}
+定义子集
+\[
+\RandomVariableSupport_{0}
+\DefineEqual
+\{ a \in \RandomVariableSupport : \Pr[\RandomVariableX=a] \geq \Pr[\RandomVariableY=a] \},
+\]
+并令其补集为
+\(\RandomVariableSupport_{1} \DefineEqual \RandomVariableSupport \setminus \RandomVariableSupport_{0}\)。
+注意
+\[
+\Pr[\RandomVariableX \in \RandomVariableSupport_{0}] + \Pr[\RandomVariableX \in \RandomVariableSupport_{1}] = 1,
+\quad
+\Pr[\RandomVariableY \in \RandomVariableSupport_{0}] + \Pr[\RandomVariableY \in \RandomVariableSupport_{1}] = 1.
+\]
+因此
+\begin{equation}
+\label{equation:statistical-distance-eq1}
+\Pr[\RandomVariableX \in \RandomVariableSupport_{0}] - \Pr[\RandomVariableY \in \RandomVariableSupport_{0}]
+=
+\Pr[\RandomVariableY \in \RandomVariableSupport_{1}] - \Pr[\RandomVariableX \in \RandomVariableSupport_{1}].
+\end{equation}
+可以证明 $\RandomVariableSupport_{0}$ 或 $\RandomVariableSupport_{1}$ 最大化
+\(\max_{\RandomVariableSupport' \subseteq \RandomVariableSupport} \AbsValue{\Pr[\RandomVariableX \in \RandomVariableSupport']-\Pr[\RandomVariableY \in \RandomVariableSupport']}\)。
+然后，利用 \Cref{equation:statistical-distance-eq1}，得到
+\[
+\Pr[\RandomVariableY \in \RandomVariableSupport_{1}] - \Pr[\RandomVariableX \in \RandomVariableSupport_{1}]
+=
+\max_{\RandomVariableSupport' \subseteq \RandomVariableSupport} \AbsValue{\Pr[\RandomVariableX \in \RandomVariableSupport']-\Pr[\RandomVariableY \in \RandomVariableSupport']}
+=
+\Pr[\RandomVariableX \in \RandomVariableSupport_{0}]-\Pr[\RandomVariableY \in \RandomVariableSupport_{0}].
+\]
+最后，我们有
+\begin{align*}
+\StatisticalDistance{\RandomVariableX}{\RandomVariableY}
+&\DefineEqual
+\frac{1}{2} \sum_{a \in \RandomVariableSupport} \AbsValue{\Pr[\RandomVariableX=a]-\Pr[\RandomVariableY=a]}
+\\ &=
+\frac{1}{2} \Bigl(
+\sum_{a \in \RandomVariableSupport_{0}} (\Pr[\RandomVariableX=a]-\Pr[\RandomVariableY=a])
++
+\sum_{a \in \RandomVariableSupport_{1}} (\Pr[\RandomVariableY=a]-\Pr[\RandomVariableX=a])
+\Bigr)
+\\ &=
+\frac{1}{2} \Bigl(
+\Pr[\RandomVariableX \in \RandomVariableSupport_{0}]-\Pr[\RandomVariableY \in \RandomVariableSupport_{0}]
++
+\Pr[\RandomVariableY \in \RandomVariableSupport_{1}]-\Pr[\RandomVariableX \in \RandomVariableSupport_{1}]
+\Bigr)
+\\ &=
+\Pr[\RandomVariableX \in \RandomVariableSupport_{0}]-\Pr[\RandomVariableY \in \RandomVariableSupport_{0}]
+\\ &=
+\max_{\RandomVariableSupport' \subseteq \RandomVariableSupport} \AbsValue{\Pr[\RandomVariableX \in \RandomVariableSupport']-\Pr[\RandomVariableY \in \RandomVariableSupport']}
+\enspace.
+\end{align*}
+\end{proof}
+
+\begin{claim}
+\label{claim:triangle-inequality-statistical-distance}
+统计距离函数具有以下性质：
+\begin{enumerate}[noitemsep]
+  \item 对任意随机变量 $\RandomVariableX$，$\StatisticalDistance{\RandomVariableX}{\RandomVariableX}=0$。
+  \item 对任意随机变量 $\RandomVariableX,\RandomVariableY$，$0 \leq \StatisticalDistance{\RandomVariableX}{\RandomVariableY} \leq 1$。
+  \item 对任意随机变量 $\RandomVariableX,\RandomVariableY,\RandomVariableZ$，
+  \[
+    \StatisticalDistance{\RandomVariableX}{\RandomVariableZ}
+    \leq
+    \StatisticalDistance{\RandomVariableX}{\RandomVariableY}
+    +
+    \StatisticalDistance{\RandomVariableY}{\RandomVariableZ}.
+  \]
+\end{enumerate}
+\end{claim}
+
+\begin{proof}
+前两条性质由定义即得。我们证明第三条如下：
+\begin{align*}
+\StatisticalDistance{\RandomVariableX}{\RandomVariableZ}
+&=
+\frac{1}{2} \sum_{a} \AbsValue{\Pr[\RandomVariableX=a]-\Pr[\RandomVariableZ=a]}
+\\ &=
+\frac{1}{2} \sum_{a} \AbsValue{(\Pr[\RandomVariableX=a]-\Pr[\RandomVariableY=a]) + (\Pr[\RandomVariableY=a]-\Pr[\RandomVariableZ=a])}
+\\ &\leq
+\frac{1}{2} \sum_{a} \AbsValue{\Pr[\RandomVariableX=a]-\Pr[\RandomVariableY=a]}
++
+\frac{1}{2} \sum_{a} \AbsValue{\Pr[\RandomVariableY=a]-\Pr[\RandomVariableZ=a]}
+\\ &=
+\StatisticalDistance{\RandomVariableX}{\RandomVariableY}
++
+\StatisticalDistance{\RandomVariableY}{\RandomVariableZ}.
+\end{align*}
+\end{proof}
+
+\begin{claim}
+\label{claim:function-and-statistical-distance}
+对于任意随机变量 $\RandomVariableX,\RandomVariableY$ 和定义在取值域 $\RandomVariableSupport$ 上的函数 $f$，有
+\[
+\StatisticalDistance{f(\RandomVariableX)}{f(\RandomVariableY)}
+\leq
+\StatisticalDistance{\RandomVariableX}{\RandomVariableY}.
+\]
+\end{claim}
+
+\begin{proof}
+\begin{align*}
+\StatisticalDistance{f(\RandomVariableX)}{f(\RandomVariableY)}
+&=
+\frac{1}{2} \sum_{b \in f(\RandomVariableSupport)} \AbsValue{\Pr[f(\RandomVariableX)=b]-\Pr[f(\RandomVariableY)=b]}
+\\ &=
+\frac{1}{2}
+\sum_{b \in f(\RandomVariableSupport)}
+\AbsValue{\sum_{a \in f^{(-1)}(b)}\bigl(\Pr[\RandomVariableX=a]-\Pr[\RandomVariableY=a]\bigr)}
+\\ &\leq
+\frac{1}{2}
+\sum_{b \in f(\RandomVariableSupport)}
+\sum_{a \in f^{(-1)}(b)}
+\AbsValue{\Pr[\RandomVariableX=a]-\Pr[\RandomVariableY=a]}
+\\ &\leq
+\frac{1}{2}
+\sum_{a \in \RandomVariableSupport}
+\AbsValue{\Pr[\RandomVariableX=a]-\Pr[\RandomVariableY=a]}
+\\ &\leq
+\StatisticalDistance{\RandomVariableX}{\RandomVariableY}.
+\end{align*}
+\end{proof}
+
+假设我们有一个随机变量 $\RandomVariableX$ 和两个依赖于 $\RandomVariableX$ 的随机变量家族 $\{\RandomVariableY(x)\}_{x}$ 和 $\{\RandomVariableY'(x)\}_{x}$。定义随机变量 $\RandomVariableY$ 为先从 $\RandomVariableX$ 取样 $x$，再从 $\RandomVariableY(x)$ 中取样；$\RandomVariableY'$ 类似。若
+\[
+\Pr_{x \gets \RandomVariableX}\bigl[\StatisticalDistance{\RandomVariableY(x)}{\RandomVariableY'(x)} \geq \delta\bigr] \leq \epsilon,
+\]
+则
+\[
+\StatisticalDistance{(\RandomVariableX,\RandomVariableY)}{(\RandomVariableX,\RandomVariableY')} \leq \delta + \epsilon.
+\]
+
+\begin{claim}
+\label{claim:statistical-distance-for-derived-variables}
+如上所述，若 $\Pr_{x \gets \RandomVariableX}[\StatisticalDistance{\RandomVariableY(x)}{\RandomVariableY'(x)} \geq \delta] \leq \epsilon$，则
+\[
+\StatisticalDistance{(\RandomVariableX,\RandomVariableY)}{(\RandomVariableX,\RandomVariableY')} \leq \delta + \epsilon.
+\]
+\end{claim}
+
+\begin{proof}
+定义
+\[
+S \DefineEqual \{ x : \StatisticalDistance{\RandomVariableY(x)}{\RandomVariableY'(x)} \geq \delta \}.
+\]
+则
+\begin{align*}
+\StatisticalDistance{(\RandomVariableX,\RandomVariableY)}{(\RandomVariableX,\RandomVariableY')}
+&=
+\frac{1}{2} \sum_{x,y} \AbsValue{\Pr[(\RandomVariableX,\RandomVariableY)=(x,y)] - \Pr[(\RandomVariableX,\RandomVariableY')=(x,y)]}
+\\ &=
+\frac{1}{2} \sum_{x,y} \AbsValue{\Pr[\RandomVariableX=x]\bigl(\Pr[\RandomVariableY(x)=y]-\Pr[\RandomVariableY'(x)=y]\bigr)}
+\\ &=
+\sum_{x} \Pr[\RandomVariableX=x] \cdot \StatisticalDistance{\RandomVariableY(x)}{\RandomVariableY'(x)}
+\\ &=
+\sum_{x \in S} \Pr[\RandomVariableX=x] \cdot \StatisticalDistance{\RandomVariableY(x)}{\RandomVariableY'(x)}
++
+\sum_{x \notin S} \Pr[\RandomVariableX=x] \cdot \StatisticalDistance{\RandomVariableY(x)}{\RandomVariableY'(x)}
+\\ &\leq
+\sum_{x \in S} \Pr[\RandomVariableX=x] \cdot 1
++
+\sum_{x \notin S} \Pr[\RandomVariableX=x] \cdot \delta
+\\ &\leq
+\epsilon + \delta.
+\end{align*}
+\end{proof}
+
+\begin{claim}
+\label{claim:statistical-distance-condition-event}
+令 $\RandomVariableX$ 和 $\RandomVariableY$ 为同一概率空间上的随机变量，$\Event_{1}$ 和 $\Event_{2}$ 为两事件且 $\Pr[\Event_{1}]=\Pr[\Event_{2}]$。则
+\[
+\StatisticalDistance{\RandomVariableX}{\RandomVariableY}
+\leq
+\StatisticalDistance{(\RandomVariableX \ConditionedOn \Event_{1})}{(\RandomVariableY \ConditionedOn \Event_{2})}
++ \Pr[\Negate{\Event_{1}}].
+\]
+\end{claim}
+
+\begin{proof}
+设 $\RandomVariableSupport$ 为这两个随机变量的取值域。对任意子集 $\RandomVariableSupport' \subseteq \RandomVariableSupport$，由全概率公式有：
+\begin{align*}
+&
+\AbsValue{\Pr[\RandomVariableX \in \RandomVariableSupport'] - \Pr[\RandomVariableY \in \RandomVariableSupport']}
+\\ &=
+\Bigl\lvert
+\Pr[\RandomVariableX \in \RandomVariableSupport' \ConditionedOn \Event_{1}]\cdot \Pr[\Event_{1}]
++
+\Pr[\RandomVariableX \in \RandomVariableSupport' \ConditionedOn \Negate{\Event_{1}}]\cdot \Pr[\Negate{\Event_{1}}]
+\\ &\quad
+-
+\Pr[\RandomVariableY \in \RandomVariableSupport' \ConditionedOn \Event_{2}]\cdot \Pr[\Event_{2}]
+-
+\Pr[\RandomVariableY \in \RandomVariableSupport' \ConditionedOn \Negate{\Event_{2}}]\cdot \Pr[\Negate{\Event_{2}}]
+\Bigr\rvert
+\\ &=
+\Bigl\lvert
+\Pr[\Event_{1}]\bigl(\Pr[\RandomVariableX \in \RandomVariableSupport' \ConditionedOn \Event_{1}]-\Pr[\RandomVariableY \in \RandomVariableSupport' \ConditionedOn \Event_{2}]\bigr)
+\\ &\quad
++
+\Pr[\Negate{\Event_{1}}]\bigl(\Pr[\RandomVariableX \in \RandomVariableSupport' \ConditionedOn \Negate{\Event_{1}}]-\Pr[\RandomVariableY \in \RandomVariableSupport' \ConditionedOn \Negate{\Event_{2}}]\bigr)
+\Bigr\rvert
+\\ &\leq
+\Pr[\Event_{1}]\AbsValue{\Pr[\RandomVariableX \in \RandomVariableSupport' \ConditionedOn \Event_{1}]-\Pr[\RandomVariableY \in \RandomVariableSupport' \ConditionedOn \Event_{2}]}
+\\ &\quad
++
+\Pr[\Negate{\Event_{1}}]\AbsValue{\Pr[\RandomVariableX \in \RandomVariableSupport' \ConditionedOn \Negate{\Event_{1}}]-\Pr[\RandomVariableY \in \RandomVariableSupport' \ConditionedOn \Negate{\Event_{2}}]}
+\\ &\leq
+\AbsValue{\Pr[\RandomVariableX \in \RandomVariableSupport' \ConditionedOn \Event_{1}]-\Pr[\RandomVariableY \in \RandomVariableSupport' \ConditionedOn \Event_{2}]}
++
+\Pr[\Negate{\Event_{1}}].
+\end{align*}
+因此，由等价定义 \Cref{definition:statistical-distance-def2}，得
+\begin{align*}
+\StatisticalDistance{\RandomVariableX}{\RandomVariableY}
+&\DefineEqual
+\max_{\RandomVariableSupport' \subseteq \RandomVariableSupport}\AbsValue{\Pr[\RandomVariableX \in \RandomVariableSupport'] - \Pr[\RandomVariableY \in \RandomVariableSupport']}
+\\ &\leq
+\max_{\RandomVariableSupport' \subseteq \RandomVariableSupport}\AbsValue{\Pr[\RandomVariableX \in \RandomVariableSupport' \ConditionedOn \Event_{1}] - \Pr[\RandomVariableY \in \RandomVariableSupport' \ConditionedOn \Event_{2}]}
++ \Pr[\Negate{\Event_{1}}]
+\\ &=
+\StatisticalDistance{(\RandomVariableX \ConditionedOn \Event_{1})}{(\RandomVariableY \ConditionedOn \Event_{2})}
++ \Pr[\Negate{\Event_{1}}].
+\end{align*}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{概率实验}
+\label{section:probabilistic-experiments}
+
+我们引入用于定义这些实验上随机变量和事件的记号。
+\begin{itemize}
+
+  \item 我们记
+  $\{x \GivenExperiment x \gets A\}$
+  表示根据随机算法 $A$ 采样得到字符串 $x$ 的随机变量。
+
+  \item 我们记
+  $\Pr\bigl[f(x)=1 \GivenExperiment x \gets A\bigr]$
+  表示当 $x$ 根据随机算法 $A$ 采样时，对于给定的布尔函数 $f$，事件 $f(x)=1$ 的概率。
+
+  \item 我们记
+  $\Pr\bigl[D(x)=1 \GivenExperiment x \gets A\bigr]$
+  表示当 $x$ 根据随机算法 $A$ 采样，并且 $D$ 是随机算法时，事件 $D(x)=1$ 的概率。在此情况下，概率在 $A$ 和 $D$ 的随机性上取。
+
+\end{itemize}
+有时我们在表达式内部隐式地定义算法 $A$ 或布尔函数，使用伪代码和逻辑表达式。例如，我们可以写
+\begin{equation*}
+\{(y,z) \GivenExperiment
+\StateExperiment{
+y \gets B \\
+z \gets C(y)
+}
+\}
+\end{equation*}
+表示随机变量 $x \DefineEqual (y,z)$，由算法 $A$ 实现：先根据 $B$ 采样得到 $y$，再以 $y$ 为输入根据 $C$ 采样得到 $z$，并输出对 $(y,z)$。我们也可以写
+\begin{equation*}
+\Pr\bigl[y=z \GivenExperiment
+\StateExperiment{
+y \gets B \\
+z \gets C(y)
+}
+\bigr]
+\end{equation*}
+表示如上采样得到的随机变量 $x=(y,z)$ 满足布尔函数 $f(x)=1$（当且仅当 $y=z$）的概率。
+
+本书中概率实验的主要目的是通过指定对手的行为并给出其输出的\DoQuote{获胜条件}来描述密码方案的安全性属性。
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{辅助等式（不等式）}
+\label{section:equalities-and-inequalities}
+
+我们陈述本书中将反复使用的若干等式和不等式。
+
+\begin{lemma}[二项式系数的界]
+\label{lemma:binom-approx}
+对于任意 $n,k\in\Naturals$ 且 $1\le k\le n$，
+\begin{align*}
+\Bigl(\frac{n}{k}\Bigr)^{k}
+\le
+\binom{n}{k}
+\le
+\Bigl(\frac{e\cdot n}{k}\Bigr)^{k}
+\enspace.
+\end{align*}
+\end{lemma}
+
+\begin{lemma}[等差级数]
+\label{lemma:arithmetic-progression}
+对于任意 $a,d\in\Reals$，
+\begin{equation*}
+\sum_{i=1}^{n}\bigl(a+(i-1)d\bigr)
+=na+\frac{n(n-1)}{2}d
+\enspace.
+\end{equation*}
+\end{lemma}
+
+\begin{lemma}[等比级数]
+\label{lemma:geometric-progression}
+对于任意 $r\in(0,1)$ 和 $a\in\Reals$，
+\begin{equation*}
+\sum_{i=1}^{n}a\,r^{i-1}
+=a\,\frac{r^{n}-1}{r-1}
+\enspace.
+\end{equation*}
+\end{lemma}
+
+
+\begin{lemma}
+\label{lemma:sum-seq-prod}
+令 $\delta_{1},\ldots,\delta_{n}\in[0,1]$ 且满足 $\sum_{i=1}^{n}\delta_{i}=1$。则
+\begin{align*}
+\sum_{i=2}^{n}\delta_{i-1}\cdot\delta_{i}\le1/4
+\enspace.
+\end{align*}
+\end{lemma}
+
+\begin{proof}
+我们首先注意到要给出 1 的上界相对容易。由于每个 $\delta_{i}\le1$，可得
+\[
+\sum_{i=2}^{n}\delta_{i-1}\cdot\delta_{i}
+\le
+\sum_{i=2}^{n}\delta_{i}
+\le1.
+\]
+下面的证明致力于给出更紧的 $1/4$ 上界。
+
+第一步，我们证明当除三个变量外其余均为零时，表达式取得最大值。令索引 $i\in[n]$ 是使 $\delta_{i-1}+\delta_{i+1}$ 最大的最小下标。对于任意 $j\in[n]\setminus\{i-1,i,i+1\}$ 且 $\delta_{j}>0$，我们将 $\delta_{j}$ 的全部权重移动到 $\delta_{i}$ 并展示该操作不会减小表达式。定义新的序列
+\[
+\delta'_{k}\DefineEqual
+\begin{cases*}
+0, & 若 $k=j$;\\
+\delta_{i}+\delta_{j}, & 若 $k=i$;\\
+\delta_{k}, & 其他情况.
+\end{cases*}
+\]
+然后，原式与新序列下的式子之差仅在含 $i$ 或 $j$ 的项上。我们需验证
+\[
+\delta_{j-1}\delta_{j}+\delta_{j}\delta_{j+1}+\delta_{i-1}\delta_{i}+\delta_{i}\delta_{i+1}
+\le
+\delta'_{j-1}\delta'_{j}+\delta'_{j}\delta'_{j+1}+\delta'_{i-1}\delta'_{i}+\delta'_{i}\delta'_{i+1}.
+\]
+注意 $\delta'_{j}=0$ 且 $\delta'_{i}=\delta_{i}+\delta_{j}$，故不等式化简为
+\[
+\delta_{j-1}+\delta_{j+1}
+\le
+\delta_{i-1}+\delta_{i+1},
+\]
+这正是 $i$ 的选择所保证的。因此，除 $\{i-1,i,i+1\}$ 外，其余 $\delta_{k}=0$。
+
+在此基础上，原式化简为
+\[
+\delta_{i-1}\delta_{i}+\delta_{i}\delta_{i+1}
+=\delta_{i}(\delta_{i-1}+\delta_{i+1})
+=\delta_{i}(1-\delta_{i})
+\le\tfrac14,
+\]
+完成证明。
+\end{proof}
+
+
+
+
 \printbibliography
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
