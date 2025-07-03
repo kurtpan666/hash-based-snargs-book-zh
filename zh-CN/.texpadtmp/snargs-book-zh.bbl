@@ -16,5 +16,133 @@
   {}
 \endgroup
 
+
+\refsection{0}
+  \datalist[entry]{anyt/global//global/global/global}
+    \entry{FOPPSummer21}{misc}{}{}
+      \name{author}{2}{}{%
+        {{hash=dfbdc8dc8205deeb7a8fbc765799dd0b}{%
+           family={Chiesa},
+           familyi={C\bibinitperiod},
+           given={Alessandro},
+           giveni={A\bibinitperiod}}}%
+        {{hash=765e93b292884e6e1e3ee3428cc7e844}{%
+           family={Gur},
+           familyi={G\bibinitperiod},
+           given={Tom},
+           giveni={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{f7e3afee0486170ce8b68d756290f475}
+      \strng{fullhash}{f7e3afee0486170ce8b68d756290f475}
+      \strng{fullhashraw}{f7e3afee0486170ce8b68d756290f475}
+      \strng{bibnamehash}{f7e3afee0486170ce8b68d756290f475}
+      \strng{authorbibnamehash}{f7e3afee0486170ce8b68d756290f475}
+      \strng{authornamehash}{f7e3afee0486170ce8b68d756290f475}
+      \strng{authorfullhash}{f7e3afee0486170ce8b68d756290f475}
+      \strng{authorfullhashraw}{f7e3afee0486170ce8b68d756290f475}
+      \field{labelalpha}{CG21}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Foundations and frontiers of probabilistic proofs}
+      \field{year}{2021}
+      \verb{urlraw}
+      \verb https://www.slmath.org/workshops/931
+      \endverb
+      \verb{url}
+      \verb https://www.slmath.org/workshops/931
+      \endverb
+    \endentry
+    \entry{FOPPSummer23}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=dfbdc8dc8205deeb7a8fbc765799dd0b}{%
+           family={Chiesa},
+           familyi={C\bibinitperiod},
+           given={Alessandro},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{dfbdc8dc8205deeb7a8fbc765799dd0b}
+      \strng{fullhash}{dfbdc8dc8205deeb7a8fbc765799dd0b}
+      \strng{fullhashraw}{dfbdc8dc8205deeb7a8fbc765799dd0b}
+      \strng{bibnamehash}{dfbdc8dc8205deeb7a8fbc765799dd0b}
+      \strng{authorbibnamehash}{dfbdc8dc8205deeb7a8fbc765799dd0b}
+      \strng{authornamehash}{dfbdc8dc8205deeb7a8fbc765799dd0b}
+      \strng{authorfullhash}{dfbdc8dc8205deeb7a8fbc765799dd0b}
+      \strng{authorfullhashraw}{dfbdc8dc8205deeb7a8fbc765799dd0b}
+      \field{labelalpha}{Chi23}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Foundations and frontiers of probabilistic proofs}
+      \field{year}{2023}
+      \verb{urlraw}
+      \verb https://www.slmath.org/workshops/1037
+      \endverb
+      \verb{url}
+      \verb https://www.slmath.org/workshops/1037
+      \endverb
+    \endentry
+    \entry{ThalerBook}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=3a3494692023101d1ccddbb75d675624}{%
+           family={Thaler},
+           familyi={T\bibinitperiod},
+           given={Justin},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{3a3494692023101d1ccddbb75d675624}
+      \strng{fullhash}{3a3494692023101d1ccddbb75d675624}
+      \strng{fullhashraw}{3a3494692023101d1ccddbb75d675624}
+      \strng{bibnamehash}{3a3494692023101d1ccddbb75d675624}
+      \strng{authorbibnamehash}{3a3494692023101d1ccddbb75d675624}
+      \strng{authornamehash}{3a3494692023101d1ccddbb75d675624}
+      \strng{authorfullhash}{3a3494692023101d1ccddbb75d675624}
+      \strng{authorfullhashraw}{3a3494692023101d1ccddbb75d675624}
+      \field{labelalpha}{Tha22}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Proofs, arguments, and zero-knowledge}
+      \field{year}{2022}
+      \verb{urlraw}
+      \verb https://people.cs.georgetown.edu/jthaler/ProofsArgsAndZK.html
+      \endverb
+      \verb{url}
+      \verb https://people.cs.georgetown.edu/jthaler/ProofsArgsAndZK.html
+      \endverb
+    \endentry
+    \entry{ZKProof}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=e09b2c57646be005478049a0b3099602}{%
+           family={ZKProof},
+           familyi={Z\bibinitperiod}}}%
+      }
+      \strng{namehash}{e09b2c57646be005478049a0b3099602}
+      \strng{fullhash}{e09b2c57646be005478049a0b3099602}
+      \strng{fullhashraw}{e09b2c57646be005478049a0b3099602}
+      \strng{bibnamehash}{e09b2c57646be005478049a0b3099602}
+      \strng{authorbibnamehash}{e09b2c57646be005478049a0b3099602}
+      \strng{authornamehash}{e09b2c57646be005478049a0b3099602}
+      \strng{authorfullhash}{e09b2c57646be005478049a0b3099602}
+      \strng{authorfullhashraw}{e09b2c57646be005478049a0b3099602}
+      \field{labelalpha}{ZKP22}
+      \field{sortinit}{Z}
+      \field{sortinithash}{96892c0b0a36bb8557c40c49813d48b3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{ZKProof} community reference}
+      \field{year}{2022}
+      \verb{urlraw}
+      \verb https://docs.zkproof.org/reference
+      \endverb
+      \verb{url}
+      \verb https://docs.zkproof.org/reference
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
 \endinput
 

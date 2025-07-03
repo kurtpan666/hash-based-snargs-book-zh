@@ -169,6 +169,10 @@
 \setmainjfont{LXGW WenKai Screen}[
     BoldFont = LXGW WenKai,
     BoldFeatures = {FakeBold=2.5},
+    ItalicFont = LXGW WenKai Screen,
+    ItalicFeatures = {FakeSlant=0.2},
+    BoldItalicFont = LXGW WenKai,
+    BoldItalicFeatures = {FakeBold=2.5,FakeSlant=0.2},
     YokoFeatures = {JFM=ujis},
     TateFeatures = {JFM=ujisv}
 ]
@@ -179,11 +183,30 @@
 \ltjsetparameter{yalbaselineshift=0pt}
 
 % 定义额外的字体家族以备需要
-\newjfontfamily\wenkai{LXGW WenKai Screen}[BoldFont=LXGW WenKai,BoldFeatures={FakeBold=2.5}]
+\newjfontfamily\wenkai{LXGW WenKai Screen}[
+    BoldFont=LXGW WenKai,
+    BoldFeatures={FakeBold=2.5},
+    ItalicFont=LXGW WenKai Screen,
+    ItalicFeatures={FakeSlant=0.2},
+    BoldItalicFont=LXGW WenKai,
+    BoldItalicFeatures={FakeBold=2.5,FakeSlant=0.2}
+]
 
 % 为确保所有 CJK 字符都使用正确字体，可以设置额外的字体回退
 % \ltjsetparameter{yjabaselineshift=0pt}
 % \ltjsetparameter{yalbaselineshift=0pt}
+
+% 解决中文字符在 \emph 环境中显示为方框的问题
+% 使用简单直接的字体切换方法
+\AtBeginDocument{%
+    \renewcommand{\emph}[1]{%
+        \begingroup
+        \itshape
+        \wenkai
+        #1%
+        \endgroup
+    }%
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -385,6 +408,7 @@
 \newtheorem{definition}[theorem]{定义}
 \newtheorem{lemma}[theorem]{引理}
 \newtheorem{claim}[theorem]{论断}
+
 \definecolor{theorembackgroundcolor}{HTML}{e0f3e0}
 \definecolor{theoremlinecolor}{HTML}{707a70}
 \theoremstyle{definition} % non-italics

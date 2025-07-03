@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.21.0 (TeX Live 2025)  (format=lualatex 2025.4.28)  24 JUN 2025 00:04
+This is LuaHBTeX, Version 1.21.0 (TeX Live 2025)  (format=lualatex 2025.4.28)  3 JUL 2025 14:18
  restricted system commands enabled.
  file:line:error style messages enabled.
 **snargs-book-zh.tex
@@ -2067,21 +2067,22 @@ luaotfload | cache : Lookup cache loaded from /Users/kurtpan/Library/texlive/202
 Package fontspec Info: 
 (fontspec)             LXGW WenKai Screen scale = 0.96221923828125.
 
+
+Package fontspec Info: 
+(fontspec)             LXGW WenKai Screen scale = 0.96221923828125.
+
+
+Package fontspec Info: 
+(fontspec)             LXGW WenKai Screen scale = 0.96221923828125.
+
 (load cache: extra_lxgwwenkai-regular.luc)
 
 Package fontspec Info: 
-(fontspec)             Could not resolve font "LXGW WenKai/I" (it probably
-(fontspec)             doesn't exist).
+(fontspec)             LXGW WenKai scale = 0.96221923828125.
 
 
 Package fontspec Info: 
-(fontspec)             Could not resolve font "LXGW WenKai Screen/BI" (it
-(fontspec)             probably doesn't exist).
-
-
-Package fontspec Info: 
-(fontspec)             Could not resolve font "LXGW WenKai Screen/I" (it
-(fontspec)             probably doesn't exist).
+(fontspec)             LXGW WenKai scale = 0.96221923828125.
 
 
 Package fontspec Info: 
@@ -2104,52 +2105,56 @@ Package fontspec Info:
 (fontspec)             Font family 'LXGWWenKaiScreen(0)' created for font
 (fontspec)             'LXGW WenKai Screen' with options
 (fontspec)             [YokoFeatures={JFM=ujis},TateFeatures={JFM=ujisv},Scale=0.96221923828125,Kerning=Off,Script=CJK,BoldFont
-(fontspec)             = LXGW WenKai,BoldFeatures =
-(fontspec)             {FakeBold=2.5},YokoFeatures = {JFM=ujis},TateFeatures =
-(fontspec)             {JFM=ujisv}].
+(fontspec)             = LXGW WenKai,BoldFeatures = {FakeBold=2.5},ItalicFont
+(fontspec)             = LXGW WenKai Screen,ItalicFeatures =
+(fontspec)             {FakeSlant=0.2},BoldItalicFont = LXGW
+(fontspec)             WenKai,BoldItalicFeatures =
+(fontspec)             {FakeBold=2.5,FakeSlant=0.2},YokoFeatures =
+(fontspec)             {JFM=ujis},TateFeatures = {JFM=ujisv}].
 (fontspec)              
 (fontspec)              This font family consists of the following NFSS
 (fontspec)             series/shapes:
 (fontspec)              
 
-LaTeX Font Info:    Redeclaring symbol font `mincho' on input line 174.
+LaTeX Font Info:    Redeclaring symbol font `mincho' on input line 178.
 LaTeX Font Info:    Overwriting symbol font `mincho' in version `normal'
-(Font)                  JY3/mc/m/n --> JY3/LXGWWenKaiScreen(0)/m/n on input line 174.
+(Font)                  JY3/mc/m/n --> JY3/LXGWWenKaiScreen(0)/m/n on input line 178.
 LaTeX Font Info:    Overwriting symbol font `mincho' in version `bold'
-(Font)                  JY3/gt/m/n --> JY3/LXGWWenKaiScreen(0)/m/n on input line 174.
+(Font)                  JY3/gt/m/n --> JY3/LXGWWenKaiScreen(0)/m/n on input line 178.
 LaTeX Font Info:    Overwriting symbol font `mincho' in version `bold'
-(Font)                  JY3/LXGWWenKaiScreen(0)/m/n --> JY3/LXGWWenKaiScreen(0)/b/n on input line 174.
+(Font)                  JY3/LXGWWenKaiScreen(0)/m/n --> JY3/LXGWWenKaiScreen(0)/b/n on input line 178.
 LaTeX Font Info:    Font shape `JT3/LXGWWenKaiScreen(0)/m/n' will be
-(Font)              scaled to size 9.6222pt on input line 174.
+(Font)              scaled to size 9.6222pt on input line 178.
 LaTeX Font Info:    Font shape `JY3/LXGWWenKaiScreen(0)/m/n' will be
-(Font)              scaled to size 9.6222pt on input line 174.
+(Font)              scaled to size 9.6222pt on input line 178.
 
 Package fontspec Info: 
 (fontspec)             LXGW WenKai Screen scale = 0.96221923828125.
 
 
 Package fontspec Info: 
-(fontspec)             Could not resolve font "LXGW WenKai/I" (it probably
-(fontspec)             doesn't exist).
+(fontspec)             LXGW WenKai Screen scale = 0.96221923828125.
+
+LaTeX Font Info:    Font shape `JT3/LXGWWenKaiScreen(0)/m/n' will be
+(Font)              scaled to size 10.53629pt on input line 193.
+LaTeX Font Info:    Font shape `JY3/LXGWWenKaiScreen(0)/m/n' will be
+(Font)              scaled to size 10.53629pt on input line 193.
+
+Package fontspec Info: 
+(fontspec)             LXGW WenKai Screen scale = 0.96221923828125.
 
 
 Package fontspec Info: 
-(fontspec)             Could not resolve font "LXGW WenKai Screen/BI" (it
-(fontspec)             probably doesn't exist).
+(fontspec)             LXGW WenKai scale = 0.96221923828125.
 
 
 Package fontspec Info: 
-(fontspec)             Could not resolve font "LXGW WenKai Screen/I" (it
-(fontspec)             probably doesn't exist).
+(fontspec)             LXGW WenKai scale = 0.96221923828125.
 
 
 Package fontspec Info: 
 (fontspec)             LXGW WenKai Screen scale = 0.96221923828125.
 
-LaTeX Font Info:    Font shape `JT3/LXGWWenKaiScreen(0)/m/n' will be
-(Font)              scaled to size 10.53629pt on input line 182.
-LaTeX Font Info:    Font shape `JY3/LXGWWenKaiScreen(0)/m/n' will be
-(Font)              scaled to size 10.53629pt on input line 182.
 
 Package fontspec Info: 
 (fontspec)             LXGW WenKai Screen scale = 0.96221923828125.
@@ -2167,7 +2172,10 @@ Package fontspec Info:
 (fontspec)             Font family 'LXGWWenKaiScreen(1)' created for font
 (fontspec)             'LXGW WenKai Screen' with options
 (fontspec)             [YokoFeatures={JFM=ujis},TateFeatures={JFM=ujisv},Scale=0.96221923828125,Kerning=Off,Script=CJK,BoldFont=LXGW
-(fontspec)             WenKai,BoldFeatures={FakeBold=2.5}].
+(fontspec)             WenKai,BoldFeatures={FakeBold=2.5},ItalicFont=LXGW
+(fontspec)             WenKai
+(fontspec)             Screen,ItalicFeatures={FakeSlant=0.2},BoldItalicFont=LXGW
+(fontspec)             WenKai,BoldItalicFeatures={FakeBold=2.5,FakeSlant=0.2}].
 (fontspec)              
 (fontspec)              This font family consists of the following NFSS
 (fontspec)             series/shapes:
@@ -2177,7 +2185,7 @@ Package fontspec Info:
 \c@tcb@cnt@ImportantDefinition=\count524
 \c@tcb@cnt@ImportantTheorem=\count525
 \c@tcb@cnt@ImportantConstruction=\count526
-Package biblatex Info: Delimiter 'nametitledelim' in context 'bib' already defined, overwriting on input line 472.
+Package biblatex Info: Delimiter 'nametitledelim' in context 'bib' already defined, overwriting on input line 496.
 \tnwpart=\skip118
 \tnwchapter=\skip119
 \tnwsection=\skip120
@@ -2204,7 +2212,14 @@ Package csquotes Info: ... configuration file loaded successfully.
 File: csquotes.cfg 
 )) (/usr/local/texlive/2025/texmf-dist/tex/luatex/luatexja/patches/lltjp-array.sty
 Package: lltjp-array 2024-07-21 Patch to array for LuaTeX-ja
-) (/Users/kurtpan/Documents/GitHub/hash-based-snargs-book-zh/zh-CN/.texpadtmp/snargs-book-zh.aux)
+) (/Users/kurtpan/Documents/GitHub/hash-based-snargs-book-zh/zh-CN/.texpadtmp/snargs-book-zh.aux
+
+LaTeX Warning: Label `section:rom-lazy-sampling' multiply defined.
+
+
+LaTeX Warning: Label `section:rom-lazy-sampling@cref' multiply defined.
+
+)
 \openout1 = snargs-book-zh.aux
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 876.
@@ -2468,6 +2483,21 @@ Package luatex.def Info: doclicense-CC-by-sa-88x31.pdf  used on input line 887.
 
 
 [2</usr/local/texlive/2025/texmf-dist/tex/latex/doclicense/images/doclicense-CC-by-sa-88x31.pdf>]
+
+./snargs-book-zh.tex:895: Package kvsetkeys Error: Undefined key `pdfbookmarksdepth'.
+
+See the kvsetkeys package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.895 \hypersetup{pdfbookmarksdepth=3}
+                                      
+The keyval family of the key `pdfbookmarksdepth' is `Hyp'.
+The setting of the key is ignored because of the error.
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
 \tf@toc=\write5
 
 \openout5 = snargs-book-zh.toc
@@ -2480,14 +2510,64 @@ LaTeX Font Info:    Font shape `JT3/LXGWWenKaiScreen(0)/b/n' will be
 LaTeX Font Info:    Font shape `JY3/LXGWWenKaiScreen(0)/b/n' will be
 (Font)              scaled to size 19.95642pt on input line 898.
 Package tocbasic Info: character protrusion at toc deactivated on input line 898.
+Runaway argument?
+./snargs-book-zh.tex:898: Paragraph ended before \pgfkeys@addpath was complete.
+<to be read again> 
+                   \par 
+l.898 
+      
+I suspect you've forgotten a `}', causing me to apply this
+control sequence to too much text. How can we recover?
+My plan is to forget the whole thing and hope for the best.
+
+./snargs-book-zh.tex:898: Missing \endcsname inserted.
+<to be read again> 
+                   \scan_stop: 
+l.898 
+      
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+./snargs-book-zh.tex:898: Missing \endcsname inserted.
+<to be read again> 
+                   \scan_stop: 
+l.898 
+      
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+Runaway argument?
+./snargs-book-zh.tex:898: Paragraph ended before \pgfkeys@splitter was complete.
+<to be read again> 
+                   \par 
+l.898 
+      
+I suspect you've forgotten a `}', causing me to apply this
+control sequence to too much text. How can we recover?
+My plan is to forget the whole thing and hope for the best.
+
 
 
 LaTeX Font Info:    Font shape `TU/lmroman10-regular.otf(0)/m/sl' in size <10.95> not available
 (Font)              Font shape `TU/lmroman10-regular.otf(0)/m/it' tried instead on input line 899.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 899.
+LaTeX Font Info:    Font shape `JT3/LXGWWenKaiScreen(0)/m/sl' in size <10.95> not available
+(Font)              Font shape `JT3/LXGWWenKaiScreen(0)/m/it' tried instead on input line 899.
+LaTeX Font Info:    Font shape `JT3/LXGWWenKaiScreen(0)/m/it' will be
+(Font)              scaled to size 10.53629pt on input line 899.
+LaTeX Font Info:    Font shape `JY3/LXGWWenKaiScreen(0)/m/sl' in size <10.95> not available
+(Font)              Font shape `JY3/LXGWWenKaiScreen(0)/m/it' tried instead on input line 899.
+LaTeX Font Info:    Font shape `JY3/LXGWWenKaiScreen(0)/m/it' will be
+(Font)              scaled to size 10.53629pt on input line 899.
 LaTeX Font Info:    Font shape `TU/lmroman10-regular.otf(0)/b/sl' in size <10.95> not available
 (Font)              Font shape `TU/lmroman10-regular.otf(0)/b/it' tried instead on input line 899.
+LaTeX Font Info:    Font shape `JT3/LXGWWenKaiScreen(0)/b/sl' in size <10.95> not available
+(Font)              Font shape `JT3/LXGWWenKaiScreen(0)/b/it' tried instead on input line 899.
+LaTeX Font Info:    Font shape `JT3/LXGWWenKaiScreen(0)/b/it' will be
+(Font)              scaled to size 10.53629pt on input line 899.
+LaTeX Font Info:    Font shape `JY3/LXGWWenKaiScreen(0)/b/sl' in size <10.95> not available
+(Font)              Font shape `JY3/LXGWWenKaiScreen(0)/b/it' tried instead on input line 899.
+LaTeX Font Info:    Font shape `JY3/LXGWWenKaiScreen(0)/b/it' will be
+(Font)              scaled to size 10.53629pt on input line 899.
 
 Package fontspec Info: 
 (fontspec)             lmsans10-regular scale = 1.
@@ -2532,16 +2612,6 @@ Package fontspec Info:
 
 LaTeX Font Info:    Font shape `TU/lmsans10-regular.otf(1)/b/n' will be
 (Font)              scaled to size 10.95pt on input line 899.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 899.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 899.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 899.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 899.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 899.
 [3
 
 
@@ -2549,28 +2619,14 @@ LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
 chapter without number
 
 
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 922.
 
 Package fontspec Info: 
 (fontspec)             lmsans10-regular scale = 1.
 
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 922.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 922.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 922.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 922.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 922.
 [4
 
 ]
 
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 928.
 
 Package fontspec Info: 
 (fontspec)             lmsans10-regular scale = .95.
@@ -2619,24 +2675,16 @@ LaTeX Font Info:    Font shape `TU/lmsans10-regular.otf(2)/b/n' will be
 Package fontspec Info: 
 (fontspec)             lmsans10-regular scale = 1.
 
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 928.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 928.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 928.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 928.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 928.
 [5]
 chapter without number
 LaTeX Font Info:    Font shape `JY3/LXGWWenKaiScreen(0)/m/n' will be
 (Font)              scaled to size 6.73553pt on input line 931.
 LaTeX Font Info:    Font shape `JY3/LXGWWenKaiScreen(0)/m/n' will be
 (Font)              scaled to size 4.8111pt on input line 931.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/it' undefined
-(Font)              No change on input line 931.
+LaTeX Font Info:    Font shape `JT3/LXGWWenKaiScreen(0)/m/it' will be
+(Font)              scaled to size 9.6222pt on input line 931.
+LaTeX Font Info:    Font shape `JY3/LXGWWenKaiScreen(0)/m/it' will be
+(Font)              scaled to size 9.6222pt on input line 931.
 (load cache: extra_lmmono10-regular.luc)
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `lmtt' (encoding: TU).
@@ -2656,36 +2704,21 @@ LaTeX Font Info:    Font shape `JT3/LXGWWenKaiScreen(0)/m/n' will be
 (Font)              scaled to size 5.77332pt on input line 960.
 
 
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 961.
 
 Package fontspec Info: 
 (fontspec)             lmsans10-regular scale = 1.
 
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 961.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 961.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 961.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 961.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 961.
 [6
 
 ]
-LaTeX Font Info:    Font shape `JT3/gt/m/n' will be
+LaTeX Font Info:    Font shape `JT3/LXGWWenKaiScreen(0)/m/it' will be
 (Font)              scaled to size 10.53629pt on input line 974.
-LaTeX Font Info:    Font shape `JY3/gt/m/n' will be
+LaTeX Font Info:    Font shape `JT3/LXGWWenKaiScreen(1)/m/it' will be
 (Font)              scaled to size 10.53629pt on input line 974.
-(load cache: extra_haranoajigothic-medium.luc)
-LaTeX Font Info:    Kanji font shape `JY3/gt/m/it' undefined
-(Font)              No change on input line 974.
+LaTeX Font Info:    Font shape `JY3/LXGWWenKaiScreen(1)/m/it' will be
+(Font)              scaled to size 10.53629pt on input line 974.
 
 
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 992.
 
 Package fontspec Info: 
 (fontspec)             lmsans10-regular scale = .95.
@@ -2694,20 +2727,8 @@ Package fontspec Info:
 Package fontspec Info: 
 (fontspec)             lmsans10-regular scale = 1.
 
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 992.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 992.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 992.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 992.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 992.
 [7]
 
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 998.
 
 Package fontspec Info: 
 (fontspec)             lmsans10-regular scale = .95.
@@ -2716,101 +2737,140 @@ Package fontspec Info:
 Package fontspec Info: 
 (fontspec)             lmsans10-regular scale = 1.
 
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 998.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 998.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 998.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 998.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 998.
 [8]
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = .95.
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = 1.
+
+[9
+
+]
+LaTeX Font Info:    Font shape `JT3/LXGWWenKaiScreen(0)/m/n' will be
+(Font)              scaled to size 11.54663pt on input line 1042.
+LaTeX Font Info:    Font shape `JY3/LXGWWenKaiScreen(0)/m/n' will be
+(Font)              scaled to size 11.54663pt on input line 1042.
+
+
+LaTeX Warning: Hyper reference `part:narg-from-sp' on page x undefined on input line 1042.
+
+
+LaTeX Warning: Reference `part:narg-from-sp' on page x undefined on input line 1042.
+
+
+LaTeX Warning: Reference `part:narg-from-sp' on page x undefined on input line 1042.
+
+
+LaTeX Warning: Hyper reference `part:narg-from-ip' on page x undefined on input line 1043.
+
+
+LaTeX Warning: Reference `part:narg-from-ip' on page x undefined on input line 1043.
+
+
+LaTeX Warning: Reference `part:narg-from-ip' on page x undefined on input line 1043.
+
+
+LaTeX Warning: Hyper reference `part:commitment-schemes' on page x undefined on input line 1044.
+
+
+LaTeX Warning: Reference `part:commitment-schemes' on page x undefined on input line 1044.
+
+
+LaTeX Warning: Reference `part:commitment-schemes' on page x undefined on input line 1044.
+
+
+LaTeX Warning: Hyper reference `part:snarg-from-pcp' on page x undefined on input line 1045.
+
+
+LaTeX Warning: Reference `part:snarg-from-pcp' on page x undefined on input line 1045.
+
+
+LaTeX Warning: Reference `part:snarg-from-pcp' on page x undefined on input line 1045.
+
+
+LaTeX Warning: Hyper reference `part:snarg-from-iop' on page x undefined on input line 1046.
+
+
+LaTeX Warning: Reference `part:snarg-from-iop' on page x undefined on input line 1046.
+
+
+LaTeX Warning: Reference `part:snarg-from-iop' on page x undefined on input line 1046.
+
+
+LaTeX Warning: Hyper reference `part:practical-considerations' on page x undefined on input line 1047.
+
+
+LaTeX Warning: Reference `part:practical-considerations' on page x undefined on input line 1047.
+
+
+LaTeX Warning: Reference `part:practical-considerations' on page x undefined on input line 1047.
+
+<./figs//part-dependency-diagram.pdf, id=138, 835.12pt x 683.55376pt>
+File: ./figs//part-dependency-diagram.pdf Graphic file (type pdf)
+<use ./figs//part-dependency-diagram.pdf>
+Package luatex.def Info: ./figs//part-dependency-diagram.pdf  used on input line 1053.
+(luatex.def)             Requested size: 313.69026pt x 256.75966pt.
+<./figs//transformations-summary-diagram.pdf, id=139, 881.2925pt x 401.5pt>
+File: ./figs//transformations-summary-diagram.pdf Graphic file (type pdf)
+<use ./figs//transformations-summary-diagram.pdf>
+Package luatex.def Info: ./figs//transformations-summary-diagram.pdf  used on input line 1060.
+(luatex.def)             Requested size: 358.50609pt x 163.32951pt.
+
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = .95.
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = 1.
+
+[10<./figs//part-dependency-diagram.pdf>]
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = .95.
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = 1.
+
+[11<./figs//transformations-summary-diagram.pdf>]
 chapter 1.
 
 
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1066.
 
 Package fontspec Info: 
 (fontspec)             lmsans10-regular scale = 1.
 
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1066.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1066.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1066.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1066.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1066.
 [1
 
 
-
 ]
-LaTeX Font Info:    Trying loading font information for U+bbm on input line 1070.
+Package marginnote Info: Using workaround for absolute page number on input line 1162.
+LaTeX Font Info:    Trying loading font information for U+bbm on input line 1166.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/bbm-macros/ubbm.fd
 File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
 )
-LaTeX Font Info:    Kanji font shape `JY3/gt/m/it' undefined
-(Font)              No change on input line 1078.
-LaTeX Font Info:    Kanji font shape `JY3/gt/m/it' undefined
-(Font)              No change on input line 1096.
-LaTeX Font Info:    Kanji font shape `JY3/gt/m/it' undefined
-(Font)              No change on input line 1098.
-LaTeX Font Info:    Kanji font shape `JY3/gt/m/it' undefined
-(Font)              No change on input line 1100.
-LaTeX Font Info:    Kanji font shape `JY3/gt/m/it' undefined
-(Font)              No change on input line 1109.
-<./figs//inclusive-exclusive-diagram.pdf, id=115, 258.9675pt x 283.0575pt>
+<./figs//inclusive-exclusive-diagram.pdf, id=208, 258.9675pt x 283.0575pt>
 File: ./figs//inclusive-exclusive-diagram.pdf Graphic file (type pdf)
 <use ./figs//inclusive-exclusive-diagram.pdf>
-Package luatex.def Info: ./figs//inclusive-exclusive-diagram.pdf  used on input line 1113.
+Package luatex.def Info: ./figs//inclusive-exclusive-diagram.pdf  used on input line 1209.
 (luatex.def)             Requested size: 134.44063pt x 146.95319pt.
-LaTeX Font Info:    Kanji font shape `JY3/gt/m/it' undefined
-(Font)              No change on input line 1118.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/it' undefined
-(Font)              No change on input line 1120.
+LaTeX Font Info:    Font shape `JT3/LXGWWenKaiScreen(0)/m/it' will be
+(Font)              scaled to size 7.69775pt on input line 1228.
+LaTeX Font Info:    Font shape `JY3/LXGWWenKaiScreen(0)/m/it' will be
+(Font)              scaled to size 7.69775pt on input line 1228.
+LaTeX Font Info:    Font shape `JT3/LXGWWenKaiScreen(0)/m/it' will be
+(Font)              scaled to size 5.77332pt on input line 1228.
+LaTeX Font Info:    Font shape `JY3/LXGWWenKaiScreen(0)/m/it' will be
+(Font)              scaled to size 5.77332pt on input line 1228.
 
 
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1132.
-
-Package fontspec Info: 
-(fontspec)             lmsans10-regular scale = .95.
-
-
-Package fontspec Info: 
-(fontspec)             lmsans10-regular scale = 1.
-
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1132.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1132.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1132.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1132.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1132.
-[2
-Missing character: There is no 态 (U+6001) in font file:HaranoAjiGothic-Medium.otf:-kern;jfm=ujis!
-]
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/it' undefined
-(Font)              No change on input line 1137.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/it' undefined
-(Font)              No change on input line 1153.
-LaTeX Font Info:    Kanji font shape `JY3/gt/m/it' undefined
-(Font)              No change on input line 1155.
-LaTeX Font Info:    Kanji font shape `JY3/gt/m/it' undefined
-(Font)              No change on input line 1158.
-
-
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1208.
 
 Package fontspec Info: 
 (fontspec)             lmsans10-regular scale = .95.
@@ -2819,35 +2879,8 @@ Package fontspec Info:
 Package fontspec Info: 
 (fontspec)             lmsans10-regular scale = 1.
 
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1208.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1208.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1208.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1208.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1208.
-[3
-Missing character: There is no 归 (U+5F52) in font file:HaranoAjiGothic-Medium.otf:-kern;jfm=ujis!
-Missing character: There is no 纳 (U+7EB3) in font file:HaranoAjiGothic-Medium.otf:-kern;jfm=ujis!
-Missing character: There is no 骤 (U+9AA4) in font file:HaranoAjiGothic-Medium.otf:-kern;jfm=ujis!
-<./figs//inclusive-exclusive-diagram.pdf>]
-LaTeX Font Info:    Kanji font shape `JY3/gt/m/it' undefined
-(Font)              No change on input line 1214.
-LaTeX Font Info:    Kanji font shape `JY3/gt/m/it' undefined
-(Font)              No change on input line 1237.
-LaTeX Font Info:    Kanji font shape `JY3/gt/m/it' undefined
-(Font)              No change on input line 1237.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/it' undefined
-(Font)              No change on input line 1239.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/it' undefined
-(Font)              No change on input line 1257.
+[2]
 
-
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1274.
 
 Package fontspec Info: 
 (fontspec)             lmsans10-regular scale = .95.
@@ -2856,32 +2889,8 @@ Package fontspec Info:
 Package fontspec Info: 
 (fontspec)             lmsans10-regular scale = 1.
 
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1274.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1274.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1274.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1274.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1274.
-[4
-Missing character: There is no 浓 (U+6D53) in font file:HaranoAjiGothic-Medium.otf:-kern;jfm=ujis!
-Missing character: There is no 缩 (U+7F29) in font file:HaranoAjiGothic-Medium.otf:-kern;jfm=ujis!
-]
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/it' undefined
-(Font)              No change on input line 1279.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/it' undefined
-(Font)              No change on input line 1284.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/it' undefined
-(Font)              No change on input line 1340.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/it' undefined
-(Font)              No change on input line 1358.
+[3<./figs//inclusive-exclusive-diagram.pdf>]
 
-
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1373.
 
 Package fontspec Info: 
 (fontspec)             lmsans10-regular scale = .95.
@@ -2890,29 +2899,18 @@ Package fontspec Info:
 Package fontspec Info: 
 (fontspec)             lmsans10-regular scale = 1.
 
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1373.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1373.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1373.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1373.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1373.
+[4]
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = .95.
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = 1.
+
 [5]
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/it' undefined
-(Font)              No change on input line 1376.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/it' undefined
-(Font)              No change on input line 1387.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/it' undefined
-(Font)              No change on input line 1418.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/it' undefined
-(Font)              No change on input line 1427.
 
-
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1450.
 
 Package fontspec Info: 
 (fontspec)             lmsans10-regular scale = .95.
@@ -2921,25 +2919,8 @@ Package fontspec Info:
 Package fontspec Info: 
 (fontspec)             lmsans10-regular scale = 1.
 
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1450.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1450.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1450.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1450.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1450.
 [6]
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/it' undefined
-(Font)              No change on input line 1453.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/it' undefined
-(Font)              No change on input line 1465.
 
-
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1528.
 
 Package fontspec Info: 
 (fontspec)             lmsans10-regular scale = .95.
@@ -2948,31 +2929,8 @@ Package fontspec Info:
 Package fontspec Info: 
 (fontspec)             lmsans10-regular scale = 1.
 
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1528.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1528.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1528.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1528.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1528.
 [7]
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/it' undefined
-(Font)              No change on input line 1564.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/it' undefined
-(Font)              No change on input line 1577.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/it' undefined
-(Font)              No change on input line 1587.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/it' undefined
-(Font)              No change on input line 1598.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/it' undefined
-(Font)              No change on input line 1608.
 
-
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1625.
 
 Package fontspec Info: 
 (fontspec)             lmsans10-regular scale = .95.
@@ -2981,24 +2939,8 @@ Package fontspec Info:
 Package fontspec Info: 
 (fontspec)             lmsans10-regular scale = 1.
 
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1625.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1625.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1625.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1625.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1625.
 [8]
 
-LaTeX Warning: Empty bibliography on input line 1653.
-
-
-
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1658.
 
 Package fontspec Info: 
 (fontspec)             lmsans10-regular scale = .95.
@@ -3007,44 +2949,331 @@ Package fontspec Info:
 Package fontspec Info: 
 (fontspec)             lmsans10-regular scale = 1.
 
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1658.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1658.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1658.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1658.
-LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sl' undefined
-(Font)              No change on input line 1658.
+[9]
+part I.
+Package scrkbase Info: You've told me to use the font selection of the element
+(scrkbase)             `partprefix' that is an alias of element `partnumber'
+(scrkbase)              on input line 1748.
+LaTeX Font Info:    Font shape `JT3/LXGWWenKaiScreen(0)/b/n' will be
+(Font)              scaled to size 23.94002pt on input line 1748.
+LaTeX Font Info:    Font shape `JY3/LXGWWenKaiScreen(0)/b/n' will be
+(Font)              scaled to size 23.94002pt on input line 1748.
+
+
+[10
+
+]
+*geometry* verbose mode - [ newgeometry ] result:
+* driver: luatex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* hratio: 1:1
+* vratio: 1:1
+* modes: 
+* h-part:(L,W,R)=(97.09412pt, 403.31963pt, 97.09413pt)
+* v-part:(T,H,B)=(63.37593pt, 718.29497pt, 63.37595pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=403.31963pt
+* \textheight=718.29497pt
+* \oddsidemargin=24.82413pt
+* \evensidemargin=24.82413pt
+* \topmargin=-101.39406pt
+* \headheight=76.5pt
+* \headsep=16.0pt
+* \topskip=11.0pt
+* \footskip=47.6pt
+* \marginparwidth=89.62619pt
+* \marginparsep=12.8401pt
+* \columnsep=10.0pt
+* \skip\footins=10.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+LaTeX Font Info:    Font shape `JT3/LXGWWenKaiScreen(0)/b/n' will be
+(Font)              scaled to size 18.2148pt on input line 1751.
+LaTeX Font Info:    Font shape `JY3/LXGWWenKaiScreen(0)/b/n' will be
+(Font)              scaled to size 18.2148pt on input line 1751.
+
+
+[11
+
+
+]
+chapter 2.
+
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = 1.
+
+[12
+
+
+
+]
+LaTeX Font Info:    Font shape `JT3/LXGWWenKaiScreen(0)/b/it' will be
+(Font)              scaled to size 10.53629pt on input line 1802.
+LaTeX Font Info:    Font shape `JT3/LXGWWenKaiScreen(1)/b/it' will be
+(Font)              scaled to size 10.53629pt on input line 1802.
+LaTeX Font Info:    Font shape `JY3/LXGWWenKaiScreen(1)/b/it' will be
+(Font)              scaled to size 10.53629pt on input line 1802.
+
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = .95.
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = 1.
+
+[13]
+
+LaTeX Warning: Reference `section:ursm-limitation' on page 1 undefined on input line 1862.
+
+
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = .95.
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = 1.
+
+[14]
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = .95.
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = 1.
+
+[15]
+LaTeX Font Info:    Font shape `JT3/LXGWWenKaiScreen(0)/b/n' will be
+(Font)              scaled to size 11.54663pt on input line 1943.
+LaTeX Font Info:    Font shape `JY3/LXGWWenKaiScreen(0)/b/n' will be
+(Font)              scaled to size 11.54663pt on input line 1943.
+
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = .95.
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = 1.
+
+[16]
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = .95.
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = 1.
+
+[17]
+
+LaTeX Warning: Reference `chapter:multiple-oracles-reduction' on page 18 undefined on input line 2066.
+
+
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = .95.
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = 1.
+
+[18]
+chapter 3.
+
+Overfull \hbox (14.57669pt too wide) detected at line 2141
+[][]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 x; y\OT1/cmr/m/n/10.95 ) \U/matha/m/n/10.95 R [] ^  \OML/cmm/m/it/10.95 f\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 x\OT1/cmr/m/n/10.95 ) = \OML/cmm/m/it/10.95 y \U/matha/m/n/10.95 ^   \OML/cmm/m/it/10.95 E [] f \U/matha/m/n/10.95 Ð \OMS/cmsy/m/n/10.95 U\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 \OT1/cmr/m/n/10.95 )\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 x; y\OT1/cmr/m/n/10.95 ) [] \OML/cmm/m/it/10.95 A[][]  \OT1/cmr/m/n/10.95 =  [][]\OML/cmm/m/it/10.95 y[] \OT1/cmr/m/n/10.95 = \OML/cmm/m/it/10.95 y \U/matha/m/n/10.95 | \OML/cmm/m/it/10.95 y[] \U/matha/m/n/10.95 Ð t\OT1/cmr/m/n/10.95 0\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 1\U/matha/m/n/10.95 u[][]  \OT1/cmr/m/n/10.95 =  []\OML/cmm/m/it/10.95 :
+ []
+
+
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = 1.
+
+[19
+
+]
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = .95.
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = 1.
+
+[20]
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = .95.
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = 1.
+
+[21]
+
+LaTeX Warning: Reference `figure:iarg-diagram' on page 22 undefined on input line 2360.
+
+
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = .95.
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = 1.
+
+[22]
+
+LaTeX Warning: Reference `definition:arg-public-coin' on page 23 undefined on input line 2430.
+
+
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = .95.
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = 1.
+
+[23]
+chapter 4.
+
+LaTeX Warning: Reference `definition:narg-adaptive-soundness' on page 1 undefined on input line 2445.
+
+
+LaTeX Warning: Reference `definition:narg-nonadaptive-soundness' on page 1 undefined on input line 2445.
+
+LaTeX Font Info:    Font shape `JT3/LXGWWenKaiScreen(0)/m/it' will be
+(Font)              scaled to size 8.65997pt on input line 2447.
+LaTeX Font Info:    Font shape `JY3/LXGWWenKaiScreen(0)/m/it' will be
+(Font)              scaled to size 8.65997pt on input line 2447.
+LaTeX Font Info:    Font shape `JT3/LXGWWenKaiScreen(1)/m/it' will be
+(Font)              scaled to size 8.65997pt on input line 2447.
+LaTeX Font Info:    Font shape `JY3/LXGWWenKaiScreen(1)/m/it' will be
+(Font)              scaled to size 8.65997pt on input line 2447.
+
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = 1.
+
+[24
+
+]
+Overfull \hbox (6.14871pt too wide) detected at line 2535
+[][]\U/matha/m/n/10.95 |\U/bbm/m/n/10.95 x\U/matha/m/n/10.95 | ¤ \OML/cmm/m/it/10.95 n;  \OT1/cmr/m/n/10.95 (\U/bbm/m/n/10.95 x\OML/cmm/m/it/10.95 ; \U/bbm/m/n/10.95 w\OT1/cmr/m/n/10.95 ) \U/matha/m/n/10.95 R \OMS/cmsy/m/n/10.95 R\OML/cmm/m/it/10.95 ;  \OMS/cmsy/m/n/10.95 V[]\OT1/cmr/m/n/10.95 (\U/bbm/m/n/10.95 x\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 ) = 1 [] [][][]  \U/matha/m/n/10.95 ¤  \OML/cmm/m/it/10.95 [][]; t; n; []\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 ; n\OT1/cmr/m/n/10.95 )[]\OML/cmm/m/it/10.95 ;
+ []
+
+
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = .95.
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = 1.
+
+[25]
+
+LaTeX Warning: Reference `definition:once-nonadaptive-zk-narg' on page 26 undefined on input line 2596.
+
+
+LaTeX Warning: Reference `definition:once-adaptive-zk-narg' on page 26 undefined on input line 2631.
+
+
+LaTeX Warning: Reference `definition:adaptive-wi-narg' on page 26 undefined on input line 2656.
+
+
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = .95.
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = 1.
+
+[26]
+chapter without number
+LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sc' undefined
+(Font)              No change on input line 2665.
+LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sc' undefined
+(Font)              No change on input line 2665.
+LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sc' undefined
+(Font)              No change on input line 2665.
+LaTeX Font Info:    Kanji font shape `JY3/LXGWWenKaiScreen(0)/m/sc' undefined
+(Font)              No change on input line 2665.
+
+
+
+Package fontspec Info: 
+(fontspec)             lmsans10-regular scale = 1.
+
 (/usr/local/texlive/2025/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
 File: se-pdfdoc.def 2019/11/29 v1.12 stringenc: PDFDocEncoding
 ) (/usr/local/texlive/2025/texmf-dist/tex/generic/stringenc/se-utf32be.def
 File: se-utf32be.def 2019/11/29 v1.12 stringenc: UTF-32BE
-) [9] (/Users/kurtpan/Documents/GitHub/hash-based-snargs-book-zh/zh-CN/.texpadtmp/snargs-book-zh.aux)
+) [27
+
+] (/Users/kurtpan/Documents/GitHub/hash-based-snargs-book-zh/zh-CN/.texpadtmp/snargs-book-zh.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2020/03/25>
  ***********
+
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
 Package logreq Info: Writing requests to 'snargs-book-zh.run.xml'.
 
 \openout1 = snargs-book-zh.run.xml
 )
 
 Here is how much of LuaTeX's memory you used:
- 55750 strings out of 475506
+ 56562 strings out of 475506
  305195,2848258 words of node,token memory allocated
- 5400 words of node memory still in use:
-   12 hlist, 2 vlist, 7 rule, 1 local_par, 7 glue, 4 kern, 2 penalty, 3 glyph, 2060 attribute, 97 glue_spec, 185 attribute_list, 2 write, 14 user_defined, 1 pdf_action nodes
-   avail lists: 1:79,2:76720,3:1160,4:911,5:523,6:103,7:7289,8:65,9:3534,10:28,11:33,12:4
- 77370 multiletter control sequences out of 65536+600000
- 186 fonts using 147450095 bytes
- 122i,30n,158p,10909b,2272s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<./fonts/lmroman10-italic.otf><</Users/kurtpan/Library/texlive/2025/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk>></usr/local/texlive/2025/texmf-dist/fonts/opentype/public/lm/lmmono9-regular.otf></usr/local/texlive/2025/texmf-dist/fonts/opentype/public/haranoaji/HaranoAjiGothic-Medium.otf></usr/local/texlive/2025/texmf-dist/fonts/opentype/public/lm/lmmono10-regular.otf><./fonts/lmroman10-bold.otf><./fonts/lmsans10-bold.otf><./fonts/lmroman10-regular.otf></Users/kurtpan/Library/Fonts/LXGWWenKaiScreen.ttf><./fonts/lmsans10-regular.otf></Users/kurtpan/Library/Fonts/LXGWWenKai-Regular.ttf></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/mathabx-type1/matha10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/mathabx-type1/matha6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/mathabx-type1/matha8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/mathabx-type1/mathb10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/mathabx-type1/mathx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on snargs-book-zh.pdf (17 pages, 765837 bytes).
+ 10374 words of node memory still in use:
+   12 hlist, 2 vlist, 7 rule, 1 local_par, 14 glue, 5 kern, 2 penalty, 2 sub_mlist, 3 glyph, 4318 attribute, 101 glue_spec, 374 attribute_list, 2 write, 14 user_defined, 1 pdf_action nodes
+   avail lists: 1:72,2:74264,3:1629,4:1181,5:536,6:180,7:7282,8:69,9:3534,10:28,11:43,12:4
+ 78041 multiletter control sequences out of 65536+600000
+ 228 fonts using 194372447 bytes
+ 122i,30n,158p,10909b,2681s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<./fonts/lmromancaps10-regular.otf><./fonts/lmroman10-bolditalic.otf><</Users/kurtpan/Library/texlive/2025/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk>><./fonts/lmroman10-italic.otf></usr/local/texlive/2025/texmf-dist/fonts/opentype/public/lm/lmmono9-regular.otf></usr/local/texlive/2025/texmf-dist/fonts/opentype/public/lm/lmmono10-regular.otf><./fonts/lmroman10-bold.otf><./fonts/lmsans10-bold.otf><./fonts/lmroman10-regular.otf></Users/kurtpan/Library/Fonts/LXGWWenKaiScreen.ttf><./fonts/lmsans10-regular.otf></Users/kurtpan/Library/Fonts/LXGWWenKai-Regular.ttf></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/mathabx-type1/matha10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/mathabx-type1/matha12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/mathabx-type1/matha6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/mathabx-type1/matha8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/mathabx-type1/matha9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/mathabx-type1/mathb10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/mathabx-type1/mat
+hb12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/mathabx-type1/mathx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on snargs-book-zh.pdf (38 pages, 1075779 bytes).
 
-PDF statistics: 378 PDF objects out of 1000 (max. 8388607)
- 162 compressed objects within 2 object streams
- 86 named destinations out of 1000 (max. 131072)
- 93 words of extra memory for PDF output out of 10000 (max. 100000000)
+PDF statistics: 773 PDF objects out of 1000 (max. 8388607)
+ 436 compressed objects within 5 object streams
+ 221 named destinations out of 1000 (max. 131072)
+ 197 words of extra memory for PDF output out of 10000 (max. 100000000)
 

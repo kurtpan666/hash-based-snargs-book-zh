@@ -892,7 +892,7 @@
 \phantomsection
 \bookmark[page=3]{Contents}
 \setcounter{tocdepth}{0}
-\hypersetup{bookmarksdepth=3}
+\hypersetup{pdfbookmarksdepth=3}
 \tableofcontents
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -996,6 +996,102 @@ Dan Boneh \\
 这些及其他应用在学术界、工业界和政府的多个社区中引起了对密码学证明的极大兴趣。这种更广泛的兴趣需要关于密码学证明的材料更易于访问和系统化，以有效地满足超出少数专家的受众的需求。
 
 \cleardoublepage
+
+\section[nonumber=true]{范围}
+
+密码学证明通常由两个构建模块组成：一种信息论上的概率证明，以及一种将概率证明映射为密码学证明的密码学变换。对这两种模块的多种选择，导致了性质各异的密码学证明体系，这一广阔领域并非本书焦点。本书追求深度：详尽论述一类基于理想哈希函数的密码学证明，省略其他证明的讨论。
+
+具体而言，本书对\textbf{基于理想哈希函数的密码学证明}进行系统、严格的阐述。涵盖基本构造，给出诸多安全性质的完整证明，并讨论实用优化。安全归约附带明确误差界，便于实践中参数设定。大多数分析在常数因子内达到紧界，改进了文献中零散不全之处。全书统一术语与符号，以便突出各构造之间的关联。
+
+\parhead{“纯” 随机预言机设置}  
+我们考虑一个简洁的信息论设置：假设哈希函数为真正随机的函数（不同输入映射到相互独立的随机输出），并且所有方共用同一个\emph{随机预言机}。\footnote{这与仅假设哈希函数满足具体属性（如抗碰撞性）不同：仅有抗碰撞性不足以实现简洁非交互式论证。}该设置称为\emph{随机预言机模型}（ROM），在密码学中被广泛使用。
+
+更具体地，我们聚焦“纯” ROM：构造仅依赖随机预言机的密码学证明（无其他密码假设）。此设置近似信息论安全：对手可计算能力无限，仅受查询次数有界的限制。
+
+本书所有构造均为从某种概率证明到 ROM 中的（交互式或非交互式）密码学证明的\emph{变换}。概率证明本身的设计与分析（常依赖计算复杂性与抽象代数）超出本书范围；我们将其视作构造密码学证明的起点。
+
+\parhead{为何如此聚焦？}  
+选择本书内容有以下优势：
+\begin{itemize}[noitemsep]
+  \item \emph{简单性。} 当哈希函数建模为随机预言机后，构造与分析仅需基本概率论与离散数学，无需抽象代数等繁重背景；故 ROM 下构造是已知最简单的密码学证明之一。
+  \item \emph{稳定性。} 密码学证明领域更新迅速、整体尚未成熟；而基于 ROM 的构造已被深入研究，未来变化不会偏离现有范式。
+  \item \emph{安全性。} 多数密码学依赖结构性假设（如格、群），存在被未来算法攻破的风险；ROM 仅依赖无结构的随机函数，且实用中多用无结构的哈希函数近似，长期安全性更稳健，并具备良好的后量子抗性。
+  \item \emph{透明设置。} 公共参数仅为哈希函数选择，无需可信第三方或多方仪式，即可实现\emph{透明设置}，这使得 STARK 等技术在实际中易于部署。
+\end{itemize}
+
+\parhead{目标}  
+现有文献对基于 ROM 的密码学证明多零散不全，本书旨在提供系统、可审计的资源，详述安全定义、归约过程和优化细节，为实战系统的安全审计与参数化部署提供依据，并增强社区对该技术的信心。
+
+\parhead{补充资源}  
+若欲了解其他密码学证明，可参阅：
+\begin{itemize}[noitemsep]
+  \item Alessandro Chiesa 的概率证明课程和练习（FOPP Summer School \cite{FOPPSummer21,FOPPSummer23}）。
+  \item ZKProof 社区参考文档 \cite{ZKProof}，综述现代零知识证明构造与定义。
+  \item Justin Thaler 的专著 \cite{ThalerBook} 及在线课程 \url{https://zk-learning.org/}，概览多种密码学证明与实践考量。
+\end{itemize}
+
+\section[nonumber=true]{全书结构}
+
+\parhead{所需背景}  
+大多数简洁论证构造需多领域背景，但仅针对 ROM 的构造只需本科水平的离散概率与算法知识。本书第~\ref{chapter:mathematical-background}章涵盖所有基础事实，熟悉该章内容的读者可无需其他资料通读全书。
+
+\parhead{章节安排}  
+第~\ref{chapter:mathematical-background}章介绍符号与数学基础。其余章节分为七大部分：
+\begin{itemize}
+  \item \emph{\fullref{part:what-are-crypto-proofs}}：介绍 ROM 和论证定义，形式化自适应安全性。
+  \item \emph{\fullref{part:narg-from-sp}}：\(\Sigma\)-协议到 NARG 的 Fiat--Shamir 变换。
+  \item \emph{\fullref{part:narg-from-ip}}：交互式证明到 NARG 的多轮 Fiat--Shamir 变换。
+  \item \emph{\fullref{part:commitment-schemes}}：基本承诺方案与 Merkle 承诺方案。
+  \item \emph{\fullref{part:snarg-from-pcp}}：PCP 到简洁交互式与非交互式论证（Kilian 与 Micali 变换）。
+  \item \emph{\fullref{part:snarg-from-iop}}：IOP 到简洁论证（BCS 变换）。
+  \item \emph{\fullref{part:practical-considerations}}：参数选择、优化和预处理支持（COS 变换）等实践话题。
+\end{itemize}
+依赖关系见图~\ref{figure:part-dependency-diagram}，变换汇总见图~\ref{figure:transformations-summary-diagram}。
+
+\begin{figure}[htp!]
+\centering
+\includegraphics[width=0.7\textwidth]{\FigureFolder/part-dependency-diagram}
+\caption[本书的各部分。]{本书不同部分之间的依赖关系。（NARG 表示\emph{非交互式论证}，SNARG 表示\emph{简洁非交互式论证}。）}
+\label{figure:part-dependency-diagram}
+\end{figure}
+
+\begin{figure}[htp!]
+\centering
+\includegraphics[width=0.8\textwidth]{\FigureFolder/transformations-summary-diagram}
+\caption[本书中的变换。]{本书中所有密码学证明的构造都是应用于某种概率证明（SP、IP、PCP 或 IOP）的变换。此图列出了我们研究的变换，显示了哪些构造交互式论证（IARG），哪些构造非交互式论证（NARG）。}
+\label{figure:transformations-summary-diagram}
+\end{figure}
+
+\section[nonumber=true]{如何使用本书}
+
+\parhead{目标读者}  
+本书适用于：
+\begin{itemize}[noitemsep]
+  \item \emph{学生}：本科生与研究生可借此掌握 ROM 下简洁论证的核心原理与安全归约技巧。
+  \item \emph{实践者}：系统工程师可参考构造细节与具体安全界，进行系统审计与参数部署。
+\end{itemize}
+教育者亦可在课程中使用本书，例如：
+\begin{itemize}[noitemsep]
+  \item \emph{密码学导论课程}：第~\ref{part:what-are-crypto-proofs} 的安全定义，以及 Fiat--Shamir、Kilian 变换等基础内容。
+  \item \emph{密码学证明研究生课程}：本书的 ROM 变换构造可作为清晰参考。
+\end{itemize}
+
+\section[nonumber=true]{致谢}
+
+本书得益于以下机构资助：
+\begin{itemize}[noitemsep]
+  \item 以太坊基金会（Ethereum Foundation）
+  \item Forte Labs
+  \item Protocol Labs
+  \item Provable
+\end{itemize}
+亦感谢 StarkWare Industries 在部分阶段的支持。
+
+特别感谢多年来在学术与产业界给予我们指导的各位同仁，以及以下对本书早期稿件提出宝贵意见的评审（按字母排序）：  
+Gal Arnon、Shany Ben-David、Zijing Di、Giacomo Fenzi、Ziyi Guan、Shai Keidar、Mathias Marty、Amit Sharabi、William Wang、Yuxi Zheng。
+
+感谢版本库中提交 pull request 的各位，及始终支持我们的家人。
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \mainmatter
@@ -1646,6 +1742,922 @@ z \gets C(y)
 \]
 完成证明。
 \end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\part{什么是密码学证明？}
+\label{part:what-are-crypto-proofs}
+
+\PartAbstract{我们介绍随机预言机模型（random oracle model） 并讨论随机预言机的基本密码学性质。然后我们介绍本书研究的主要对象：随机预言机模型中的论证（arguments）。我们通过证明关于随机预言机模型中论证的若干基本观察来建立直观认识。最后我们描述多个随机预言机的设置，这可以通过单个随机预言机来实现，我们常用它来简化讨论。}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{随机预言机模型}
+\label{chapter:what-is-rom}
+
+Hash 函数是一种基础的密码学原语，它可以将任意输入映射到看起来随机的固定大小输出。一个流行的研究基于 Hash 函数的密码协议的工具就是 \emph{random oracle model}（简称 \emph{ROM}）。在该模型中，Hash 函数被假设为\emph{理想}的，即它将每个输入都映射到独立于其它输入输出的随机结果。这一假设通过为所有参与方（诚实方和恶意方）提供对一个称为\emph{随机预言机}的随机函数的查询访问来建模。
+
+本书中所研究的所有密码学证明构造都在 ROM 中。在本章中，我们将介绍 ROM 的基本符号和定义，并讨论在 ROM 中进行密码学研究的优缺点。
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{定义}
+\label{section:rom-definition}
+
+\parhead{随机预言机}
+对于 $\ROOutputSize \in \Naturals$，我们用 $\RODistribution{\ROOutputSize}$ 表示所有形如
+$$
+\ROFunction \colon \Bits^{*} \to \Bits^{\ROOutputSize}
+$$
+的函数上的均匀分布。等价地，如果 $\ROFunction$ 从 $\RODistribution{\ROOutputSize}$ 中采样，那么对于每个输入 $\ROQuery$，都有
+$$
+\ROAnswer \DefineEqual \ROFunction(\ROQuery)
+$$
+是一个均匀随机的 $\ROOutputSize$ 位字符串（对于每个输入独立采样）。我们称从 $\RODistribution{\ROOutputSize}$ 中采样得到的 $\ROFunction$ 为输出大小为 $\ROOutputSize$ 的\emph{随机预言机}。
+
+遵循\Cref{section:notation} 中的采样符号，我们将从 $\RODistribution{\ROOutputSize}$ 中采样 $\ROFunction$ 表示为
+\begin{equation*}
+\ROFunction \gets \RODistribution{\ROOutputSize}
+\enspace.
+\end{equation*}
+
+随机函数 $\ROFunction$ 是对真实世界中 Hash 函数的理想化，因为它将 $\Bits^{*}$ 中的每个输入映射到独立于其它输入输出的随机结果；相比之下，任何通过多项式时间算法（从某个分布中采样）可计算的 Hash 函数都无法满足如此强的性质。\footnote{Hash 函数的描述熵至多受限于多项式，而像随机预言机那样回答查询则需要任意大的熵。}
+
+\parhead{预言机算法}
+从 $\RODistribution{\ROOutputSize}$ 中采样得到的随机预言机 $\ROFunction$ 无法作为算法的输入，因为 $\ROFunction$ 的大小是无限的。相反，算法被赋予对 $\ROFunction$ 的\emph{查询访问}权。具体来说，预言机算法是一种在接收常规输入之外，还能对预言机进行多次查询的算法。该操作包括指定一个给预言机的输入（一个\emph{查询}），并在随后的计算步骤中接收相应的预言机输出（一个\emph{回答}）。预言机算法可以是确定性的，也可以是随机的（它可以使用与预言机随机回答无关的私有随机性）。
+
+对于算法 $\ROAdversary$、预言机 $\ROFunction$ 和输入 $a$，我们用
+\begin{equation*}
+b \gets \ROAdversary^{\ROFunction}(a)
+\end{equation*}
+来表示：$\ROAdversary$ 在拥有对 $\ROFunction$ 的查询访问权且接收输入 $a$ 时输出 $b$；如果 $\ROAdversary$ 是随机的（即拥有自己的私有随机性），则 $b$ 可能是一个随机变量。
+
+对于 $\ROQueryBound \in \Naturals$，如果一个预言机算法最多进行 $\ROQueryBound$ 次查询（不论回答如何），则称其为\emph{$\ROQueryBound$-查询}算法。
+
+注意，如果算法 $\ROAdversary$ 的运行时间为 $T$，那么 $\ROAdversary$ 只能在大小至多为 $T$ 的输入 $\ROQuery$ 上对预言机 $\ROFunction$ 进行查询。具体而言，对 $\ROAdversary$ 的执行而言，$\ROFunction$ 中只有大小为 $2^{T} \cdot \ROOutputSize$ 的有限部分是相关的。
+
+\parhead{模型}
+ROM 可以通过以下定义形式化描述。
+
+\begin{definition}
+\label{definition:the-rom}
+\defemph{输出大小为 $\ROOutputSize \in \Naturals$ 的 ROM} 是这样一种模型：所有参与方（诚实方与恶意方）都是预言机算法，并且它们都获得对同一个函数
+$$
+\ROFunction \colon \Bits^{*} \to \Bits^{\ROOutputSize}
+$$
+的查询访问，该函数从分布 $\RODistribution{\ROOutputSize}$ 中采样得到。
+\end{definition}
+
+ROM 的关键点在于，每个参与方都访问同一个\emph{随机函数}。这不同于每个参与方都访问独立采样随机函数的模型；实际上，那种替代模型是平凡的，因为每个参与方都可以通过惰性采样（如\Cref{section:rom-lazy-sampling}所述）高效地模拟自己的随机函数。换句话说，ROM 确保所有参与方对每个可能的查询都能获得相同的随机回答。
+
+在 ROM 中对密码协议进行安全分析时，会根据所考虑的对手类别而有所不同。
+\begin{itemize}
+
+  \item \emph{有查询次数上界的对手。} 在此设置下，我们约束对手对随机预言机的查询次数，但\emph{不}限制其其他资源（时间、空间、随机性等）。我们用整数符号 $\ROQueryBound \in \Naturals$ 表示对手的查询上界。直观地，随着 $\ROQueryBound$ 增大，$\ROQueryBound$-查询对手破坏协议安全的能力也增强。
+
+  \item \emph{有时间上界的对手。} 在此设置下，我们约束对手的运行时间，并且特别约束其对预言机的查询次数（因为一次查询消耗一个时间单位）。
+
+  （更一般地，也可以考虑对其他资源（如内存消耗）进行约束，这将导致相应的设置。）
+
+\end{itemize}
+
+有查询次数上界的对手的设置可以被视为\DoQuote{纯粹}的 ROM，其中协议只能且必须利用同一份随机函数。而有时间上界的对手的设置则允许额外利用计算难题假设（例如单向函数的存在）。特别地，在有查询次数上界的对手设置下获得的任何结果，都直接适用于有时间上界的对手设置（但反之则不然）。
+
+本书中所有 arguments 的构造都在有查询次数上界的对手设置下（\DoQuote{纯粹} ROM），因此在讨论 ROM 时，默认即指该设置。
+
+\parhead{其他概念}
+以下概念有助于描述和分析 ROM 下的协议。
+\begin{itemize}
+
+  \item \textbf{查询编码。} 随机预言机 $\ROFunction$ 可以接受任意查询 $\ROQuery \in \Bits^{*}$。有时我们将查询 $\ROQuery$ 定义为由其他二进制字符串组成的元组。例如，$\ROQuery = (\ROQuery_{1}, \ROQuery_{2})$，其中 $\ROQuery_{1}, \ROQuery_{2}$ 是具有特定长度的二进制字符串；在这种情况下，我们隐式使用一个无歧义的编码将元组 $(\ROQuery_{1}, \ROQuery_{2})$ 表示为 $\Bits^{*}$ 中的一个二进制字符串。有时我们在元组中包含整数（例如 $\ROQuery = (3,\ROQuery')$），并假定该整数通过某个规定长度的二进制字符串进行表示（通常由协议指定）。
+
+  \item \textbf{查询–回答轨迹。} 有时我们分析算法 $\ROAdversary$ 与预言机 $\ROFunction$ 之间的\emph{查询–回答轨迹}。我们使用符号
+  \begin{equation*}
+  \ROOutputAndTrace{\ROFunction}{\ROAdversary}{\ROTrace}{b}(a)
+  \end{equation*}
+  来表示：$\ROTrace$ 是算法 $\ROAdversary$ 在输入 $a$ 上与 $\ROFunction$ 之间进行的有序查询–回答对的列表；如果 $\ROAdversary$ 是随机的，则 $\ROTrace$ 是一个随机变量。我们用 $\Cardinality{\ROTrace}$ 表示轨迹 $\ROTrace$ 中的查询–回答对数量。
+
+  \item \textbf{查询长度。} 算法 $\ROAdversary$ 可以在不同长度的输入上对预言机 $\ROFunction$ 进行查询。一个查询 $\ROQuery$ 的\emph{查询长度}定义为 $\BitSize{\ROQuery}$（即二进制字符串 $\ROQuery$ 的位数）。例如，如果算法对 $001$, $0101$, $010$ 进行查询，则该算法进行了两个长度为 $3$ 的查询和一个长度为 $4$ 的查询。
+
+\end{itemize}
+
+\begin{remark}[输入长度固定的预言机]
+\label{remark:finite-vs-infinite-oracle}
+有时随机预言机会以更受限的方式定义，即其域固定输入长度而非允许任意长度输入。设 $\ROIODistribution{\ROInputSize}{\ROOutputSize}$ 为所有形如
+$$
+\ROFunction \colon \Bits^{\ROInputSize} \to \Bits^{\ROOutputSize}
+$$
+的函数上的均匀分布，那么输入长度为 $\ROInputSize$、输出长度为 $\ROOutputSize$ 的随机预言机就是从 $\ROIODistribution{\ROInputSize}{\ROOutputSize}$ 中采样得到的函数。从 $\ROIODistribution{\ROInputSize}{\ROOutputSize}$ 中采样的函数大小为 $2^{\ROInputSize}\cdot \ROOutputSize$，而从 $\RODistribution{\ROOutputSize}$ 中采样的函数大小则为无限。除本书中少数例外，我们通常考虑从 $\RODistribution{\ROOutputSize}$ 中采样的随机预言机（即可接受任意长度输入的预言机）。这样可以简化构造和分析。
+\end{remark}
+
+\begin{remark}[有限样本空间]
+\label{remark:finite-in-constructions}
+我们将随机预言机描述为一个从 $\RODistribution{\ROOutputSize}$ 中采样的函数
+$$
+\ROFunction \colon \Bits^{*} \to \Bits^{\ROOutputSize}
+$$
+，这将使其成为一个从无限样本空间中采样的无限大小对象。我们这样做\emph{仅为记号上的方便}，因为在本书中考虑的所有构造（及其相关的安全实验）中，所有相关的预言机查询都有明确的最大长度上界。因此，足以考虑从有限样本空间采样的有限大小随机预言机，例如从 $\ROIODistribution{\ROInputSize}{\ROOutputSize}$ 中采样，输入长度为 $\ROInputSize$。使用无限大小随机预言机的记号使我们免去了显式给出该上界的麻烦。
+\end{remark}
+
+\begin{remark}
+\label{remark:rom-vs-urs}
+\emph{均匀随机串模型}（URSM）是这样一种设置：所有参与方（诚实方与恶意方）都能访问一条多项式大小的公共随机串。该模型与 ROM 的区别在于随机串的大小：ROM 可被看作所有人都能访问同一条指数大小的随机串，而 URSM 仅允许多项式大小的随机串。URSM 比 ROM 要弱，但不允许构造具有无条件安全性的简洁论证。（参见\Cref{section:ursm-limitation}。）
+\end{remark}
+
+\section{通过惰性采样进行模拟}
+\label{section:rom-lazy-sampling}
+
+随机预言机是一个无法高效整体采样的对象。尽管如此，随机算法可以通过跨查询维护状态来高效地模拟随机预言机的输入-输出行为。我们称此为随机预言机的\textbf{lazy sampling}。
+
+从 $\RODistribution{\ROOutputSize}$ 采样的随机预言机会为每个输入查询独立分配一个随机的 $\Bits^{\ROOutputSize}$ 输出。模拟算法维护一个过去查询-回答对的列表。对于每个收到的查询，如果该查询已在列表中出现，则算法返回对应的回答；否则，算法从 $\Bits^{\ROOutputSize}$ 中采样一个随机回答，将新的查询-回答对加入列表，然后返回此回答。
+
+从形式上看，通过惰性采样从 $\RODistribution{\ROOutputSize}$ 生成预言机相当于下面这个带状态的随机算法实例：
+\begin{itemize}[noitemsep]
+  \item \emph{初始化：} 将内部状态 $S$ 设为空映射。
+  \item \emph{回答查询 $\ROQuery$：} 如果 $S$ 包含键 $\ROQuery$，则取 $\ROAnswer \DefineEqual S[\ROQuery]$；否则，采样 $\ROAnswer \gets \Bits^{\ROOutputSize}$，并令 $S[\ROQuery] \DefineEqual \ROAnswer$。输出 $\ROAnswer$。
+\end{itemize}
+在全书中，我们使用
+\begin{center}
+\DoQuote{lazily sample an oracle $\Lazy{\ROFunction} \gets \RODistribution{\ROOutputSize}$}
+\end{center}
+这一说法，并用符号 $\Lazy{\ROFunction}$ 表示上述随机算法的一个新实例。记号 $\Lazy{\ROFunction}$ 既能像其它预言机那样使用，又提醒读者该预言机是惰性采样得到的。
+
+注意，惰性采样并非随机预言机的真实实现，因为每个独立执行惰性采样的参与方对相同查询会获得不同的回答（它们各自使用独立的随机性）。
+
+然而，惰性采样价值重大。首先，它表明随机预言机具有\emph{简单的结构}；事实上，并非所有函数分布都允许（高效的）惰性采样。\footnote{这里给出一个简单但退化的例子；还有其它更有趣的例子。给定表 $g \colon \Bits^{\ROOutputSize} \to \Bits^{\ROOutputSize}$，考虑分布 $\Distribution_{g}$，其以概率 $1$ 分配到函数 $\ROFunction \colon \Bits^{*} \to \Bits^{\ROOutputSize}$，该 $\ROFunction$ 对 $\Bits^{\ROOutputSize}$ 中的查询按照表 $g$ 回答，其它查询回答 $0^{\ROOutputSize}$。随机表 $g \colon \Bits^{\ROOutputSize} \to \Bits^{\ROOutputSize}$ 的最短描述长度通常为 $\Omega(2^{\ROOutputSize})$，此时 $\Distribution_{g}$ 无法进行高效的惰性采样。由此可见，存在无高效惰性采样的函数分布。}其次，在安全归约中，惰性采样是一个\emph{常用成分}。在安全归约中，算法可能调用另一个期望访问随机预言机的子算法。如果归约算法可以将所有查询转发给一个外部预言机实例，就无需惰性采样；但有时外部预言机在归约设置中并不存在，或者归约算法需要对部分查询使用外部预言机，对另一些查询使用惰性采样，并将后者与其它量进行关联。全书中我们在多个安全归约中多次使用惰性采样。
+
+\section{通过惰性采样进行模拟}
+\label{section:rom-lazy-sampling}
+
+随机预言机是一个无法高效整体采样的对象。尽管如此，随机算法可以通过跨查询维护状态来高效地模拟随机预言机的输入-输出行为。我们称此为随机预言机的\textbf{lazy sampling}。
+
+从 $\RODistribution{\ROOutputSize}$ 采样的随机预言机会为每个输入查询独立分配一个随机的 $\Bits^{\ROOutputSize}$ 输出。模拟算法维护一个过去查询-回答对的列表。对于每个收到的查询，如果该查询已在列表中出现，则算法返回对应的回答；否则，算法从 $\Bits^{\ROOutputSize}$ 中采样一个随机回答，将新的查询-回答对加入列表，然后返回此回答。
+
+从形式上看，通过惰性采样从 $\RODistribution{\ROOutputSize}$ 生成预言机相当于下面这个带状态的随机算法实例：
+\begin{itemize}[noitemsep]
+  \item \emph{初始化：} 将内部状态 $S$ 设为空映射。
+  \item \emph{回答查询 $\ROQuery$：} 如果 $S$ 包含键 $\ROQuery$，则取 $\ROAnswer \DefineEqual S[\ROQuery]$；否则，采样 $\ROAnswer \gets \Bits^{\ROOutputSize}$，并令 $S[\ROQuery] \DefineEqual \ROAnswer$。输出 $\ROAnswer$。
+\end{itemize}
+在全书中，我们使用
+\begin{center}
+\DoQuote{lazily sample an oracle $\Lazy{\ROFunction} \gets \RODistribution{\ROOutputSize}$}
+\end{center}
+这一说法，并用符号 $\Lazy{\ROFunction}$ 表示上述随机算法的一个新实例。记号 $\Lazy{\ROFunction}$ 既能像其它预言机那样使用，又提醒读者该预言机是惰性采样得到的。
+
+注意，惰性采样并非随机预言机的真实实现，因为每个独立执行惰性采样的参与方对相同查询会获得不同的回答（它们各自使用独立的随机性）。
+
+然而，惰性采样价值重大。首先，它表明随机预言机具有\emph{简单的结构}；事实上，并非所有函数分布都允许（高效的）惰性采样。\footnote{这里给出一个简单但退化的例子；还有其它更有趣的例子。给定表 $g \colon \Bits^{\ROOutputSize} \to \Bits^{\ROOutputSize}$，考虑分布 $\Distribution_{g}$，其以概率 $1$ 分配到函数 $\ROFunction \colon \Bits^{*} \to \Bits^{\ROOutputSize}$，该 $\ROFunction$ 对 $\Bits^{\ROOutputSize}$ 中的查询按照表 $g$ 回答，其它查询回答 $0^{\ROOutputSize}$。随机表 $g \colon \Bits^{\ROOutputSize} \to \Bits^{\ROOutputSize}$ 的最短描述长度通常为 $\Omega(2^{\ROOutputSize})$，此时 $\Distribution_{g}$ 无法进行高效的惰性采样。由此可见，存在无高效惰性采样的函数分布。}其次，在安全归约中，惰性采样是一个\emph{常用成分}。在安全归约中，算法可能调用另一个期望访问随机预言机的子算法。如果归约算法可以将所有查询转发给一个外部预言机实例，就无需惰性采样；但有时外部预言机在归约设置中并不存在，或者归约算法需要对部分查询使用外部预言机，对另一些查询使用惰性采样，并将后者与其它量进行关联。全书中我们在多个安全归约中多次使用惰性采样。
+
+\section{伪随机函数 vs. 随机预言机}
+\label{section:prf-vs-ro}
+
+伪随机函数是随机预言机的一种密码学实现，对现代密码学具有重要意义。下面我们回顾并讨论其定义。要点是：由于伪随机函数的安全性要求其（描述）保持秘密，因此在本书中并不重点使用伪随机函数。
+
+伪随机函数的安全性质在于，其输入-输出行为在计算上与随机预言机不可区分。对手只能看到输入-输出行为，且并不接收函数的描述。为简单起见，我们在此使用\Cref{remark:finite-vs-infinite-oracle} 中讨论的固定输入长度的随机预言机定义。
+
+\begin{definition}
+\label{definition:prf}
+伪随机函数族具有误差 $\epsilon$，是指族 $\{F_{\ROInputSize,\ROOutputSize}\}_{\ROInputSize,\ROOutputSize \in \Naturals}$，其中每个 $F_{\ROInputSize,\ROOutputSize}$ 是关于函数 $\ROFunction \colon \Bits^{\ROInputSize} \to \Bits^{\ROOutputSize}$ 的分布，使得对于任意输入长度 $\ROInputSize$、输出长度 $\ROOutputSize$ 和运行时间为 $t$ 的预言机算法 $A$，以下两种分布在统计距离上 $\epsilon(\ROInputSize,\ROOutputSize,t)$-接近：
+\begin{equation*}
+\left\{
+A^{\ROFunction}\GivenExperiment
+\StateExperiment{\ROFunction \gets \ROIODistribution{\ROInputSize}{\ROOutputSize}}
+\right\}
+\TextAndInMath
+\left\{
+A^{f}\GivenExperiment
+\StateExperiment{f \gets F_{\ROInputSize,\ROOutputSize}}
+\right\}
+\enspace.
+\end{equation*}
+\end{definition}
+
+该函数族还应能\emph{高效采样}和\emph{高效求值}：存在多项式时间算法可在 $\poly(\ROInputSize,\ROOutputSize)$ 时间内采样 $f$，且给定采样得到的 $f$ 与输入 $\ROQuery$，可在 $\poly(\ROInputSize,\ROOutputSize)$ 时间内计算 $f(\ROQuery)$。
+
+伪随机函数是对随机预言机的高效去随机化。采样一个随机预言机需为 $2^{\ROInputSize}$ 个输入各自采样 $\ROOutputSize$ 位随机串，共需 $2^{\ROInputSize}\cdot\ROOutputSize$ 位随机数；而采样伪随机函数仅需多项式量的随机数。
+
+伪随机函数适用于多个共享同一秘密的参与方希望同步访问同一份指数大小随机串的场景。他们可以用 $F_{\ROInputSize,\ROOutputSize}$ 中采样得到的 $f$ 对相关输入求值，以对外展现为随机（其他方仅知输入-输出对）。
+
+例如，伪随机函数可构造对称加密方案，其实为一次性密钥本的去随机化：通信双方预先共享 $f\colon\Bits^{\ROOutputSize}\to\Bits^{\ROOutputSize}$，加密时采样随机盐 $r$ 并发送 $c=(r,\,f(r)\oplus m)$，可证明该方案满足选明文攻击安全性。
+
+伪随机函数是\DoQuote{轻量}对象，可由单向函数等基本假设或离散对数、学习误差等群和格假设构造。相比之下，从理论角度看，ROM 是一个强理想模型，在形式化安全性方面存在显著限制（见\Cref{section:rom-benefits-and-drawbacks}）。
+
+\subsection{实现方式}
+\label{section:rom-realizations}
+
+ROM 是一个理想化模型，实际中需要高效实现。下面非正式讨论几种实现方式：在\Cref{section:rom-as-concrete-hash} 中讨论最常用的基于密码学 Hash 函数的启发式实现；在\Cref{section:rom-via-alternatives} 中讨论虽不常用但有时相关的其它实现。
+
+\subsection{基于密码学 Hash 函数}
+\label{section:rom-as-concrete-hash}
+
+随机预言机通常启发式地由特定 Hash 函数实现，后者被认为在输入-输出行为上足够近似随机预言机，以保持某些协议的安全性。下面讨论该启发式及常见实例。
+
+\parhead{ROM 启发式}
+设协议 $\ROProtocol$ 使用随机预言机 $\ROFunction\colon\Bits^{*}\to\Bits^{\ROOutputSize}$。取高效可计算函数 $\CHFunction\colon\Bits^{*}\to\Bits^{\ROOutputSize}$，其计算时间为多项式。用 $\CHFunction$ 替换 $\ROFunction$：
+\begin{inparaenum}[(1)]
+  \item 公布 $\CHFunction$ 的计算算法；
+  \item 在协议中将所有对 $\ROFunction$ 的查询替换为对 $\CHFunction$ 的调用。
+\end{inparaenum}
+得到新协议 $\ROProtocol'$，运行于\emph{公共参考字符串模型}，但一般不继承原 ROM 下的安全证明。通常我们\emph{假设} $\ROProtocol'$ 安全，称为协议 $\ROProtocol$ 与 Hash 函数 $\CHFunction$ 的 ROM 启发式。
+
+\parhead{怎样的 Hash 函数合适？}
+应保证 $\CHFunction$ 近似满足随机预言机的若干安全属性，如：
+\begin{itemize}[noitemsep]
+  \item \emph{抗预像性}：给定输出 $y$，计算 $x$ 使 $\CHFunction(x)=y$ 不可行；
+  \item \emph{抗碰撞性}：找到 $x_1\neq x_2$ 使 $\CHFunction(x_1)=\CHFunction(x_2)$ 困难；
+  \item \emph{前缀抗性}：找到 $x$ 使 $\CHFunction(x)$ 以许多零开头困难。
+\end{itemize}
+更一般地，要确保 $\CHFunction$ 没有可利用结构，对其仅能进行黑盒式\emph{通用攻击}。
+
+\parhead{主流 Hash 函数}
+现实中有多种广泛用于实现 ROM 的 Hash 函数，如 \texttt{SHA3}、\texttt{BLAKE3}。它们输出多种比特长度，例如 \texttt{SHA3-256}、\texttt{SHA3-512}。在 x86 架构上，SHA3-256 的吞吐可低于每字节 15 个时钟周期。
+
+这些函数具有：
+\begin{itemize}[noitemsep]
+  \item 设计原理成熟；
+  \item 在 SSL/TLS、SSH、IPsec、Bitcoin 等高价值系统中应用，经久未破；
+  \item 社区和标准化组织（如 NIST）大量研究和审视。
+\end{itemize}
+
+\subsection{其它方法}
+\label{section:rom-via-alternatives}
+
+虽 ROM 启发式最常用，还有以下假设性方案：
+\begin{inparaenum}[(1)]
+  \item 可信中心；
+  \item 硬件 Token；
+  \item 软件混淆。
+\end{inparaenum}
+这些方法或依赖伪随机函数，或在实践中效率、信任或可用性受限，不及 Hash 启发式。
+
+\section{优点与缺点}
+\label{section:rom-benefits-and-drawbacks}
+
+\parhead{优点}
+\begin{itemize}[noitemsep]
+  \item \emph{数学简单}：仅需理解随机函数，无需抽象代数。
+  \item \emph{具体安全}：可给出微小常数的误差界，参数设置直观。
+  \item \emph{高效实现}：基于\texttt{SHA3} 等 Hash 函数，性能优良。
+  \item \emph{广泛适用}：ROM 下构造的简洁论证无需其它假设；基于 ROM 的公钥加密、签名、FHE 等也已成库。
+  \item \emph{量子安全}：可扩展到 QROM，已知的 Hash 函数对量子攻击也具备抗性。
+\end{itemize}
+
+\parhead{缺点}
+\begin{itemize}[noitemsep]
+  \item \emph{有时不可实现}：存在在 ROM 安全但用任何高效函数都不安全的协议。
+  \item \emph{适用受限}：纯查询受限的 ROM 不足以实现密钥协商、公钥加密、OT 等。
+\end{itemize}
+
+\section{多个随机预言机的设置}
+\label{section:rom-derivations}
+
+有时我们需要使用多个输出长度可能不同的随机预言机。我们用记号
+\begin{equation*}
+(\ROFunction_{i})_{i \in [\ROVectorLength]} \gets \RODistribution{(\ROChosenOutputSize_{i})_{i \in [\ROVectorLength]}}
+\end{equation*}
+表示对每个 $i\in[\ROVectorLength]$ 独立采样 $\ROFunction_{i}\gets\RODistribution{\ROChosenOutputSize_{i}}$。我们用
+\begin{equation*}
+\ROOutputAndTrace{(\ROFunction_{i})_{i \in [\ROVectorLength]}}{\ROAdversary}{\ROTrace}{b}(a)
+\end{equation*}
+来表示算法 $\ROAdversary$ 在输入 $a$ 且对 $(\ROFunction_{i})_{i\in[\ROVectorLength]}$ 有查询访问时输出 $b$，且其查询-回答对列表为 $\ROTrace$。$\ROTrace$ 中的每一对都带有对应的预言机索引。\footnote{形式上，$\ROTrace$ 是三元组 $(i,\ROQuery,\ROAnswer)$ 的有序列表，表示对 $\ROFunction_{i}$ 的 $\ROQuery$ 查询得到 $\ROAnswer$。}
+
+本节其余内容说明如何避免显式采样多重随机预言机。具体地，可通过\emph{域分离}和\emph{输出扩展}，从单个随机预言机 $\ROFunction\gets\RODistribution{\ROOutputSize}$ 推导出 $(\ROFunction_{i})_{i\in[\ROVectorLength]}$。
+
+\parhead{域分离}  
+例如，若希望得到两份独立的 $\RODistribution{\ROOutputSize}$ 随机预言机 $\ROFunction_{0},\ROFunction_{1}$，可定义
+\[
+\ROFunction_{0}(\ROQuery)\DefineEqual\ROFunction((0,\ROQuery)),\quad
+\ROFunction_{1}(\ROQuery)\DefineEqual\ROFunction((1,\ROQuery)).
+\]
+前缀 $0,1$ 将两个域分离：任何对 $\ROFunction_{0},\ROFunction_{1}$ 的查询都映射到不同的 $\ROFunction$ 查询。  
+一般地，取 $i$ 为 $\lceil\log_2\ROVectorLength\rceil$ 位前缀，则对每个 $i\in[\ROVectorLength]$ 定义
+\[
+\ROFunction_{i}(\ROQuery)\DefineEqual\ROFunction\bigl((i,\ROQuery)\bigr),
+\]
+即可域分离推导出 $\ROVectorLength$ 个独立随机预言机。
+
+\parhead{输出扩展}  
+若需要输出长度 $\ROChosenOutputSize\neq\ROOutputSize$ 的预言机，可按以下方式处理：  
+- 当 $\ROChosenOutputSize<\ROOutputSize$ 时，对查询答案取前 $\ROChosenOutputSize$ 位。  
+- 当 $\ROChosenOutputSize>\ROOutputSize$ 时，令 $\RONumOutputChunks=\lceil\ROChosenOutputSize/\ROOutputSize\rceil$，先通过域分离得出 $\ROFunction_{1},\dots,\ROFunction_{\RONumOutputChunks}$，再将各自答案拼接，最后视情况对最后一块进行截断。
+
+具体而言，查询 $\ROQuery$ 的输出为
+\[
+\ROFunction_{1}(\ROQuery)\,\|\,\cdots\,\|\,
+\begin{cases}
+\ROFunction_{\RONumOutputChunks}(\ROQuery), & \ROOutputSize\mid\ROChosenOutputSize,\\
+\text{首 }\bigl(\ROChosenOutputSize\bmod\ROOutputSize\bigr)\text{ 位 of }\ROFunction_{\RONumOutputChunks}(\ROQuery), & \text{否则.}
+\end{cases}
+\]
+
+\parhead{综合：域分离与扩展}  
+更一般地，可对每个 $i\in[\ROVectorLength]$，用记号
+\[
+\ROFunction_{i}\DefineEqual\DeriveROFunction{\ROFunction}{i}{\ROChosenOutputSize_{i}}
+\]
+定义推导规则：
+\begin{itemize}[noitemsep]
+  \item 令 $\RONumOutputChunks_{i}=\lceil\ROChosenOutputSize_{i}/\ROOutputSize\rceil$；
+  \item 对每 $j\in[\RONumOutputChunks_{i}]$，设 $\ROAnswer_{j}=\ROFunction\bigl((i,j,\ROQuery)\bigr)$；
+  \item 若 $\ROChosenOutputSize_{i}\bmod\ROOutputSize\neq0$，则对最后一块 $\ROAnswer_{\RONumOutputChunks_{i}}$ 取其前余数位；
+  \item 输出 $\ROAnswer_{1}\,\|\cdots\|\ROAnswer_{\RONumOutputChunks_{i}}$。
+\end{itemize}
+其中，$i$、$j$ 分别为各自所需的位长前缀，用于域分离。
+
+\parhead{算法转换}  
+可定义转换过程 $\MultiToSingle$（多→单）和 $\SingleToMulti$（单→多），将多预言机算法与单预言机算法相互转换，并严格分析查询次数与输出分布——详见本书第~\ref{chapter:multiple-oracles-reduction} 章。
+
+\chapter{基本密码学性质}
+\label{chapter:rom-basic-properties}
+
+我们讨论随机预言机的基本密码学性质：
+\begin{itemize}[noitemsep]
+  \item \emph{不可预测性}（\Cref{section:unpredictability}）；
+  \item \emph{抗预像性}（\Cref{section:inversion-resistance}）；
+  \item \emph{抗碰撞性}（\Cref{section:collision-resistance}）。
+\end{itemize}
+这些性质有助于熟悉随机预言机模型（ROM）中的基本安全性证明，并且在本书中各类构造的安全性分析中都会用到它们。
+
+\section{不可预测性}
+\label{section:unpredictability}
+
+查询随机预言机 $\ROFunction$ 的算法在每次查询时都会获得一个查询–回答对。预测尚未进行的查询的回答（成功概率超过随机猜测）是不可能的，下面我们具体讨论。
+
+考虑以下\textbf{预测问题}：\emph{给定对随机预言机 $\ROFunction \gets \RODistribution{\ROOutputSize}$ 的查询访问，输出一对 $(\ROQuery,\ROAnswer)$，使得 $\ROFunction(\ROQuery)=\ROAnswer$，且 $(\ROQuery,\ROAnswer)$ 并非通过查询 $\ROFunction$ 得到的已有查询–回答对。}
+
+由于随机预言机 $\ROFunction\gets\RODistribution{\ROOutputSize}$ 的定义，无论之前有多少查询，对 $\ROFunction$ 的任何新查询都会返回一个独立均匀的 $\Bits^{\ROOutputSize}$ 随机字符串。因此，无论攻击者拥有多少计算或查询资源，其在上述预测问题中的成功概率至多为 $\ROPExpression{\ROOutputSize}$。下面给出该事实的形式化陈述与证明。
+
+\begin{lemma}
+\label{lemma:rom-not-queried-pair}
+对于任意输出长度 $\ROOutputSize\in\Naturals$、查询上界 $\ROQueryBound\in\Naturals$ 以及最多进行 $\ROQueryBound$ 次查询并输出候选查询–回答对 $(\ROQuery,\ROAnswer)$ 的算法 $\ROAdversary$，都有
+\begin{equation*}
+\Pr\left[
+\begin{array}{l}
+(\ROQuery,\ROAnswer)\notin\ROTrace\\
+\land\;\ROFunction(\ROQuery)=\ROAnswer
+\end{array}
+\;\Bigg|\;
+\begin{aligned}
+&\ROFunction\gets\RODistribution{\ROOutputSize},\\
+&\ROOutputAndTrace{\ROFunction}{\ROAdversary}{\ROTrace}{(\ROQuery,\ROAnswer)}
+\end{aligned}
+\right]
+\le
+\ROPExpression{\ROOutputSize}
+\enspace.
+\end{equation*}
+\end{lemma}
+
+\begin{proof}
+令 $\Event$ 表示事件“$\ROAdversary$ 对 $\ROQuery$ 进行了查询”。我们将其分为两种不相交的情况来讨论，并由此得到所需的上界。
+\begin{itemize}
+  \item \emph{情况 1：$\ROAdversary$ 查询了 $\ROQuery$.}\\
+    若 $\ROAdversary$ 在 $\ROQuery$ 上进行了查询，且 $(\ROQuery,\ROAnswer)\notin\ROTrace$，则必有 $\ROFunction(\ROQuery)\neq\ROAnswer$。因此
+\[
+\Pr\Bigl[
+(\ROQuery,\ROAnswer)\notin\ROTrace
+\land\;\ROFunction(\ROQuery)=\ROAnswer
+\land\;\Event
+\;\Big|\;
+\ROFunction\gets\RODistribution{\ROOutputSize},
+\ROOutputAndTrace{\ROFunction}{\ROAdversary}{\ROTrace}{(\ROQuery,\ROAnswer)}
+\Bigr]
+=0.
+\]
+
+  \item \emph{情况 2：$\ROAdversary$ 未查询 $\ROQuery$.}\\
+    若 $\ROAdversary$ 未对 $\ROQuery$ 进行查询（此时 $(\ROQuery,\ROAnswer)\notin\ROTrace$），则 $\ROFunction(\ROQuery)$ 与 $\ROTrace$ 独立，而 $\ROAnswer$ 仅依赖于 $\ROTrace$（及 $\ROAdversary$ 的私有随机性），故 $\ROFunction(\ROQuery)$ 与 $\ROAnswer$ 相互独立。于是
+\[
+\Pr\Bigl[
+(\ROQuery,\ROAnswer)\notin\ROTrace
+\land\;\ROFunction(\ROQuery)=\ROAnswer
+\land\;\neg\Event
+\;\Big|\;
+\ROFunction\gets\RODistribution{\ROOutputSize},
+\ROOutputAndTrace{\ROFunction}{\ROAdversary}{\ROTrace}{(\ROQuery,\ROAnswer)}
+\Bigr]
+\;=\;
+\Pr\bigl[\ROAnswer'=\ROAnswer\mid\ROAnswer'\gets\Bits^{\ROOutputSize}\bigr]
+\;=\;
+\ROPExpression{\ROOutputSize}.
+\]
+\end{itemize}
+综上，两种情况的概率之和不超过 $\ROPExpression{\ROOutputSize}$，证明完成。
+\end{proof}
+
+
+\section{抗预像性}
+\label{section:inversion-resistance}
+
+考虑以下\textbf{反演问题}：\emph{给定对随机预言机 $\ROFunction \gets \RODistribution{\ROOutputSize}$ 的查询访问，以及给定目标 $\ROAnswer \in \Bits^{\ROOutputSize}$，找出一个输入 $\ROQuery \in \Bits^{*}$，使得 $\ROFunction(\ROQuery)=\ROAnswer$.}
+
+由于对随机预言机的任何一次查询都会返回一个均匀随机的 $\Bits^{\ROOutputSize}$ 字符串，因此解决该问题的自然“攻击”策略是：在查询预算为 $\ROQueryBound$ 的情况下，随意选择 $\ROQuery_{1},\dots,\ROQuery_{\ROQueryBound}$ 互不相同的查询，并查看是否有查询的回答等于 $\ROAnswer$——若有则输出该查询，否则放弃。每次查询回答等于 $\ROAnswer$ 的概率恰为 $\tfrac1{2^{\ROOutputSize}}$，共进行 $\ROQueryBound$ 次查询。由容斥原理（见\Cref{lemma:inclusion-exclusion-2}），反演目标 $\ROAnswer$ 的成功概率可下界为：
+\begin{align*}
+&\Pr[\exists\,i\in[\ROQueryBound]:\ROFunction(\ROQuery_{i})=\ROAnswer]\\
+&\ge
+\sum_{i\in[\ROQueryBound]}
+\Pr[\ROFunction(\ROQuery_{i})=\ROAnswer]
+-
+\sum_{\substack{i,j\in[\ROQueryBound]\\i\neq j}}
+\Pr\bigl[\ROFunction(\ROQuery_{i})=\ROAnswer\land\ROFunction(\ROQuery_{j})=\ROAnswer\bigr]\\
+&=
+\frac{\ROQueryBound}{2^{\ROOutputSize}}
+-
+\binom{\ROQueryBound}{2}\cdot\frac{1}{2^{2\ROOutputSize}}
+\;\ge\;
+\frac12\cdot\frac{\ROQueryBound}{2^{\ROOutputSize}}
+\enspace.
+\end{align*}
+
+上述成功概率与 $\ROQueryBound$ 呈线性增长，这印证了更多查询会提升反演概率的直观认识。然而，当 $\ROQueryBound$ 为 $\ROOutputSize$ 的某个多项式函数时，该成功概率仍是 $\ROOutputSize$ 的一个可忽略函数。
+
+下列引理表明上述策略在本质上是最优的：任何 $\ROQueryBound$-查询算法要使其某次查询映射到目标 $\ROAnswer$ 的概率，均上界为 $O\bigl(\tfrac{\ROQueryBound}{2^{\ROOutputSize}}\bigr)$。这说明随机预言机具有\textbf{抗预像性}（在密码学中有时称为“一向性”）。
+
+\begin{lemma}
+\label{lemma:rom-ow}
+对于任意输出长度 $\ROOutputSize\in\Naturals$、查询上界 $\ROQueryBound\in\Naturals$、最多进行 $\ROQueryBound$ 次查询的算法 $\ROAdversary$ 及目标 $\ROAnswer\in\Bits^{\ROOutputSize}$，都有
+\[
+\Pr\Bigl[
+\exists\;\ROQuery\in\ROTrace:\;\ROFunction(\ROQuery)=\ROAnswer
+\;\Big|\;
+\ROFunction\gets\RODistribution{\ROOutputSize},\;
+\ROOutputAndTrace{\ROFunction}{\ROAdversary}{\ROTrace}{\bot}
+\Bigr]
+\le
+\ROOWExpression{\ROOutputSize}{\ROQueryBound}
+\enspace.
+\]
+\end{lemma}
+
+\begin{proof}
+不失一般性，假设 $\ROAdversary$ 的查询两两不同。对每次第 $i$ 次查询，定义指示变量 $\RandomVariableX_{i}$，当第 $i$ 次查询的回答等于 $\ROAnswer$ 时 $\RandomVariableX_{i}=1$。因为任何未曾查询的输入均返回独立均匀的 $\Bits^{\ROOutputSize}$ 随机串，所以
+\[
+\Pr[\RandomVariableX_{i}=1]
+=
+\frac{1}{2^{\ROOutputSize}}
+\quad
+\forall\,i\in[\ROQueryBound].
+\]
+由并集上界（union bound）可得
+\begin{align*}
+&\Pr\bigl[\exists\,i:\RandomVariableX_{i}=1\bigr]
+\le
+\sum_{i=1}^{\ROQueryBound}\Pr[\RandomVariableX_{i}=1]
+=
+\ROQueryBound\cdot\frac1{2^{\ROOutputSize}}
+=
+\ROOWExpression{\ROOutputSize}{\ROQueryBound}.
+\end{align*}
+这正是所需的不等式。
+\end{proof}
+
+上述引理的结论在以下扩展情形下同样成立：若目标 $\ROAnswer$ 按任意分布采样，或由对手在无查询访问的预计算阶段选定，则反演成功概率依旧受相同上界约束——这由概率分布的凸性立刻得到。
+
+若目标 $\ROAnswer$ 基于随机预言机选取，对手可 trivially 选择某固定查询 $\ROQuery$，令 $\ROAnswer=\ROFunction(\ROQuery)$，从而必然反演成功。我们可考虑另一情形：目标 $\ROAnswer$ 源自一个对手未知、但与预言机无关的随机查询 $\ROQuery$。下式给出对这种高熵目标的上界。
+
+\begin{lemma}
+\label{lemma:rom-ow-high-entropy}
+对于任意输出长度 $\ROOutputSize\in\Naturals$、查询上界 $\ROQueryBound\in\Naturals$、最多进行 $\ROQueryBound$ 次查询的算法 $\ROAdversary$ 以及参数 $\ROSaltSize\in\Naturals$，都有
+\[
+\Pr\Bigl[
+(\ROQuery,\ROAnswer)\in\ROTrace
+\;\Big|\;
+\begin{aligned}
+&\ROFunction\gets\RODistribution{\ROOutputSize},\\
+&\ROQuery\gets\Bits^{\ROSaltSize},\;
+\ROAnswer\gets\ROFunction(\ROQuery),\\
+&\ROInputOutputAndTrace{\ROFunction}{\ROAdversary}{\ROAnswer}{\ROTrace}{\bot}
+\end{aligned}
+\Bigr]
+\le
+\ROOWEntropyExpression{\ROSaltSize}
+\enspace.
+\]
+\end{lemma}
+
+\begin{proof}
+因为 $\ROAnswer=\ROFunction(\ROQuery)$ 在 $\Bits^{\ROOutputSize}$ 中均匀分布，我们可将实验等价替换为：先执行对手的查询阶段及输出阶段，再由实验在 $\Bits^{\ROOutputSize}$ 中采样 $\ROAnswer$，最后在 $\Bits^{\ROSaltSize}$ 中采样 $\ROQuery$。此时 $(\ROQuery,\ROAnswer)\in\ROTrace$ 当且仅当随机采样的 $\ROQuery$ 刚好与对手查询轨迹中某个查询相同，而这概率至多为 $\tfrac{2^{\ROSaltSize}}{2^{\ROSaltSize}}\cdot\frac{1}{2^{\ROSaltSize}}=\ROOWEntropyExpression{\ROSaltSize}$。故证毕。
+\end{proof}
+
+我们进一步推广到拥有多目标的情形：对手需破译目标列表 $\ROAnswer_{1},\dots,\ROAnswer_{\ROVectorLength}$，其中每个目标对应不同的随机预言机 $\ROFunction_{i}$。
+
+\begin{lemma}
+\label{lemma:rom-ow-high-entropy-vector}
+对于任意输出长度 $\ROOutputSize\in\Naturals$、查询上界 $\ROQueryBound\in\Naturals$、最多进行 $\ROQueryBound$ 次查询的算法 $\ROAdversary$、参数 $\ROSaltSize\in\Naturals$ 以及目标数量 $\ROVectorLength\in\Naturals$，都有
+\[
+\Pr\Bigl[
+\forall\,i\in[\ROVectorLength],\;(\ROQuery_{i},\ROAnswer_{i})\in\ROTrace
+\;\Big|\;
+\begin{aligned}
+&\forall i:\ROFunction_{i}\gets\RODistribution{\ROOutputSize},\\
+&\quad\ROQuery_{i}\gets\Bits^{\ROSaltSize},\;\ROAnswer_{i}\gets\ROFunction_{i}(\ROQuery_{i}),\\
+&\ROInputOutputAndTrace{\ROFunction_{1},\dots,\ROFunction_{\ROVectorLength}}{\ROAdversary}{\ROAnswer_{1},\dots,\ROAnswer_{\ROVectorLength}}{\ROTrace}{\bot}
+\end{aligned}
+\Bigr]
+\le
+\ROOWEntropyExpressionVector{\ROSaltSize}{\ROVectorLength}
+\enspace.
+\]
+\end{lemma}
+
+\begin{proof}
+与上一引理证明思路相同：对每个 $i$，$\ROAnswer_{i}$ 于 $\Bits^{\ROOutputSize}$ 中均匀分布，可延后采样，再由随机采样的 $\ROQuery_{i}$ 与查询轨迹比对。各 $i$ 之间相互独立，故联合反演所有目标的概率上界即为 $\bigl(\ROOWEntropyExpression{\ROSaltSize}\bigr)^{\ROVectorLength}=\ROOWEntropyExpressionVector{\ROSaltSize}{\ROVectorLength}$。
+\end{proof}
+
+\section{抗碰撞性}
+\label{section:collision-resistance}
+
+考虑以下\textbf{碰撞问题}：\emph{给定对随机预言机 $\ROFunction \gets \RODistribution{\ROOutputSize}$ 的查询访问，寻找两个互不相同的输入 $\ROQuery,\ROQuery'\in\Bits^{*}$，使得
+\[
+\ROFunction(\ROQuery)=\ROFunction(\ROQuery').
+\]
+}
+
+与反演问题类似，解决碰撞问题的自然“攻击”策略是：在查询预算为 $\ROQueryBound$ 的情况下，向预言机提出 $\ROQueryBound$ 个任意且两两不同的查询，并将其中产生的任何碰撞作为输出——若未找到则放弃。不同于反演问题，该策略的成功概率呈\emph{二次}增长，理由如下：
+
+对任意两次不同查询 $\ROQuery_i\neq\ROQuery_j$，有
+\[
+\Pr\bigl[\ROFunction(\ROQuery_i)=\ROFunction(\ROQuery_j)\bigr]
+=\frac{1}{2^{\ROOutputSize}}.
+\]
+总共有 $\binom{\ROQueryBound}{2}$ 对查询，因此此策略的成功概率为
+\[
+\Omega\Bigl(\frac{\ROQueryBound^2}{2^{\ROOutputSize}}\Bigr),
+\]
+这就是所谓的“生日攻击”现象。尽管如此，当 $\ROQueryBound$ 为 $\ROOutputSize$ 的多项式时，该成功概率仍是可忽略的。
+
+下面的引理表明，任何 $\ROQueryBound$-查询算法找到碰撞的概率都至多为 $O(\ROQueryBound^2/2^{\ROOutputSize})$，即随机预言机具有\textbf{抗碰撞性}。
+
+\begin{lemma}
+\label{lemma:rom-cr}
+对于任意输出长度 $\ROOutputSize\in\Naturals$、查询上界 $\ROQueryBound\in\Naturals$ 及最多进行 $\ROQueryBound$ 次查询的算法 $\ROAdversary$，都有
+\[
+\Pr\Bigl[
+\exists\,(\ROQuery,\ROAnswer),(\ROQuery',\ROAnswer)\in\ROTrace\text{ 且 }\ROQuery\neq\ROQuery'
+\;\Big|\;
+\ROFunction\gets\RODistribution{\ROOutputSize},\;
+\ROOutputAndTrace{\ROFunction}{\ROAdversary}{\ROTrace}{\bot}
+\Bigr]
+\le
+\ROCRExpression{\ROOutputSize}{\ROQueryBound}.
+\]
+\end{lemma}
+
+\begin{proof}
+不妨令 $\ROAdversary$ 的查询序列为 $\ROQuery_{1},\dots,\ROQuery_{\ROQueryBound}$。对每对 $(i,j)$，$i\neq j$，定义事件
+\[
+\Event_{i,j}:\; \ROQuery_{i}\neq\ROQuery_{j}\quad\land\quad \ROFunction(\ROQuery_{i})=\ROFunction(\ROQuery_{j}).
+\]
+显然 $\Pr[\Event_{i,j}]\le\frac1{2^{\ROOutputSize}}$。由并集上界（union bound）得
+\begin{align*}
+&\Pr\bigl[\exists\,i\neq j:\Event_{i,j}\bigr]
+\;\le\;
+\sum_{i\neq j}\Pr[\Event_{i,j}]
+\;=\;
+\binom{\ROQueryBound}{2}\cdot\frac1{2^{\ROOutputSize}}
+\;=\;
+\ROCRExpression{\ROOutputSize}{\ROQueryBound}.
+\end{align*}
+这即是所需的不等式。
+\end{proof}
+
+下述命题表明，上述上界在常数因子内是紧的。
+
+\begin{claim}
+\label{claim:collision-lower-bound}
+令输出长度 $\ROOutputSize\in\Naturals$、查询上界 $\ROQueryBound\in\Naturals$，且 $\ROQueryBound>1$ 且 $\frac{\ROQueryBound^2}{2^{\ROOutputSize}}\le\frac14$。则存在一 $\ROQueryBound$-查询算法 $\ROAdversary$，其成功找到碰撞的概率满足
+\[
+\Pr\Bigl[
+\exists\,(\ROQuery,\ROAnswer),(\ROQuery',\ROAnswer)\in\ROTrace\text{ 且 }\ROQuery\neq\ROQuery'
+\;\Big|\;
+\ROFunction\gets\RODistribution{\ROOutputSize},\;
+\ROOutputAndTrace{\ROFunction}{\ROAdversary}{\ROTrace}{\bot}
+\Bigr]
+\ge
+\frac1{10}\,\frac{\ROQueryBound^2}{2^{\ROOutputSize}}.
+\]
+\end{claim}
+
+\begin{proof}
+令 $\ROAdversary$ 对随机预言机进行任意 $\ROQueryBound$ 个两两不同的查询。与上文类似，对每对 $(i,j)$ 定义事件 $\Event_{i,j}$。由于查询两两不同，$\Pr[\Event_{i,j}]=1/2^{\ROOutputSize}$。应用包含-排除原理（三阶与四阶项的具体系数使用二项式系数近似，可参见 \Cref{lemma:inclusion-exclusion-2,lemma:binom-approx}），在假设 $\ROQueryBound^2/2^{\ROOutputSize}\le1/4$ 下，可得
+\[
+\Pr\bigl[\idxlor{i\neq j}\Event_{i,j}\bigr]
+\;\ge\;
+\frac{\ROQueryBound^2}{10\,2^{\ROOutputSize}}.
+\]
+详见上述证明。
+\end{proof}
+
+\section{交互式论证}
+\label{section:iarg-basics}
+
+非交互式论证的定义可以放宽，允许论证者与验证者在若干轮中交换消息。我们引入此概念，因为本书有时会先研究更简单的交互式协议，再讨论其非交互式对应物。
+
+在 ROM 中，一个\emph{交互式论证}（IARG）由以下元组给出：
+\[
+\IARGSymbol = \ARGSystem
+\]
+其中 $\ARGProver$ 是一个带预言机访问的交互式算法，称为\emph{论证者}，$\ARGVerifier$ 是另一个带预言机访问的交互式算法，称为\emph{验证者}。
+
+设随机预言机 $\ROFunction\gets\RODistribution{\ROOutputSize}$，输出长度为 $\ROOutputSize\in\Naturals$。包括论证者和验证者在内的任何人都可以查询 $\ROFunction$。论证者 $\ARGProver$ 接收实例 $\Instance$ 和见证 $\Witness$，验证者 $\ARGVerifier$ 接收实例 $\Instance$。双方在若干轮内交互，交互结束后，验证者输出一比特，$1$ 表示接受，$0$ 表示拒绝（见图~\ref{figure:iarg-diagram}）。
+
+我们说 $\IARGSymbol=\ARGSystem$ 是关系 $\Relation$ 的 ROM 交互式论证，当且仅当满足以下两大性质：\emph{完备性} 和 \emph{可靠性}。
+
+\begin{itemize}[noitemsep]
+  \item \textbf{完备性。} 对于每个 $(\Instance,\Witness)\in\Relation$，当论证者和验证者皆诚实时，验证者必然接受。即对于任意 $\ROOutputSize$，
+  \[
+  \Pr\Bigl[
+    \ARGInteract{\ARGProver^{\ROFunction}(\Instance,\Witness)}{\ARGVerifier^{\ROFunction}(\Instance)}=1
+    \;\Big|\;\ROFunction\gets\RODistribution{\ROOutputSize}
+  \Bigr]
+  =1.
+  \]
+  概率越过 $\ROFunction$ 以及双方的私有随机性（见定义~\ref{definition:iarg-completeness}）。
+
+  \item \textbf{可靠性。} 对于任意 $\ROOutputSize$、查询上界 $\ROQueryBound$、至多 $\ROQueryBound$ 次查询的恶意论证者 $\Malicious{\ARGProver}$ 以及任何 $\Instance\notin\GetLanguage\Relation$，验证者接受的概率至多为小量 $\ARGSoundnessError$。    
+  
+  \begin{itemize}[noitemsep]
+    \item \emph{非自适应可靠性：} 实例 $\Instance$ 在预言机采样前固定（见定义~\ref{definition:iarg-nonadaptive-soundness}）。
+    \item \emph{自适应可靠性：} 恶意论证者可在查询预言机后自适应选择实例（见定义~\ref{definition:iarg-adaptive-soundness}）。
+  \end{itemize}
+\end{itemize}
+
+以下给出形式化定义；记 $\ARGInteract{A}{B}$ 表示 $B$ 与 $A$ 交互后的输出结果随机变量。
+
+\begin{ImportantDefinition}{完备性}{iarg-completeness}
+交互式论证 $\IARGSymbol=\ARGSystem$ 对于关系 $\Relation$ 若满足：对任意 $\ROOutputSize\in\Naturals$ 及 $(\Instance,\Witness)\in\Relation$，
+\[
+\Pr\bigl[
+  \ARGInteract{\ARGProver^{\ROFunction}(\Instance,\Witness)}{\ARGVerifier^{\ROFunction}(\Instance)}=1
+  \;\big|\;
+  \ROFunction\gets\RODistribution{\ROOutputSize}
+\bigr]
+=1.
+\]
+\end{ImportantDefinition}
+
+\begin{ImportantDefinition}{非自适应可靠性}{iarg-nonadaptive-soundness}
+交互式论证 $\IARGSymbol=\ARGSystem$ 若满足：对任意 $\ROOutputSize\in\Naturals$、$\ROQueryBound\in\Naturals$、$\ROQueryBound$-查询的 $\Malicious{\ARGProver}$ 及 $\Instance\notin\GetLanguage\Relation$，
+\[
+\Pr\bigl[
+  \ARGInteract{\Malicious{\ARGProver}^{\ROFunction}}{\ARGVerifier^{\ROFunction}(\Instance)}=1
+  \;\big|\;\ROFunction\gets\RODistribution{\ROOutputSize}
+\bigr]
+\le
+\ARGNASoundnessError(\ROOutputSize,\ROQueryBound,\Instance).
+\]
+\end{ImportantDefinition}
+
+\begin{ImportantDefinition}{自适应可靠性}{iarg-adaptive-soundness}
+交互式论证 $\IARGSymbol=\ARGSystem$ 若满足：对任意 $\ROOutputSize\in\Naturals$、$\ROQueryBound\in\Naturals$、$\ROQueryBound$-查询的 $\Malicious{\ARGProver}$ 及实例长度上界 $\InstanceSize\in\Naturals$，
+\[
+\Pr\Bigl[
+  \begin{array}{l}
+    \SomeSize{\Instance}\le\InstanceSize,\;
+    \Instance\notin\GetLanguage\Relation,\\
+    \ARGInteract{\Malicious{\ARGProver}^{\ROFunction}(\ROAdvState)}{\ARGVerifier^{\ROFunction}(\Instance)}=1
+  \end{array}
+  \big|\;
+  \begin{aligned}
+    &\ROFunction\gets\RODistribution{\ROOutputSize},\\
+    &(\Instance,\ROAdvState)\gets\Malicious{\ARGProver}^{\ROFunction}
+  \end{aligned}
+\bigr]
+\le
+\ARGSoundnessError(\ROOutputSize,\ROQueryBound,\InstanceSize).
+\]
+\end{ImportantDefinition}
+
+\parhead{公开掷币}
+若验证者所有消息均为独立均匀随机比特串，则称该论证\emph{公开掷币}（public-coin）（见定义~\ref{definition:arg-public-coin}）。非交互式论证天然满足此条件。
+
+\chapter{附加的安全性定义}
+\label{chapter:narg-advanced}
+
+在实际应用中，论证通常需要满足除了完备性和可靠性之外的额外安全性定义。由于本书重点关注非交互式论证（NARG），下文仅针对 NARG 给出这些附加定义。
+\begin{itemize}[noitemsep]
+  \item 在 \Cref{section:narg-knowledge-soundness} 中讨论\emph{知识可靠性}。
+  \item 在 \Cref{section:narg-zero-knowledge} 中讨论\emph{零知识}。
+\end{itemize}
+本书将说明如何为我们研究的每种 NARG 构造满足这些附加安全性定义。
+
+\section{知识可靠性}
+\label{section:narg-knowledge-soundness}
+
+可靠性（见 \Cref{definition:narg-nonadaptive-soundness,definition:narg-adaptive-soundness}）保证任何恶意论证者都无法以超过极小错误概率说服验证者接受不在语言中的实例。
+
+\emph{知识可靠性}则更强：它要求当论证者成功说服验证者接受时（除去极小错误概率），该论证者“确实知道”一个合法见证证明实例属于语言。\footnote{满足此属性的论证有时称为\emph{知识证明}，若强调仅对受限的恶意论证者有效则称为\emph{知识论证}。}
+
+若实例属于语言，可通过暴力搜索找到见证，但效率低下。知识可靠性要求存在一个高效的\emph{提取器}，能从论证者的行为中提取出见证，从而体现论证者的“知识”。
+
+针对提取器访问恶意论证者的方式，有不同定义。下文给出两种自适应形式的知识可靠性定义——提取器均可在论证者选择实例后才作工作。\footnote{对应的非自适应版本可从下述定义中直接推导。}
+
+\parhead{直线提取（Straightline knowledge soundness）}  
+此强定义要求提取器仅利用一次执行的输出与查询–回答轨迹完成提取，因此在\emph{不可编程} ROM 中成立。
+
+\begin{ImportantDefinition}{直线知识可靠性}{adaptive-straightline-knowledge-soundness}
+令非交互式论证 $\NARGSymbol=\ARGSystem$ 针对关系 $\Relation$ 具有\defemph{直线知识可靠性误差 $\ARGKnowledgeError$}，当存在多项式时间确定性算法 $\ARGExtractor$（\emph{提取器}），使得对任意
+\[
+\ROOutputSize\in\Naturals,\quad
+\ROQueryBound\in\Naturals,\quad
+\Malicious{\ARGProver}\text{（$\ROQueryBound$-查询，确定性）},\quad
+\InstanceSize\in\Naturals,
+\]
+均有
+\[
+\Pr\Bigl[
+  \SomeSize{\Instance}\le \InstanceSize,\;
+  (\Instance,\Witness)\notin \Relation,\;
+  \ARGVerifier^{\ROFunction}(\Instance,\ARGString)=1
+  \;\Big|\;
+  \begin{aligned}
+    &\ROFunction\gets\RODistribution{\ROOutputSize},\\
+    &\ROOutputAndTrace{\ROFunction}{\Malicious{\ARGProver}}{\ROTrace}{(\Instance,\ARGString)},\\
+    &\Witness\gets\ARGExtractor(\Instance,\ARGString,\ROTrace)
+  \end{aligned}
+\Bigr]
+\;\le\;
+\ARGKnowledgeError(\ROOutputSize,\ROQueryBound,\InstanceSize).
+\]
+\end{ImportantDefinition}
+
+\parhead{重放提取（Rewinding knowledge soundness）}  
+此定义允许提取器在提取时重放（rewind）或多次运行恶意论证者，并访问随机预言机，以增强提取能力。错误概率还可依赖于论证者使验证者接受的成功概率。
+
+\begin{definition}
+\label{definition:argument-failure-probability}
+令非交互式论证 $\NARGSymbol=\ARGSystem$。一个确定性论证者 $\Malicious{\ARGProver}$ 的\defemph{失败概率} $\ProverFailureProbability{\Malicious{\ARGProver}}$ 定义为：对任意
+\[
+\ROOutputSize\in\Naturals,\quad
+\InstanceSize\in\Naturals,
+\]
+有
+\[
+\Pr\Bigl[
+  \SomeSize{\Instance}>\InstanceSize
+  \;\lor\;
+  \ARGVerifier^{\ROFunction}(\Instance,\ARGString)=0
+  \;\Big|\;
+  \begin{aligned}
+    &\ROFunction\gets\RODistribution{\ROOutputSize},\\
+    &(\Instance,\ARGString)\gets\Malicious{\ARGProver}^{\ROFunction}
+  \end{aligned}
+\Bigr]
+\le
+\ProverFailureProbability{\Malicious{\ARGProver}}(\ROOutputSize,\InstanceSize).
+\]
+\end{definition}
+
+\begin{ImportantDefinition}{重放知识可靠性}{adaptive-rewinding-knowledge-soundness}
+令非交互式论证 $\NARGSymbol=\ARGSystem$ 针对关系 $\Relation$ 具有\defemph{重放知识可靠性误差 $\ARGKnowledgeError$ 及提取时长 $\ARGKnowledgeTime$}，当存在概率算法 $\ARGExtractor$（\emph{提取器}），使得对任意
+\[
+\ROOutputSize\in\Naturals,\quad
+\ROQueryBound\in\Naturals,\quad
+\Malicious{\ARGProver}\text{（$\ROQueryBound$-查询，确定性，失败概率 }\ProverFailureProbability{\Malicious{\ARGProver}}\text{，运行时 }\ProverRunningTime{\Malicious{\ARGProver}}\text{）},
+\quad
+\InstanceSize\in\Naturals,
+\]
+均有
+\[
+\Pr\Bigl[
+  \SomeSize{\Instance}\le \InstanceSize,\;
+  (\Instance,\Witness)\notin \Relation,\;
+  \ARGVerifier^{\ROFunction}(\Instance,\ARGString)=1
+  \;\Big|\;
+  \begin{aligned}
+    &\ROFunction\gets\RODistribution{\ROOutputSize},\\
+    &\ROOutputAndTrace{\ROFunction}{\Malicious{\ARGProver}}{\ROTrace}{(\Instance,\ARGString)},\\
+    &\Witness\gets\ARGExtractor^{\ROFunction}
+       (\Instance,\ARGString,\ROTrace,\BlackBox{\Malicious{\ARGProver}})
+  \end{aligned}
+\Bigr]
+\;\le\;
+\ARGKnowledgeError\bigl(\ROOutputSize,\ROQueryBound,\InstanceSize,
+\ProverFailureProbability{\Malicious{\ARGProver}}(\ROOutputSize,\InstanceSize)\bigr),
+\]
+且 $\ARGExtractor$ 的期望运行时为
+\[
+\ARGKnowledgeTime\bigl(\ROOutputSize,\ROQueryBound,\InstanceSize,
+\ProverFailureProbability{\Malicious{\ARGProver}}(\ROOutputSize,\InstanceSize),
+\ProverRunningTime{\Malicious{\ARGProver}}(\ROOutputSize,\InstanceSize)\bigr).
+\]
+\end{ImportantDefinition}
+
+\begin{remark}[等价定义]
+\label{remark:knowledge-equivalence}
+在本书中，我们常用另一等价定义——提取器直接接收验证者的查询–回答轨迹，而非访问随机预言机。两种定义等价，理由如下：提取器对论证者的查询轨迹已有记录，而对未查询的输入，提取器可自行随机回答；仅需额外提供验证者的查询–回答轨迹。形式证明可参见正文。
+\end{remark}
+
+\section{零知识}
+\label{section:narg-zero-knowledge}
+
+可靠性和知识可靠性保护验证者免受恶意论证者攻击；相对地，\emph{零知识}保护（诚实）论证者的\emph{隐私}。
+
+实例 $\Instance$ 是论证者和验证者的公共输入，而见证 $\Witness$ 仅是论证者的私有输入。验证者并不直接获得 $\Witness$，而是获得论证者输出的论证字符串 $\ARGString$，这通常能显著提高效率：$\ARGString$ 通常远小于 $\Witness$，或验证 $\ARGString$ 的时间远快于直接检验 $(\Instance,\Witness)\in\Relation$。
+
+零知识要求 $\ARGString$ 不泄露除“$\Instance$ 属于语言”之外的任何 $\Witness$ 信息。形式上，存在高效的概率算法 \emph{模拟器} $\ARGSimulator$，使任意对手 $\ARGAdversary$ 在两种实验中的输出统计不可区分：
+\begin{itemize}[noitemsep]
+  \item \textbf{真实世界：} $\ARGAdversary$ 接收由真实论证者生成的 $\ARGString$；
+  \item \textbf{模拟世界：} $\ARGAdversary$ 接收由模拟器仅凭实例 $\Instance$ 生成的 $\ARGString$，同时模拟器在 EPROM 模型中预先“编程”随机预言机。
+\end{itemize}
+
+具体定义如下。
+
+\parhead{（1）非自适应零知识}  
+这里假设实例 $(\Instance,\Witness)\in\Relation$ 在预言机采样前固定。对任意
+\[
+\ROOutputSize\in\Naturals,\quad
+\ROQueryBound\in\Naturals,\quad
+\ARGAdversary\text{（$\ROQueryBound$-查询）},
+\quad
+(\Instance,\Witness)\in\Relation,
+\]
+定义两分布：
+\[
+\Distribution_{\RealSymbol}
+\;=\;
+\bigl\{\;
+\ARGOutput
+\mid
+\ROFunction\gets\RODistribution{\ROOutputSize};\;
+\ARGString\gets\ARGProver^{\ROFunction}(\Instance,\Witness);\;
+\ARGOutput\gets\ARGAdversary^{\ROFunction}(\ARGString)
+\bigr\},
+\]
+\[
+\Distribution_{\SimSymbol}
+\;=\;
+\bigl\{\;
+\ARGOutput
+\mid
+\ROFunction\gets\RODistribution{\ROOutputSize};\;
+(\ARGString,\ARGZKProgrammedList)\gets\ARGSimulator^{\ROFunction}(\Instance);\;
+\ARGOutput\gets\ARGAdversary^{\ROProgram{\ROFunction}{\ARGZKProgrammedList}}(\ARGString)
+\bigr\}.
+\]
+若这两分布在统计距离上不超过 $\ARGONZKError(\ROOutputSize,\ROQueryBound,\Instance)$，则称 NARG 具有\emph{非自适应零知识误差} $\ARGONZKError$（参见定义~\ref{definition:once-nonadaptive-zk-narg}）。
+
+\parhead{（2）自适应零知识}  
+对手先与预言机交互，选定实例、见证和内部状态后，再继续接收 $\ARGString$。对任意
+\[
+\ROOutputSize\in\Naturals,\quad
+\ROQueryBound\in\Naturals,\quad
+\ARGAdversary\text{（$\ROQueryBound$-查询，选择合法}\Instance,\Witness\text{）},\quad
+\InstanceSize\in\Naturals,
+\]
+定义两分布：
+\[
+\Distribution_{\RealSymbol}
+\;=\;
+\bigl\{\;
+\ARGOutput
+\mid
+\ROFunction\gets\RODistribution{\ROOutputSize};\;
+(\Instance,\Witness,\ROAdvState)\gets\ARGAdversary^{\ROFunction};\;
+\ARGString\gets\ARGProver^{\ROFunction}(\Instance,\Witness);\;
+\ARGOutput\gets\ARGAdversary^{\ROFunction}(\ROAdvState,\ARGString)
+\bigr\},
+\]
+\[
+\Distribution_{\SimSymbol}
+\;=\;
+\bigl\{\;
+\ARGOutput
+\mid
+\ROFunction\gets\RODistribution{\ROOutputSize};\;
+(\Instance,\Witness,\ROAdvState)\gets\ARGAdversary^{\ROFunction};\;
+(\ARGString,\ARGZKProgrammedList)\gets\ARGSimulator^{\ROFunction}(\Instance);\;
+\ARGOutput\gets\ARGAdversary^{\ROProgram{\ROFunction}{\ARGZKProgrammedList}}(\ROAdvState,\ARGString)
+\bigr\}.
+\]
+若两分布统计距离至多 $\ARGOAZKError(\ROOutputSize,\ROQueryBound,\InstanceSize)$，则称具有\emph{自适应零知识误差} $\ARGOAZKError$（参见定义~\ref{definition:once-adaptive-zk-narg}）。
+
+\parhead{见证不可区分性}  
+零知识蕴含较弱的\emph{见证不可区分性}：对同一实例，用不同见证生成的 $\ARGString$ 分布几乎相同。形式定义如下。
+
+对任意
+\[
+\ROOutputSize\in\Naturals,\quad
+\ROQueryBound\in\Naturals,\quad
+\ARGAdversary\text{（$\ROQueryBound$-查询，输出合法}\Instance,\Witness_0,\Witness_1\text{）},\quad
+\InstanceSize\in\Naturals,
+\]
+令
+\[
+\RandomVariableX_b
+=
+\bigl\{
+\ARGOutput
+\mid
+\ROFunction\gets\RODistribution{\ROOutputSize};\;
+(\Instance,\Witness_0,\Witness_1,\ROAdvState)\gets\ARGAdversary^{\ROFunction};\;
+\ARGString\gets\ARGProver^{\ROFunction}(\Instance,\Witness_b);\;
+\ARGOutput\gets\ARGAdversary(\ROAdvState,\ARGString)
+\bigr\}.
+\]
+若 $\RandomVariableX_0$ 与 $\RandomVariableX_1$ 在统计距离上不超 $ \ARGWIError(\ROOutputSize,\ROQueryBound,\InstanceSize)$，则称具有\emph{自适应见证不可区分性误差} $\ARGWIError$（参见定义~\ref{definition:adaptive-wi-narg}）。
+
+\begin{lemma}
+若某 NARG 具有自适应零知识误差 $\ARGOAZKError$，则其见证不可区分性误差至多 $2\,\ARGOAZKError$。
+\end{lemma}
 
 
 
