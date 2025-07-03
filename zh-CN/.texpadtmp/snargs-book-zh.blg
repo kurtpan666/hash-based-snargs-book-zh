@@ -1,15 +1,15 @@
 [0] Config.pm:308> INFO - This is Biber 2.20
 [0] Config.pm:311> INFO - Logfile is '/Users/kurtpan/Documents/GitHub/hash-based-snargs-book-zh/zh-CN/.texpadtmp/snargs-book-zh.blg'
-[28] biber-darwin:340> INFO - === Thu Jul  3, 2025, 14:18:45
-[35] Biber.pm:420> INFO - Reading '/Users/kurtpan/Documents/GitHub/hash-based-snargs-book-zh/zh-CN/.texpadtmp/snargs-book-zh.bcf'
-[64] Biber.pm:994> INFO - Found 4 citekeys in bib section 0
-[70] Biber.pm:4463> INFO - Processing section 0
-[74] Biber.pm:4654> INFO - Looking for bibtex file '/Users/kurtpan/Documents/GitHub/hash-based-snargs-book-zh/zh-CN/references.bib' for section 0
-[76] bibtex.pm:1713> INFO - LaTeX decoding ...
-[104] bibtex.pm:1519> INFO - Found BibTeX data source '/Users/kurtpan/Documents/GitHub/hash-based-snargs-book-zh/zh-CN/references.bib'
-[126] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[126] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[126] Biber.pm:4283> INFO - Sorting list 'anyt/global//global/global/global' of type 'entry' with template 'anyt' and locale 'en-US'
-[126] Biber.pm:4289> INFO - No sort tailoring available for locale 'en-US'
-[130] bbl.pm:676> INFO - Writing '/Users/kurtpan/Documents/GitHub/hash-based-snargs-book-zh/zh-CN/.texpadtmp/snargs-book-zh.bbl' with encoding 'UTF-8'
-[131] bbl.pm:779> INFO - Output to /Users/kurtpan/Documents/GitHub/hash-based-snargs-book-zh/zh-CN/.texpadtmp/snargs-book-zh.bbl
+[27] biber-darwin:340> INFO - === Thu Jul  3, 2025, 16:37:03
+[33] Biber.pm:420> INFO - Reading '/Users/kurtpan/Documents/GitHub/hash-based-snargs-book-zh/zh-CN/.texpadtmp/snargs-book-zh.bcf'
+[61] Biber.pm:994> INFO - Found 6 citekeys in bib section 0
+[66] Biber.pm:4463> INFO - Processing section 0
+[70] Biber.pm:4654> INFO - Looking for bibtex file '/Users/kurtpan/Documents/GitHub/hash-based-snargs-book-zh/zh-CN/references.bib' for section 0
+[72] bibtex.pm:1713> INFO - LaTeX decoding ...
+[100] bibtex.pm:1519> INFO - Found BibTeX data source '/Users/kurtpan/Documents/GitHub/hash-based-snargs-book-zh/zh-CN/references.bib'
+[125] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[125] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[125] Biber.pm:4283> INFO - Sorting list 'anyt/global//global/global/global' of type 'entry' with template 'anyt' and locale 'en-US'
+[125] Biber.pm:4289> INFO - No sort tailoring available for locale 'en-US'
+[129] bbl.pm:676> INFO - Writing '/Users/kurtpan/Documents/GitHub/hash-based-snargs-book-zh/zh-CN/.texpadtmp/snargs-book-zh.bbl' with encoding 'UTF-8'
+[130] bbl.pm:779> INFO - Output to /Users/kurtpan/Documents/GitHub/hash-based-snargs-book-zh/zh-CN/.texpadtmp/snargs-book-zh.bbl

@@ -1,0 +1,1001 @@
+
+% cat snargs-book.tex | aspell list -t | sort | uniq
+
+\synctex=1
+
+\documentclass[american,singlepageview]{snargs-book-zh}
+%%%%% option "bookview" for 2-page layout, "singlepageview" for 1-page layout
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% MACROS
+
+\renewcommand{\enspace}{\ensuremath{\thinspace}}
+\newcommand{\defemph}[1]{\textbf{\emph{#1}}}
+\newcommand{\DoQuote}[1]{``#1''}
+\newcommand{\Bits}{\{0,1\}}
+\newcommand{\Malicious}[1]{\tilde{#1}}
+\newcommand{\Interact}[2]{\langle #1, #2 \rangle}
+\newcommand{\DefineEqual}{\coloneqq}
+\renewcommand{\vec}[1]{\bm{#1}}
+\newcommand{\concat}{\|}
+\newcommand{\AuxiliaryState}{\mathsf{aux}}
+\newcommand{\BlackBox}[1]{\mathcal{O}_{#1}}
+\newcommand{\EquationComment}[1]{\quad\text{\small{(#1)}}}
+\newcommand{\IndentedBullet}{\;\;\text{\tiny{$\bullet$}}\;}
+\newcommand{\TextAndInMath}{\;\text{ and }\;}
+
+\newboolean{InsertNewline}
+\setboolean{InsertNewline}{false}
+\newcommand{\MaybeNewline}{\ifthenelse{\boolean{InsertNewline}}{\newline}{}}
+
+
+%%%%% operators
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+%%%%% probability
+\newcommand{\Expectation}{\mathbb{E}}
+\newcommand{\Event}{E}
+\newcommand{\BadEvent}{\Event_{\mathrm{bad}}}
+\newcommand{\GivenExperiment}{\;\vert\;}
+\newcommand{\StateExperiment}[1]{
+\!\begin{array}{l}
+#1
+\end{array}\!}
+\newcommand{\ConditionedOn}{\;\vert\;}
+\newcommand{\ConditionedOnText}{{\textnormal{\textcolor{gray}{conditioned on}}}}
+\newcommand{\RandomVariableX}{X}
+\newcommand{\RandomVariableY}{Y}
+\newcommand{\RandomVariableZ}{Z}
+\newcommand{\RandomVariableSupport}{S}
+\newcommand{\StatisticalDistanceSymbol}{\Delta}
+\newcommand{\StatisticalDistance}[2]{\StatisticalDistanceSymbol\left(#1,#2\right)}
+\newcommand{\Negate}[1]{\overline{#1}}
+\newcommand{\idxland}[1]{\scalebox{1.3}{$\land$}_{#1}}
+\newcommand{\idxlor}[1]{\scalebox{1.3}{$\lor$}_{#1}}
+\newcommand{\idxcup}[1]{\scalebox{1.3}{$\cup$}_{#1}}
+\newcommand{\InversionEvent}{\Event_{\mathrm{inv}}}
+\newcommand{\CollisionEvent}{\Event_{\mathrm{col}}}
+\newcommand{\NotEqualEvent}{\Event_{\mathrm{tree}}}
+\newcommand{\NotEqualEventA}{\Event_{\mathrm{tree},1}}
+\newcommand{\NotEqualEventB}{\Event_{\mathrm{tree},2}}
+\newcommand{\SubsetEvent}{\Event_{\mathrm{sub}}}
+\newcommand{\Distribution}{\mathcal{D}}
+\newcommand{\RealSymbol}{{\scriptscriptstyle\mathrm{real}}}
+\newcommand{\SimSymbol}{{\scriptscriptstyle\mathrm{sim}}}
+\newcommand{\DecisionBit}{b}
+
+%%%%% parentheses
+\newcommand{\floor}[1]{\left\lfloor{#1}\right\rfloor}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\Cardinality}[1]{\left|{#1}\right|}
+\newcommand{\absvalue}[1]{|{#1}|}
+\newcommand{\AbsValue}[1]{\left|{#1}\right|}
+\newcommand{\SomeSize}[1]{|#1|}
+\newcommand{\size}[1]{|#1|}
+\newcommand{\BitSize}[1]{\mathrm{len}(#1)}
+
+%%%%% sets
+\newcommand{\Naturals}{\mathbb{N}}
+\newcommand{\Reals}{\mathbb{R}}
+
+%%%%% string operators
+\newcommand{\LeftSymbol}{\mathsf{L}}
+\newcommand{\RightSymbol}{\mathsf{R}}
+\newcommand{\StringLeftHalf}[1]{[#1]_{\scriptscriptstyle \LeftSymbol}}
+\newcommand{\StringRightHalf}[1]{[#1]_{\scriptscriptstyle \RightSymbol}}
+
+%%%%% relation, language
+\newcommand{\Relation}{\mathcal{R}}
+\newcommand{\Language}{\mathcal{L}}
+\newcommand{\GetLanguage}[1]{\Language(#1)}
+\newcommand{\LanguageTime}{\mathrm{time}_{\Language}}
+\newcommand{\RelationTime}{\mathrm{time}_{\Relation}}
+
+%%%%% indexed relation
+\newcommand{\IndexedRelation}{\mathcal{R}_{\mathrm{i}}}
+\newcommand{\GetRelation}[1]{\Relation(#1)}
+
+%%%%% index, instance, witness
+\newcommand{\Index}{\mathbbm{i}}
+\newcommand{\Instance}{\mathbbm{x}}
+\newcommand{\Witness}{\mathbbm{w}}
+\newcommand{\IndexSize}{k}
+\newcommand{\InstanceSize}{n}
+\newcommand{\AltInstance}{\mathbbm{y}}
+
+%%%%% uniform random string
+\newcommand{\URS}{\mathsf{urs}}
+
+%%%%% generic algorithms (not yet formatted)
+\newcommand{\ProtoIndexer}{I}
+\newcommand{\ProtoProver}{P}
+\newcommand{\ProtoVerifier}{V}
+\newcommand{\ProtoAdversary}{A}
+\newcommand{\ProtoExtractor}{E}
+\newcommand{\ProtoSimulator}{S}
+\newcommand{\ProtoSalt}{\tau}
+
+%%%%% generic parameters (not yet formatted)
+\newcommand{\ProtoCompletenessError}{c}
+\newcommand{\ProtoSoundnessError}{\epsilon}
+\newcommand{\ProtoKnowledgeError}{\kappa}
+\newcommand{\ProtoKnowledgeTime}{\mathbf{et}}
+\newcommand{\ProtoZKError}{z}
+\newcommand{\ProtoWIError}{z}
+\newcommand{\ProtoAlphabet}{\Sigma}
+\newcommand{\ProtoRoundComplexity}{\mathsf{k}}
+\newcommand{\ProtoProofLength}{\mathsf{l}}
+\newcommand{\ProtoQueryComplexity}{\mathsf{q}}
+\newcommand{\ProtoRandomnessComplexity}{\mathsf{r}}
+\newcommand{\ProtoRandomnessCardinality}{\mathsf{R}}
+\newcommand{\ProtoIndexerTime}{\mathsf{it}}
+\newcommand{\ProtoProverTime}{\mathsf{pt}}
+\newcommand{\ProtoVerifierTime}{\mathsf{vt}}
+\newcommand{\ProtoPToVComplexity}{\mathsf{pv}}
+\newcommand{\ProtoVToPComplexity}{\mathsf{vp}}
+\newcommand{\RoundIndex}{i}
+\newcommand{\AltRoundIndex}{j}
+\newcommand{\OtherRoundIndex}{m}
+\newcommand{\SRSuperscript}{\mathrm{sr}}
+\newcommand{\ProtoSRSoundnessError}{\ProtoSoundnessError^{\SRSuperscript}}
+\newcommand{\ProtoSRKnowledgeError}{\ProtoKnowledgeError^{\SRSuperscript}}
+\newcommand{\ProtoRBRSoundnessError}{\ProtoSoundnessError^{\RBRSuperscript}}
+\newcommand{\ProtoRBRKnowledgeError}{\ProtoKnowledgeError^{\RBRSuperscript}}
+\newcommand{\ProtoView}{\mathsf{View}}
+\newcommand{\ProtoTime}{\mathsf{Time}}
+
+%%%%% nondeterministic proofs
+\newcommand{\NPDecider}{D}
+\newcommand{\NPProof}{\pi}
+
+%%%%% generic probabilistic proofs
+\newcommand{\PPIndexer}{\mathbf{\ProtoIndexer}}
+\newcommand{\PPProver}{\mathbf{\ProtoProver}}
+\newcommand{\PPVerifier}{\mathbf{\ProtoVerifier}}
+
+%%%%% sigma protocols
+\newcommand{\SPSymbol}{\mathsf{SP}}
+\newcommand{\SPSubscript}{\scriptscriptstyle\mathrm{SP}}
+\newcommand{\SPFormat}[1]{\mathbf{#1}}
+\newcommand{\SPProver}{\SPFormat{\ProtoProver}_{\SPSubscript}}
+\newcommand{\SPVerifier}{\SPFormat{\ProtoVerifier}_{\SPSubscript}}
+\newcommand{\SPExtractor}{\SPFormat{\ProtoExtractor}_{\SPSubscript}}
+\newcommand{\SPSimulator}{\SPFormat{\ProtoSimulator}_{\SPSubscript}}
+\newcommand{\SPSoundnessError}{\ProtoSoundnessError_{\SPSubscript}}
+\newcommand{\SPZKError}{\ProtoZKError_{\SPSubscript}}
+\newcommand{\SPKnowledgeError}{\ProtoKnowledgeError_{\SPSubscript}}
+\newcommand{\SPKnowledgeTime}{\ProtoKnowledgeTime_{\SPSubscript}}
+\newcommand{\SPMaliciousProver}{\Malicious{\SPFormat{\ProtoProver}}_{\SPSubscript}}
+\newcommand{\SPSystem}{(\SPProver,\SPVerifier)}
+\newcommand{\SPCommitment}{\alpha_{1}}
+\newcommand{\SPCommitmentIndexed}[1]{\alpha_{1,#1}}
+\newcommand{\SPChallenge}{\rho}
+\newcommand{\SPChallengeIndexed}[1]{\rho_{#1}}
+\newcommand{\SPResponse}{\alpha_{2}}
+\newcommand{\SPResponseIndexed}[1]{\alpha_{2,#1}}
+\newcommand{\SPProverRandomness}{\xi}
+\newcommand{\SPProverRandomnessSet}{\mathcal{R}}
+\newcommand{\SPPToVComplexity}{\ProtoPToVComplexity}
+\newcommand{\SPRandomnessComplexity}{\ProtoRandomnessComplexity}
+\newcommand{\SPRandomnessCardinality}{2^{\ProtoRandomnessComplexity}}
+\newcommand{\SPView}[4]{\ProtoView_{\SPSubscript}(#1,#2,#3,#4)}
+\newcommand{\SPSampledView}{(\Instance,\SPCommitment,\SPChallenge,\SPResponse)}
+
+%%%%% interactive proofs
+\newcommand{\IPSymbol}{\mathsf{IP}}
+\newcommand{\IPSystem}{(\IPProver,\IPVerifier)}
+\newcommand{\IPSubscript}{\scriptscriptstyle\mathrm{IP}}
+\newcommand{\IPInteract}[2]{\Interact{#1}{#2}_{\IPSubscript}}
+\newcommand{\IPFormat}[1]{\mathbf{#1}}
+\newcommand{\IPProver}{\IPFormat{\ProtoProver}_{\IPSubscript}}
+\newcommand{\IPVerifier}{\IPFormat{\ProtoVerifier}_{\IPSubscript}}
+\newcommand{\IPExtractor}{\IPFormat{\ProtoExtractor}_{\IPSubscript}}
+\newcommand{\IPSimulator}{\IPFormat{\ProtoSimulator}_{\IPSubscript}}
+\newcommand{\IPSoundnessError}{\ProtoSoundnessError_{\IPSubscript}}
+\newcommand{\IPKnowledgeError}{\ProtoKnowledgeError_{\IPSubscript}}
+\newcommand{\IPKnowledgeTime}{\ProtoKnowledgeTime_{\IPSubscript}}
+\newcommand{\IPMaliciousProver}{\Malicious{\IPFormat{\ProtoProver}}_{\IPSubscript}}
+\newcommand{\IPZKError}{\ProtoZKError_{\IPSubscript}}
+\newcommand{\IPRoundComplexity}{\ProtoRoundComplexity}
+\newcommand{\IPRandomnessComplexity}{\ProtoRandomnessComplexity}
+\newcommand{\IPRandomnessCardinality}[1]{2^{\ProtoRandomnessComplexity_{#1}}}
+\newcommand{\IPMaxRandomnessComplexity}{\IPRandomnessComplexity_{{\scriptscriptstyle\mathsf{max}}}}
+\newcommand{\IPPToVComplexity}{\ProtoPToVComplexity}
+\newcommand{\IPVToPComplexity}{\ProtoVToPComplexity}
+\newcommand{\IPProverTime}{\ProtoProverTime}
+\newcommand{\IPVerifierTime}{\ProtoVerifierTime}
+\newcommand{\IPProverMessage}{\alpha}
+\newcommand{\IPProverRandomness}{\xi}
+\newcommand{\IPProverRandomnessSet}{\mathcal{R}}
+\newcommand{\IPVerifierRandomMessage}{\rho}
+\newcommand{\IPVerifierRandomness}{\rho}
+\newcommand{\IPTuple}[1]{(#1_{\RoundIndex})_{\RoundIndex \in [\IPRoundComplexity]}}
+\newcommand{\IPVerifierInput}{\Instance,\IPTuple{\IPProverMessage},\IPTuple{\IPVerifierRandomMessage}}
+\newcommand{\IPSampledView}{\big(\Instance,\IPVerifierRandomness,\IPTuple{\IPProverMessage}\big)}
+\newcommand{\IPPublicSampledView}{\big(\Instance,\IPTuple{\IPVerifierRandomMessage},\IPTuple{\IPProverMessage}\big)}
+\newcommand{\IPView}[4]{\ProtoView_{\IPSubscript}(#1,#2,#3,#4)}
+\newcommand{\IPTranscript}{(\IPTuple{\IPProverMessage},\IPTuple{\IPVerifierRandomMessage})}
+\newcommand{\IPAuxiliaryState}{\AuxiliaryState}
+
+%%%%% probabilistically checkable proofs
+\newcommand{\PCPSymbol}{\mathsf{PCP}}
+\newcommand{\PCPSubscript}{\scriptscriptstyle\mathrm{PCP}}
+\newcommand{\PCPFormat}[1]{\mathbf{#1}}
+\newcommand{\PCPProver}{\PCPFormat{\ProtoProver}_{\PCPSubscript}}
+\newcommand{\PCPVerifier}{\PCPFormat{\ProtoVerifier}_{\PCPSubscript}}
+\newcommand{\PCPExtractor}{\PCPFormat{\ProtoExtractor}_{\PCPSubscript}}
+\newcommand{\PCPSimulator}{\PCPFormat{\ProtoSimulator}_{\PCPSubscript}}
+\newcommand{\PCPMaliciousProver}{\Malicious{\PCPFormat{\ProtoProver}}_{\PCPSubscript}}
+\newcommand{\PCPSystem}{(\PCPProver,\PCPVerifier)}
+\newcommand{\PCPString}{\Pi}
+\newcommand{\PCPEntry}{a}
+\newcommand{\PCPEntries}{\vec{\PCPEntry}}
+\newcommand{\PCPQueryIndex}{j}
+\newcommand{\PCPQuerySet}{Q}
+\newcommand{\PCPVerifierRandomMessage}{\rho}
+\newcommand{\PCPSoundnessError}{\ProtoSoundnessError_{\PCPSubscript}}
+\newcommand{\PCPKnowledgeError}{\ProtoKnowledgeError_{\PCPSubscript}}
+\newcommand{\PCPZKError}{\ProtoZKError_{\PCPSubscript}}
+\newcommand{\PCPAlphabet}{\ProtoAlphabet}
+\newcommand{\PCPProofLength}{\ProtoProofLength}
+\newcommand{\PCPRandomnessComplexity}{\ProtoRandomnessComplexity}
+\newcommand{\PCPQueryComplexity}{\ProtoQueryComplexity}
+\newcommand{\PCPProverTime}{\ProtoProverTime}
+\newcommand{\PCPVerifierTime}{\ProtoVerifierTime}
+\newcommand{\PCPSampledView}{(\Instance,\PCPVerifierRandomMessage,\PCPQuerySet,\PCPEntries)}
+\newcommand{\PCPView}[4]{\ProtoView_{\PCPSubscript}(#1,#2,#3,#4)}
+\newcommand{\PCPLocalView}[2]{[#1,#2]}
+
+%%%%% interactive oracle proofs
+\newcommand{\IOPSymbol}{\mathsf{IOP}}
+\newcommand{\IOPSubscript}{\scriptscriptstyle\mathrm{IOP}}
+\newcommand{\IOPInteract}[2]{\Interact{#1}{#2}_{\IOPSubscript}}
+\newcommand{\IOPFormat}[1]{\mathbf{#1}}
+\newcommand{\IOPProver}{\IOPFormat{\ProtoProver}_{\IOPSubscript}}
+\newcommand{\IOPVerifier}{\IOPFormat{\ProtoVerifier}_{\IOPSubscript}}
+\newcommand{\IOPExtractor}{\IOPFormat{\ProtoExtractor}_{\IOPSubscript}}
+\newcommand{\IOPSimulator}{\IOPFormat{\ProtoSimulator}_{\IOPSubscript}}
+\newcommand{\IOPMaliciousProver}{\Malicious{\IOPFormat{\ProtoProver}}_{\IOPSubscript}}
+\newcommand{\IOPSystem}{(\IOPProver,\IOPVerifier)}
+\newcommand{\IOPString}{\Pi}
+\newcommand{\IOPProverMessage}{\alpha}
+\newcommand{\IOPVerifierMessage}{\beta}
+\newcommand{\IOPEntry}{a}
+\newcommand{\IOPEntries}{\vec{\IOPEntry}}
+\newcommand{\IOPQueryIndex}{j}
+\newcommand{\IOPQuerySet}{Q}
+\newcommand{\IOPVerifierRandomMessage}{\rho}
+\newcommand{\IOPSoundnessError}{\ProtoSoundnessError_{\IOPSubscript}}
+\newcommand{\IOPKnowledgeError}{\ProtoKnowledgeError_{\IOPSubscript}}
+\newcommand{\IOPKnowledgeTime}{\ProtoKnowledgeTime_{\IOPSubscript}}
+\newcommand{\IOPZKError}{\ProtoZKError_{\IOPSubscript}}
+\newcommand{\IOPRoundComplexity}{\ProtoRoundComplexity}
+\newcommand{\IOPAlphabet}{\ProtoAlphabet}
+\newcommand{\IOPProofLength}{\ProtoProofLength}
+\newcommand{\IOPRandomnessComplexity}{\ProtoRandomnessComplexity}
+\newcommand{\IOPMaxRandomnessComplexity}{\IOPRandomnessComplexity_{{\scriptscriptstyle\mathsf{max}}}}
+\newcommand{\IOPQueryComplexity}{\ProtoQueryComplexity}
+\newcommand{\IOPProverTime}{\ProtoProverTime}
+\newcommand{\IOPStrings}{(\IOPString_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}}
+\newcommand{\IOPStringsPrime}{(\IOPString'_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}}
+\newcommand{\IOPVerifierTime}{\ProtoVerifierTime}
+\newcommand{\IOPVerifierRandomMessages}{(\IOPVerifierRandomMessage_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}}
+\newcommand{\IOPVerifierRandomMessagesPrime}{(\IOPVerifierRandomMessage'_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}}
+\newcommand{\IOPTuple}[1]{(#1_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}}
+\newcommand{\IOPVerifierInput}{\Instance,\IOPVerifierRandomMessages}
+\newcommand{\IOPVerifierInputWithProverMessages}{\Instance,\IOPTuple{\IOPProverMessage},\IOPVerifierRandomMessages}
+\newcommand{\IOPSampledView}{(\Instance,\IOPVerifierRandomMessage,\IOPTuple{\IOPQuerySet},\IOPTuple{\PCPEntries})}
+\newcommand{\IOPPublicSampledView}{(\Instance,\IOPVerifierRandomMessages,\IOPTuple{\IOPQuerySet},\IOPTuple{\PCPEntries})}
+\newcommand{\IOPView}[4]{\ProtoView_{\IOPSubscript}(#1,#2,#3,#4)}
+\newcommand{\IOPLocalView}[2]{[#1_{\RoundIndex},#2_{\RoundIndex}]_{\RoundIndex \in [\IOPRoundComplexity]}}
+\newcommand{\IOPAuxiliaryState}{\AuxiliaryState}
+\newcommand{\IOPConvincingCondition}{\IOPVerifier^{\IOPStrings}\big(\IOPVerifierInput\big)}
+\newcommand{\IOPTranscript}{(\IOPTuple{\IOPString},\IOPTuple{\IOPVerifierRandomMessage})}
+
+%%%%% holographic probabilistic proofs
+\newcommand{\HIOPSubscript}{\scriptscriptstyle\mathrm{HIOP}}
+\newcommand{\HIOPSymbol}{\mathsf{HIOP}}
+\newcommand{\HIOPInteract}[2]{\Interact{#1}{#2}_{\HIOPSubscript}}
+\newcommand{\HIOPIndexer}{\IOPFormat{\ProtoIndexer}_{\HIOPSubscript}}
+\newcommand{\HIOPProver}{\IOPFormat{\ProtoProver}_{\HIOPSubscript}}
+\newcommand{\HIOPVerifier}{\IOPFormat{\ProtoVerifier}_{\HIOPSubscript}}
+\newcommand{\HIOPSystem}{(\HIOPIndexer,\HIOPProver,\HIOPVerifier)}
+\newcommand{\ProverEncodedIndex}{\Index_{{\scriptscriptstyle\mathrm{p}}}}
+\newcommand{\VerifierEncodedIndex}{\Index_{{\scriptscriptstyle\mathrm{v}}}}
+\newcommand{\HIOPIndexerTime}{\ProtoIndexerTime}
+\newcommand{\HIOPExtractor}{\IOPFormat{\ProtoExtractor}_{\HIOPSubscript}}
+\newcommand{\HIOPSimulator}{\IOPFormat{\ProtoSimulator}_{\HIOPSubscript}}
+\newcommand{\HIOPSRExtractor}{\HIOPExtractor^{\SRSuperscript}}
+\newcommand{\HIOPMaliciousProver}{\Malicious{\IOPFormat{\ProtoProver}}_{\HIOPSubscript}}
+\newcommand{\HIOPMaliciousSRProver}{\HIOPMaliciousProver^{\SRSuperscript}}
+
+\newcommand{\HIOPSoundnessError}{\ProtoSoundnessError_{\HIOPSubscript}}
+\newcommand{\HIOPKnowledgeError}{\ProtoKnowledgeError_{\HIOPSubscript}}
+\newcommand{\HIOPKnowledgeTime}{\ProtoKnowledgeTime_{\HIOPSubscript}}
+\newcommand{\HIOPZKError}{\ProtoZKError_{\HIOPSubscript}}
+\newcommand{\HIOPStateRestorationGame}[3]{\SRGameName{\HIOPSubscript}(#1,#2,#3)}
+\newcommand{\HIOPSRKnowledgeError}{\ProtoSRKnowledgeError_{\HIOPSubscript}}\newcommand{\HIOPSRSoundnessError}{\ProtoSRSoundnessError_{\HIOPSubscript}}
+\newcommand{\HIOPSRKnowledgeTime}{\ProtoKnowledgeTime_{\HIOPSubscript}^{\SRSuperscript}}
+
+\newcommand{\HIOPView}[5]{\ProtoView_{\IOPSubscript}(#1,#2,#3,#4,#5)}
+\newcommand{\HIOPSampledView}{(\Index,\Instance,\IOPVerifierRandomMessage,\IOPTuple{\IOPQuerySet},\IOPTuple{\PCPEntries})}
+\newcommand{\HIOPPublicSampledView}{(\Index,\Instance,\IOPVerifierRandomMessages,\IOPTuple{\IOPQuerySet},\IOPTuple{\PCPEntries})}
+\newcommand{\HIOPLocalView}[2]{[#1_{\RoundIndex},#2_{\RoundIndex}]_{\RoundIndex=0}^{\IOPRoundComplexity}}
+\newcommand{\PaintedHIOPLocalView}[2]{\Paint{[#1_{\IndexRoundSubscript},#2_{\IndexRoundSubscript}],\,}[#1_{\RoundIndex},#2_{\RoundIndex}]_{\RoundIndex=1}^{\IOPRoundComplexity}}
+
+\newcommand{\HIOPSRGameStateEntry}[1]{(\Index,\Instance,(\IOPString_{1},\dots,\IOPString_{#1}),(\SRSaltString_{1},\dots,\SRSaltString_{#1}))}
+\newcommand{\HIOPSROutput}{\big(\Index,\Instance,\IOPStrings,\SRSaltStrings{\IOPRoundComplexity},\IOPVerifierRandomMessages\big)}
+\newcommand{\HIOPConvincingCondition}{\HIOPVerifier^{\VerifierEncodedIndex,\IOPStrings}\big(\IOPVerifierInput\big)}
+
+%%%%% argument systems
+\newcommand{\NARGSymbol}{\mathsf{NARG}}
+\newcommand{\ARGSubscript}{\scriptscriptstyle\mathrm{ARG}}
+\newcommand{\ARGFormat}[1]{\mathcal{#1}}
+\newcommand{\ARGOracles}{\mathsf{cnf}}
+\newcommand{\ARGIndexer}{\ARGFormat{\ProtoIndexer}}
+\newcommand{\ARGProver}{\ARGFormat{\ProtoProver}}
+\newcommand{\ARGVerifier}{\ARGFormat{\ProtoVerifier}}
+\newcommand{\ARGSystem}{(\ARGProver,\ARGVerifier)}
+\newcommand{\ARGExtractor}{\ARGFormat{\ProtoExtractor}}
+\newcommand{\ARGKnowledgeTime}{\ProtoKnowledgeTime_{\ARGSubscript}}
+\newcommand{\ARGSimulator}{\ARGFormat{\ProtoSimulator}}
+\newcommand{\ARGSimulatorHybrid}{\ARGFormat{\ProtoSimulator}_{\mathrm{H}}}
+\newcommand{\ARGSimulatorHybridOne}{\ARGFormat{\ProtoSimulator}_{\mathrm{H1}}}
+\newcommand{\ARGSimulatorHybridTwo}{\ARGFormat{\ProtoSimulator}_{\mathrm{H2}}}
+\newcommand{\ARGAdversary}{\ARGFormat{\ProtoAdversary}}
+\newcommand{\ARGOutput}{\mathsf{out}}
+\newcommand{\ARGString}{\pi}
+\newcommand{\ARGCompletenessError}{\ProtoCompletenessError_{\ARGSubscript}}
+\newcommand{\ARGTargetSoundnessError}{\ProtoSoundnessError_{0}}
+\newcommand{\ARGNASoundnessError}{\ProtoSoundnessError_{\ARGSubscript}}
+\newcommand{\ARGSoundnessError}{\ProtoSoundnessError_{\ARGSubscript}}
+\newcommand{\ARGKnowledgeError}{\ProtoKnowledgeError_{\ARGSubscript}}
+\newcommand{\ARGONZKError}{\ProtoZKError_{\ARGSubscript}}
+\newcommand{\ARGOAZKError}{\ProtoZKError_{\ARGSubscript}}
+\newcommand{\ARGZKError}{\ProtoZKError_{\ARGSubscript}}
+\newcommand{\ARGWIError}{\ProtoWIError_{\ARGSubscript}}
+\newcommand{\ARGInteract}[2]{\Interact{#1}{#2}_{\scriptscriptstyle\mathrm{ARG}}}
+\newcommand{\ARGRepetitionParameter}{k}
+\newcommand{\ARGZKProgrammedList}{\ProgrammedList}
+\newcommand{\ARGProverRandomness}{\xi}
+\newcommand{\ARGProverRandomnessSet}{\mathcal{R}}
+
+%%%%% preprocessing argument systems
+\newcommand{\PNARGSymbol}{\mathsf{PNARG}}
+\newcommand{\PARGSystem}{(\ARGIndexer,\ARGProver,\ARGVerifier)}
+\newcommand{\ARGpik}{\mathsf{pik}}
+\newcommand{\ARGvik}{\mathsf{vik}}
+\newcommand{\ROTraceIndexer}{\ROTrace_{\scalebox{0.5}{$\ARGIndexer$}}}
+\newcommand{\IndexRoundSubscript}{0}
+
+%%%%% interactive arguments
+\newcommand{\IARGSymbol}{\mathsf{IARG}}
+\newcommand{\IARGRoundComplexity}{\ProtoRoundComplexity}
+\newcommand{\IARGProverMessage}{\alpha}
+\newcommand{\IARGVerifierRandomMessage}{\rho}
+\newcommand{\IARGRandomnessComplexity}{\ProtoRandomnessComplexity}
+\newcommand{\IARGVerifierInput}{\Instance,(\IARGProverMessage_{\RoundIndex})_{\RoundIndex \in [\IARGRoundComplexity]},(\IARGVerifierRandomMessage_{\RoundIndex})_{\RoundIndex \in [\IARGRoundComplexity]}}
+
+%%%%% argument complexities
+\newcommand{\ARGComplexityFormat}[1]{\mathbf{#1}}
+\newcommand{\ARGTimeI}{\ARGComplexityFormat{t}_{\scriptscriptstyle\ARGIndexer}}
+\newcommand{\ARGTimeP}{\ARGComplexityFormat{t}_{\scriptscriptstyle\ARGProver}}
+\newcommand{\ARGTimeV}{\ARGComplexityFormat{t}_{\scriptscriptstyle\ARGVerifier}}
+\newcommand{\ARGQueryI}{\ARGComplexityFormat{q}_{\scriptscriptstyle\ARGIndexer}}
+\newcommand{\ARGQueryP}{\ARGComplexityFormat{q}_{\scriptscriptstyle\ARGProver}}
+\newcommand{\ARGQueryV}{\ARGComplexityFormat{q}_{\scriptscriptstyle\ARGVerifier}}
+\newcommand{\ARGCommunication}{\ARGComplexityFormat{c}}
+\newcommand{\ARGPCommunication}{\ARGCommunication_{\scriptscriptstyle\ARGProver}}
+\newcommand{\ARGVCommunication}{\ARGCommunication_{\scriptscriptstyle\ARGVerifier}}
+\newcommand{\ARGLength}{\ARGComplexityFormat{s}}
+
+\newcommand{\ProverFailureProbability}[1]{\delta_{#1}}
+\newcommand{\ProverFailureProbabilityPrime}[1]{\delta'_{#1}}
+\newcommand{\ProverRunningTime}[1]{\tau_{#1}}
+\newcommand{\ProverRunningTimePrime}[1]{\tau'_{#1}}
+\newcommand{\ProverRoundRunningTime}[2]{\tau_{#1}^{(#2)}}
+
+%%%%% random oracle
+\newcommand\mathmiddlescript[1]{\vcenter{\hbox{$\scriptstyle #1$}}}
+
+\newcommand{\ROFunction}{f}
+\newcommand{\ROQueryBound}{t}
+\newcommand{\RODistribution}[1]{\mathcal{U}(#1)}
+\newcommand{\ROIODistribution}[2]{\mathcal{U}(#1 \scalebox{0.65}[1]{ $\to$ } #2)}
+\newcommand{\ROOutputAndTrace}[4]{#4 \xleftarrow{#3} {#2}^{#1}}
+\newcommand{\ROInputOutputAndTrace}[5]{#5 \xleftarrow{#4} {#2}^{#1}(#3)}
+\newcommand{\SecurityParameter}{\lambda}
+\newcommand{\PrivacyParameter}{s}
+\newcommand{\ROSaltSize}{n}
+\newcommand{\ROVectorLength}{k}
+\newcommand{\ROQuery}{x}
+\newcommand{\ROAnswer}{y}
+\newcommand{\ROQueryIndex}{j}
+\newcommand{\ROTrace}{\mathsf{tr}}
+\newcommand{\RORandTrace}{\ROTrace_{\RORandSymbol}}
+\newcommand{\ROTreeTrace}{\ROTrace_{\ROTreeSymbol}}
+\newcommand{\ROHonestTrace}{S}
+\newcommand{\ROTraceVerifier}{\ROTrace_{\scalebox{0.5}{$\ARGVerifier$}}}
+\newcommand{\ROTraceVerifierFast}{\ROTrace_{\FastFSSymbol,\scalebox{0.5}{$\ARGVerifier$}}}
+\newcommand{\ROTraceVerifierSlow}{\ROTrace_{\SlowFSSymbol,\scalebox{0.5}{$\ARGVerifier$}}}
+\newcommand{\ROAdversary}{\ProtoAdversary}
+\newcommand{\ROAdvState}{\AuxiliaryState}
+\newcommand{\ROInputSize}{\lambda}
+\newcommand{\ROOutputSize}{\sigma}
+\newcommand{\ROChosenOutputSize}{\ell}
+\newcommand{\RONumOutputChunks}{m}
+\newcommand{\MultiToSingle}{\mathsf{M2S}}
+\newcommand{\SingleToMulti}{\mathsf{S2M}}
+\newcommand{\GeneralAlgorithm}{M}
+\newcommand{\Lazy}[1]{\dot{#1}}
+\newcommand{\LazySub}[2]{\Lazy{#1}_{#2}}
+\newcommand{\LazySRRandomness}{\mathsf{r}\dot{\mathsf{n}}\mathsf{d}}
+\newcommand{\ROFunctionAlt}{g}
+
+\newcommand{\ROTreeSymbol}{\MTSubscript}
+\newcommand{\RORandSymbol}{\scriptscriptstyle \mathsf{\$}}
+\newcommand{\ROTreeFunction}{\ROFunction_{\ROTreeSymbol}}
+\newcommand{\RORandFunction}{\ROFunction_{\RORandSymbol}}
+\newcommand{\RORandRoundFunction}[1]{\ROFunction_{#1}}
+\newcommand{\ROFSFirstRoundSymbol}{\scriptscriptstyle \mathsf{1}}
+\newcommand{\ROFSFirstRoundFunction}{\ROFunction_{\ROFSFirstRoundSymbol}}
+
+\newcommand{\ROTreeQueryBound}{\ROQueryBound_{\ROTreeSymbol}}
+\newcommand{\RORandQueryBound}{\ROQueryBound_{\RORandSymbol}}
+\newcommand{\ROOpenTrace}{\ROTrace'}
+\newcommand{\ROProgram}[2]{#1[#2]}
+\newcommand{\ROProtocol}{\mathbb{P}}
+\newcommand{\ProgrammedList}{\mu}
+\newcommand{\xgetsbelow}[1]{\xleftarrow[#1]{}}
+
+\newcommand{\DeriveROFunction}[3]{g^{#1}(#2,#3)}
+
+%%%%% security level
+\newcommand{\SecurityLevel}{\kappa}
+\newcommand{\ParameterSet}{S}
+\newcommand{\ParameterChoice}{p}
+\newcommand{\ResourceBound}{t}
+\newcommand{\ErrorBound}{\epsilon}
+
+%%%%% cryptographic hash function
+\newcommand{\CHFunction}{g}
+
+%%%%% basic commitment scheme
+\newcommand{\CMSymbol}{\mathsf{CM}}
+\newcommand{\CMSubscript}{\scriptscriptstyle\CMSymbol}
+\newcommand{\CMConstructor}[3]{\CMSymbol[#1,#2,#3]}
+\newcommand{\CMCommit}{\CMSymbol.\mathsf{Commit}}
+\newcommand{\CMCheck}{\CMSymbol.\mathsf{Check}}
+\newcommand{\CMExtractor}{\CMSymbol.\mathsf{Extract}}
+\newcommand{\CMMultiExtractor}{\CMSymbol.\mathsf{MultiExtract}}
+\newcommand{\CMSimulator}{\CMSymbol.\mathsf{Simulate}}
+\newcommand{\CMMessageLength}{\ell}
+\newcommand{\CMSaltSize}{s}
+\newcommand{\CMCommitment}{\mathsf{cm}}
+\newcommand{\CMMessage}{\mathsf{m}}
+\newcommand{\CMSaltString}{\ProtoSalt}
+\newcommand{\CMBindingError}{\ProtoSoundnessError_{\CMSubscript}}
+\newcommand{\CMExtractionError}{\ProtoKnowledgeError_{\CMSubscript}}
+\newcommand{\CMHidingError}{z_{\CMSubscript}}
+\newcommand{\CMNumCommitments}{n}
+\newcommand{\CMAdversary}{\ProtoAdversary}
+
+%%%%% Merkle tree graph
+\newcommand{\MTGraph}{T}
+\newcommand{\MTVertexSet}{V}
+\newcommand{\MTEdgeSet}{E}
+\newcommand{\MTGraphVertex}{v}
+\newcommand{\MTGraphLeaf}{v}
+\newcommand{\MTDepth}{d}
+\newcommand{\MTPath}{\mathsf{path}}
+\newcommand{\MTCoPath}{\mathsf{copath}}
+\newcommand{\MTPathIndex}[2]{\mathsf{p}(#1,#2)}
+\newcommand{\MTPathCoIndex}[2]{\bar{\mathsf{p}}(#1,#2)}
+\newcommand{\MTLayer}{j}
+
+%%%%% Merkle commitment scheme
+\newcommand{\MTSymbol}{\mathsf{MT}}
+\newcommand{\MTSubscript}{{\scriptscriptstyle\mathrm{MT}}}
+\newcommand{\MTConstructor}[4]{\MTSymbol[#1,#2,#3,#4]}
+\newcommand{\MTCommit}{\MTSymbol.\mathsf{Commit}}
+\newcommand{\MTOpen}{\MTSymbol.\mathsf{Open}}
+\newcommand{\MTCheck}{\MTSymbol.\mathsf{Check}}
+\newcommand{\MTExtractor}{\MTSymbol.\mathsf{Extract}}
+\newcommand{\MTMultiExtractor}{\MTSymbol.\mathsf{MultiExtract}}
+\newcommand{\MTSimulator}{\MTSymbol.\mathsf{Simulate}}
+\newcommand{\MTSimulateRoot}{\MTSymbol.\mathsf{SimulateRoot}}
+\newcommand{\MTAdversary}{\ProtoAdversary}
+\newcommand{\MTZKRootError}{\ProtoZKError_{\MTSubscript}^{\mathrm{rt}}}
+\newcommand{\MTZKProofError}{\ProtoZKError_{\MTSubscript}}
+\newcommand{\MTMessageLength}{\CMMessageLength}
+\newcommand{\MTSaltSize}{s}
+\newcommand{\MTAlphabet}{\ProtoAlphabet}
+\newcommand{\MTVertexLabels}{C}
+\newcommand{\MTVertexLabel}{c}
+\newcommand{\MTVertexLabelByName}[2]{\MTVertexLabel_{(#1,#2)}}
+\newcommand{\MTVertexLabelByPath}[2]{\MTVertexLabel_{\MTPathIndex{#1}{#2}}}
+\newcommand{\MTVertexLabelByCoPath}[2]{\MTVertexLabel_{\MTPathCoIndex{#1}{#2}}}
+\newcommand{\MTLeftVertexLabel}{\MTVertexLabel_{\LeftSymbol}}
+\newcommand{\MTRightVertexLabel}{\MTVertexLabel_{\RightSymbol}}
+\newcommand{\MTCommitment}{\mathsf{rt}}
+\newcommand{\MTTrapdoor}{\mathsf{td}}
+\newcommand{\MTAuthPath}{\mathsf{auth}}
+\newcommand{\MTProof}{\mathsf{pf}}
+\newcommand{\MTMessageIndex}{i}
+\newcommand{\MTMessageIndexSet}{I}
+\newcommand{\MTMessageIndexSetSize}{q}
+\newcommand{\MTMessageEntry}{m}
+\newcommand{\MTMessageVector}{\mathbf{\MTMessageEntry}}
+\newcommand{\MTMessageSubVector}{\mathbf{a}}
+\newcommand{\MTSaltString}{\ProtoSalt}
+\newcommand{\MTSaltStrings}{\vec{\ProtoSalt}}
+\newcommand{\MTLeafQueries}{\ROTrace_{{\scriptscriptstyle\mathrm{leaf}}}}
+\newcommand{\MTInternalQueries}{\ROTrace_{{\scriptscriptstyle\mathrm{inner}}}}
+\newcommand{\MTOtherQueries}{\ROTrace_{{\scriptscriptstyle\mathrm{other}}}}
+\newcommand{\MTDeriveVertexSet}{\MTSymbol.\mathsf{CoSet}}
+\newcommand{\MTPathVertexSet}{A}
+\newcommand{\MTCoPathOptVertexSet}{\MTVertexSet^{\star}(\MTGraph_{\MTMessageLength},\MTMessageIndexSet)}
+\newcommand{\MTCoPathVarVertexSet}{B^{\star}}
+\newcommand{\MTMetric}{g}
+\newcommand{\MTCompressOpening}{\MTSymbol.\mathsf{Compress}}
+\newcommand{\MTExpandOpening}{\MTSymbol.\mathsf{Expand}}
+\newcommand{\MTNumCommitments}{\CMNumCommitments}
+\newcommand{\MTNumOpenings}{k}
+\newcommand{\MTCommitmentIndex}{i}
+\newcommand{\MTConfigIndex}{j}
+\newcommand{\MTTraceEntrySize}{w}
+\newcommand{\MTArity}{a}
+\newcommand{\MTMultiSymbol}{\scriptscriptstyle{\mathrm{m}}}
+\newcommand{\MTMultiMultiSymbol}{\scriptscriptstyle{\mathrm{mm}}}
+\newcommand{\MTBindingError}{\ProtoSoundnessError_{\MTSubscript}}
+\newcommand{\MTOtherBindingError}{\ProtoSoundnessError_{\MTSubscript}^{\scriptscriptstyle{\mathrm{h}}}}
+\newcommand{\MTExtractionError}{\ProtoKnowledgeError_{\MTSubscript}}
+\newcommand{\MTMultiExtractionError}{\ProtoKnowledgeError_{\MTSubscript}^{\MTMultiSymbol}}
+\newcommand{\MTMultiMultiExtractionError}{\ProtoKnowledgeError_{\MTSubscript}^{\MTMultiMultiSymbol}}
+\newcommand{\MTExtractorTimeSymbol}{\ProtoKnowledgeTime_{\MTSubscript}}
+\newcommand{\MTMultiExtractorTimeSymbol}{\ProtoKnowledgeTime_{\MTSubscript}^{\MTMultiSymbol}}
+\newcommand{\MTMultiMultiExtractorTimeSymbol}{\ProtoKnowledgeTime_{\MTSubscript}^{\MTMultiMultiSymbol}}
+\newcommand{\MTExtractorTimeFunction}[5]{\MTExtractorTimeSymbol(#1,#2,#3,#4,#5)}
+\newcommand{\MTMultiExtractorTimeFunction}[6]{\MTMultiExtractorTimeSymbol(#1,#2,#3,#4,#5,#6)}
+\newcommand{\MTMultiMultiExtractorTimeFunction}[6]{\MTMultiMultiExtractorTimeSymbol(#1,#2,#3,#4,#5,#6)}
+
+%%%%% Merkle commitment scheme with indices
+\newcommand{\MTIdxCommit}[1]{\MTSymbol_{#1}.\mathsf{Commit}}
+\newcommand{\MTIdxOpen}[1]{\MTSymbol_{#1}.\mathsf{Open}}
+\newcommand{\MTIdxCheck}[1]{\MTSymbol_{#1}.\mathsf{Check}}
+\newcommand{\MTIdxExtractor}[1]{\MTSymbol_{#1}.\mathsf{Extract}}
+\newcommand{\MTIdxSimulator}[1]{\MTSymbol_{#1}.\mathsf{Simulate}}
+
+%%%%% randomness salts
+\newcommand{\RandSaltString}{\ProtoSalt}
+\newcommand{\RandSaltSize}{s}
+\newcommand{\RandSalt}{\tau}
+\newcommand{\SaltLength}{\ell}
+
+%%%%% all transformations
+\newcommand{\FormatTransName}[1]{\bm{\mathsf{#1}}}
+\newcommand{\FSonSPSymbol}{\FormatTransName{FS}_{\SPSubscript}}
+\newcommand{\FSonIPSymbol}{\FormatTransName{FS}_{\IPSubscript}}
+\newcommand{\FastFSonIPSymbol}{\FormatTransName{FS}_{\IPSubscript}^{\star}}
+\newcommand{\KilianSymbol}{\FormatTransName{Kilian}}
+\newcommand{\MicaliSymbol}{\FormatTransName{Micali}}
+\newcommand{\IBCSSymbol}{\FormatTransName{iBCS}}
+\newcommand{\BCSSymbol}{\FormatTransName{BCS}}
+\newcommand{\COSSymbol}{\FormatTransName{COS}}
+\newcommand{\FormatTransInputs}[3]{[#1,#2,#3]}
+\newcommand{\FSonSPTransformation}[3]{\FSonSPSymbol\FormatTransInputs{#1}{#2}{#3}}
+\newcommand{\FSonIPTransformation}[3]{\FSonIPSymbol\FormatTransInputs{#1}{#2}{#3}}
+\newcommand{\FastFSonIPTransformation}[3]{\FastFSonIPSymbol\FormatTransInputs{#1}{#2}{#3}}
+\newcommand{\KilianTransformation}[3]{\KilianSymbol\FormatTransInputs{#1}{#2}{#3}}
+\newcommand{\MicaliTransformation}[3]{\MicaliSymbol\FormatTransInputs{#1}{#2}{#3}}
+\newcommand{\IBCSTransformation}[3]{\IBCSSymbol\FormatTransInputs{#1}{#2}{#3}}
+\newcommand{\BCSTransformation}[3]{\BCSSymbol\FormatTransInputs{#1}{#2}{#3}}
+\newcommand{\COSTransformation}[3]{\COSSymbol\FormatTransInputs{#1}{#2}{#3}}
+\newcommand{\FSonSPText}{Fiat--Shamir transformation for SPs\xspace}
+\newcommand{\FSonIPText}{Fiat--Shamir transformation for public-coin IPs\xspace}
+\newcommand{\FastFSonIPText}{fast Fiat--Shamir transformation for public-coin IPs\xspace}
+\newcommand{\KilianText}{Kilian transformation\xspace}
+\newcommand{\MicaliText}{Micali transformation\xspace}
+\newcommand{\IBCSText}{iBCS transformation\xspace}
+\newcommand{\BCSText}{Ben-Sasson--Chiesa--Spooner (BCS) transformation\xspace}
+\newcommand{\COSText}{Chiesa--Ojha--Spooner (COS) transformation\xspace}
+
+%%%%% Fiat--Shamir transformation for SPs
+\newcommand{\SPFSARGString}{(\SPCommitment,\SPResponse,\RandSaltString)}
+
+%%%%% Fiat--Shamir transformation for IPs
+\newcommand{\SlowFSSymbol}{\mathsf{slow}}
+\newcommand{\FastFSSymbol}{\mathsf{fast}}
+\newcommand{\FSFirstQuery}{(\Instance,\IPProverMessage_{1},\RandSaltString_{1})}
+\newcommand{\SlowFSLaterQuery}[1]{\big(\Instance,(\IPProverMessage_{1},\dots,\IPProverMessage_{#1}),(\RandSaltString_{1},\dots,\RandSaltString_{#1})\big)}
+\newcommand{\FastFSLaterQuery}[1]{(\IPVerifierRandomMessage_{#1-1},\IPProverMessage_{#1},\RandSaltString_{#1})}
+\newcommand{\FSARGString}{\big(\IPTuple{\IPProverMessage},\IPTuple{\RandSaltString}\big)}
+\newcommand{\FSTranscriptExtractor}{\mathsf{FS}.\mathsf{Backtrack}}
+\newcommand{\SlowFSMaliciousProver}{\Malicious{\ARGProver}_{\SlowFSSymbol}}
+\newcommand{\FastFSMaliciousProver}{\Malicious{\ARGProver}_{\FastFSSymbol}}
+\newcommand{\FastFSMappingOracle}{\mathsf{F2SAlgo}}
+\newcommand{\FastTraceToSlowTrace}{\mathsf{F2STrace}}
+\newcommand{\FastToSRTrace}{\mathsf{FastToSRTrace}}
+\newcommand{\FastTraceToSlowTraceTime}{O(\IPMaxRandomnessComplexity \cdot \IPRoundComplexity \cdot \ROQueryBound \cdot \log \ROQueryBound)}
+\newcommand{\ARGSlowKnowledgeError}{\ProtoKnowledgeError_{\SlowFSSymbol}}
+\newcommand{\FSToSR}{\mathsf{FStoSR}}
+
+%%%%% Kilian transformation
+
+%%%%% Micali transformation
+\newcommand{\MicaliFSQuery}{(\Instance,\MTCommitment,\RandSaltString)}
+\newcommand{\MicaliARGString}{(\MTCommitment,\PCPQuerySet,\PCPEntries,\MTProof,\RandSaltString)}
+
+%%%%% iBCS transformation
+\newcommand{\IBCSProver}{\ARGProver_{\mathsf{i}}}
+\newcommand{\IBCSVerifier}{\ARGVerifier_{\mathsf{i}}}
+\newcommand{\IBCSMaliciousSRProver}{\Malicious{\ARGProver}_{\mathsf{i}}^{\SRSuperscript}}
+
+%%%%% BCS transformation
+\newcommand{\BCSFSFirstQuery}{(\Instance,\MTCommitment_{1},\RandSaltString_{1})}
+\newcommand{\BCSFSLaterQuery}[1]{(\IOPVerifierRandomMessage_{#1-1},\MTCommitment_{#1},\RandSaltString_{#1})}
+\newcommand{\BCSARGString}{\big((\MTCommitment_{\RoundIndex},\IOPQuerySet_{\RoundIndex},\IOPEntries_{\RoundIndex},\MTProof_{\RoundIndex},\RandSaltString_{\RoundIndex})\big)_{\RoundIndex \in [\IOPRoundComplexity]}}
+\newcommand{\IPTraceToIOPTrace}{\mathsf{IP2IOPTrace}}
+
+%%%%% COS transformation
+\newcommand{\HashedIndex}{\IOPVerifierRandomMessage_{\IndexRoundSubscript}}
+\newcommand{\COSARGString}{\Big((\IOPQuerySet_{\IndexRoundSubscript},\IOPEntries_{\IndexRoundSubscript},\MTProof_{\IndexRoundSubscript}),\big((\MTCommitment_{\RoundIndex},\IOPQuerySet_{\RoundIndex},\IOPEntries_{\RoundIndex},\MTProof_{\RoundIndex},\RandSaltString_{\RoundIndex})\big)_{\RoundIndex \in [\IOPRoundComplexity]}\Big)}
+\newcommand{\PaintedCOSARGString}{\Big(\Paint{(\IOPQuerySet_{\IndexRoundSubscript},\IOPEntries_{\IndexRoundSubscript},\MTProof_{\IndexRoundSubscript}),\,}\big((\MTCommitment_{\RoundIndex},\IOPQuerySet_{\RoundIndex},\IOPEntries_{\RoundIndex},\MTProof_{\RoundIndex},\RandSaltString_{\RoundIndex})\big)_{\RoundIndex \in [\IOPRoundComplexity]}\Big)}
+\newcommand{\COSFSFirstQuery}{(\HashedIndex,\Instance,\MTCommitment_{1},\RandSaltString_{1})}
+\newcommand{\PaintedCOSFSFirstQuery}{(\Paint{\HashedIndex,\,}\Instance,\MTCommitment_{1},\RandSaltString_{1})}
+
+\newcommand{\BCSSubscript}{\scriptscriptstyle\mathrm{BCS}}
+\newcommand{\BCSProver}{\ARGProver_{\BCSSubscript}}
+\newcommand{\BCSVerifier}{\ARGVerifier_{\BCSSubscript}}
+
+\newcommand{\COSSubscript}{\scriptscriptstyle\mathrm{COS}}
+\newcommand{\COSIndexer}{\ARGIndexer_{\COSSubscript}}
+\newcommand{\COSProver}{\ARGProver_{\COSSubscript}}
+\newcommand{\COSVerifier}{\ARGVerifier_{\COSSubscript}}
+
+\newcommand{\COSToBCSTrace}{\mathsf{COSToBCSTrace}}
+\newcommand{\ExtraTimeofCOSToBCSProver}{O(\RORandQueryBound \cdot \SecurityParameter \cdot \log \ROIndexHashQueryBound + \SecurityParameter \cdot \ROIndexHashQueryBound \cdot \log \ROIndexHashQueryBound)}
+\newcommand{\TimeofCOSToBCSTrace}{O(\IOPMaxRandomnessComplexity \cdot \ROQueryBound + \RORandQueryBound \cdot \SecurityParameter \cdot \log \ROIndexHashQueryBound + \SecurityParameter \cdot \ROIndexHashQueryBound \cdot \log \ROIndexHashQueryBound)}
+
+\newcommand{\ROIndexHashFunction}{\ROFunction_{\IndexRoundSubscript}}
+\newcommand{\ROIndexHashQueryBound}{\ROQueryBound_{\IndexRoundSubscript}}
+\newcommand{\ROIndexTreeFunction}{\ROFunction_{\ROTreeSymbol_{\IndexRoundSubscript}}}
+\newcommand{\ROIndexTreeQueryBound}{\ROQueryBound_{\ROTreeSymbol_{\IndexRoundSubscript}}}
+
+\newcommand{\LazyROTreeFunction}{\Lazy{\ROFunction}_{\ROTreeSymbol}}
+\newcommand{\LazyROIndexHashFunction}{\Lazy{\ROFunction}_{\IndexRoundSubscript}}
+\newcommand{\LazyROIndexTreeFunction}{\Lazy{\ROFunction}_{\ROTreeSymbol_{\IndexRoundSubscript}}}
+
+%%%%% state restoration soundness
+\newcommand{\SRBudget}{t}
+\newcommand{\SRSaltSize}{s}
+\newcommand{\SRSaltString}{\sigma}
+\newcommand{\SRSaltStrings}[1]{(\SRSaltString_{\RoundIndex})_{\RoundIndex \in [#1]}}
+\newcommand{\SRSaltStringsPrime}[1]{(\SRSaltString'_{\RoundIndex})_{\RoundIndex \in [#1]}}
+\newcommand{\SRIteration}{j}
+\newcommand{\SRMoveIndex}{a}
+\newcommand{\IPSRGameStateEntry}[1]{(\Instance,(\IPProverMessage_{1},\dots,\IPProverMessage_{#1}),(\SRSaltString_{1},\dots,\SRSaltString_{#1}))}
+\newcommand{\IOPSRGameStateEntry}[1]{(\Instance,(\IOPString_{1},\dots,\IOPString_{#1}),(\SRSaltString_{1},\dots,\SRSaltString_{#1}))}
+\newcommand{\IOPSRGameStateEntryPrime}[1]{(\Instance',(\IOPString'_{1},\dots,\IOPString'_{#1}),(\SRSaltString'_{1},\dots,\SRSaltString'_{#1}))}
+\newcommand{\SRRandomness}{\mathsf{rnd}}
+\newcommand{\SRTrace}{\ROTrace^{\SRSuperscript}}
+\newcommand{\SRTraceFull}{\ROTrace^{\SRSuperscript}_{\scriptscriptstyle\mathrm{full}}}
+\newcommand{\SRGameName}[1]{\mathsf{Game}_{#1}^{\SRSuperscript}}
+\newcommand{\SPStateRestorationGame}[3]{\SRGameName{\SPSubscript}(#1,#2,#3)}
+\newcommand{\IPStateRestorationGame}[3]{\SRGameName{\IPSubscript}(#1,#2,#3)}
+\newcommand{\PCPStateRestorationGame}[3]{\SRGameName{\PCPSubscript}(#1,#2,#3)}
+\newcommand{\IOPStateRestorationGame}[3]{\SRGameName{\IOPSubscript}(#1,#2,#3)}
+\newcommand{\SPSRSoundnessError}{\ProtoSRSoundnessError_{\SPSubscript}}
+\newcommand{\IPSRSoundnessError}{\ProtoSRSoundnessError_{\IPSubscript}}
+\newcommand{\PCPSRSoundnessError}{\ProtoSRSoundnessError_{\PCPSubscript}}
+\newcommand{\IOPSRSoundnessError}{\ProtoSRSoundnessError_{\IOPSubscript}}
+\newcommand{\SPSRKnowledgeError}{\ProtoSRKnowledgeError_{\SPSubscript}}
+\newcommand{\SPSRKnowledgeTime}{\ProtoKnowledgeTime_{\SPSubscript}^{\SRSuperscript}}
+\newcommand{\IPSRKnowledgeError}{\ProtoSRKnowledgeError_{\IPSubscript}}
+\newcommand{\IPSRKnowledgeTime}{\ProtoKnowledgeTime_{\IPSubscript}^{\SRSuperscript}}
+\newcommand{\PCPSRKnowledgeError}{\ProtoSRKnowledgeError_{\PCPSubscript}}
+\newcommand{\IOPSRKnowledgeError}{\ProtoSRKnowledgeError_{\IOPSubscript}}
+\newcommand{\IOPSRKnowledgeTime}{\ProtoKnowledgeTime_{\IOPSubscript}^{\SRSuperscript}}
+\newcommand{\SPSRExtractor}{\SPExtractor^{\SRSuperscript}}
+\newcommand{\IPSRExtractor}{\IPExtractor^{\SRSuperscript}}
+\newcommand{\PCPSRExtractor}{\PCPExtractor^{\SRSuperscript}}
+\newcommand{\IOPSRExtractor}{\IOPExtractor^{\SRSuperscript}}
+\newcommand{\SPMaliciousSRProver}{\SPMaliciousProver^{\SRSuperscript}}
+\newcommand{\IPMaliciousSRProver}{\IPMaliciousProver^{\SRSuperscript}}
+\newcommand{\PCPMaliciousSRProver}{\PCPMaliciousProver^{\SRSuperscript}}
+\newcommand{\IOPMaliciousSRProver}{\IOPMaliciousProver^{\SRSuperscript}}
+\newcommand{\IPSROutput}{(\Instance,\IPTuple{\IPProverMessage},\SRSaltStrings{\IPRoundComplexity},\IPTuple{\IPVerifierRandomMessage})}
+\newcommand{\IPSROutputPrime}{(\Instance',\IPTuple{\IPProverMessage'},\IPTuple{\SRSaltString'},\IPTuple{\IPVerifierRandomMessage'})}
+\newcommand{\IBCSSROutput}{(\Instance,(\IPProverMessage_{\RoundIndex})_{\RoundIndex \in [\IPRoundComplexity+1]},\SRSaltStrings{\IPRoundComplexity},\IPTuple{\IPVerifierRandomMessage})}
+\newcommand{\IOPSROutput}{\big(\Instance,\IOPStrings,\SRSaltStrings{\IOPRoundComplexity},\IOPVerifierRandomMessages\big)}
+\newcommand{\IOPSROutputPrime}{\big(\Instance',\IOPStringsPrime,\SRSaltStringsPrime{\IOPRoundComplexity},\IOPVerifierRandomMessagesPrime\big)}
+
+%%%%% special soundness
+\newcommand{\SSSuperscript}{\mathrm{ss}}
+\newcommand{\SSArity}{a}
+\newcommand{\SSFork}{F}
+\newcommand{\SSTree}{T}
+\newcommand{\SPSSExtractor}{\SPExtractor^{\SSSuperscript}}
+\newcommand{\IPSSExtractor}{\IPExtractor^{\SSSuperscript}}
+\newcommand{\SPSSKnowledgeTime}{\ProtoKnowledgeTime_{\SPSubscript}^{\SSSuperscript}}
+\newcommand{\IPSSKnowledgeTime}{\ProtoKnowledgeTime_{\IPSubscript}^{\SSSuperscript}}
+\newcommand{\SSForkFinder}{\mathsf{ForkFinder}}
+\newcommand{\SSSRForkFinder}{\mathsf{SRForkFinder}}
+\newcommand{\SSTreeFinder}{\mathsf{TreeFinder}}
+\newcommand{\SSSRTreeFinder}{\mathsf{SRTreeFinder}}
+\newcommand{\SSFinderRandomness}{\zeta}
+\newcommand{\SSFinderRandomnessSet}{\mathcal{Z}}
+\newcommand{\SSRemainingRandomness}{S}
+\newcommand{\SSBranches}{B}
+\newcommand{\SSLeftFlag}{\mathfrak{f}}
+\newcommand{\SSConsistencyFlag}{\mathfrak{c}}
+\newcommand{\SSFinderOutput}{\mathsf{out}}
+\newcommand{\SSFail}{\mathsf{fail}}
+\newcommand{\SSPartialProverMessages}{(\IPProverMessage_{\RoundIndex}')_{\RoundIndex=1}^{j}}
+\newcommand{\SSPartialSRSaltStrings}{(\SRSaltString_{\RoundIndex}')_{\RoundIndex=1}^{j}}
+\newcommand{\SSPartialVerifierMessages}{(\IPVerifierRandomMessage_{\RoundIndex}')_{\RoundIndex=1}^{j}}
+%%%%% special soundness to (standard or state-restoration) knowledge soundness
+\newcommand{\SSGoodChallengeNumber}{Y}
+\newcommand{\SSFinderHasFound}{Z}
+\newcommand{\SSKappa}{\kappa}
+\newcommand{\SSWinningProbability}{w}
+\newcommand{\SSFinderTime}{B}
+\newcommand{\SSSRMoveSet}{T}
+\newcommand{\SSProverMessagePrefix}[1]{{\boldsymbol\IPProverMessage}_{#1}}
+\newcommand{\SSVerifierMessagePrefix}[1]{{\boldsymbol\IPVerifierRandomMessage}_{#1}}
+\newcommand{\SSSRSaltStringPrefix}[1]{{\boldsymbol\SRSaltString}_{#1}}
+\newcommand{\SRPseudoOutput}{\left(\IPSROutputPrime,\DecisionBit\right)}
+\newcommand{\SRPseudoDecision}[1]{D_{#1}}
+\newcommand{\PuncturedOracles}[2]{U_{#1,#2}}
+\newcommand{\PuncturedOracle}{g}
+\newcommand{\EqualsPunctured}[1]{=_{#1}}
+\newcommand{\SSFinderTimeSimple}[1]{\SSFinderTime_{#1}}
+\newcommand{\SSFinderTimeEqualWin}[1]{\SSFinderTime_{#1,1}}
+\newcommand{\SSFinderTimeEqualLose}[1]{\SSFinderTime_{#1,0}}
+\newcommand{\SSFinderTimeNotEqual}[1]{\SSFinderTime_{#1,\neq}}
+\newcommand{\SSFinderNumEqualWin}[1]{M_{#1,1}}
+\newcommand{\SSFinderNumEqualLose}[1]{M_{#1,0}}
+\newcommand{\SSFinderNumNotEqual}[1]{M_{#1,\neq}}
+\newcommand{\SRFixAllButAnswer}[1]{\Event_{#1,\ROQuery_{#1},\PuncturedOracle}}
+\newcommand{\SRYesAnswers}[1]{u_{\ROQuery_{#1},\PuncturedOracle}}
+\newcommand{\SRNoAnswers}[1]{v_{\ROQuery_{#1},\PuncturedOracle}}
+
+%%%%% round-by-round soundness
+\newcommand{\RBRSuperscript}{\mathrm{rbr}}
+\newcommand{\RBRState}{\mathsf{RBRState}}
+\newcommand{\RBRIOPInput}[1]{(\Instance,\IOPTranscriptLongTuple{#1})}
+\newcommand{\RBRIOPInputPrime}[1]{(\Instance',\IOPTranscriptLongTuplePrime{#1})}
+\newcommand{\IOPEmptyTranscript}{\emptyset}
+\newcommand{\IOPTranscriptSymbol}{\mathsf{trc}}
+\newcommand{\IOPTranscriptLongTuple}[1]{(\IOPString_{1},\IOPVerifierRandomMessage_{1},\dots,\IOPString_{#1},\IOPVerifierRandomMessage_{#1})}
+\newcommand{\IOPTranscriptLongTuplePrime}[1]{(\IOPString'_{1},\IOPVerifierRandomMessage_{1},\dots,\IOPString'_{#1},\IOPVerifierRandomMessage_{#1})}
+\newcommand{\RBRSoundnessError}{\ProtoRBRSoundnessError_{\IOPSubscript}}
+\newcommand{\RBRSoundnessErrorIdx}[1]{\ProtoRBRSoundnessError_{\IOPSubscript,#1}}
+\newcommand{\RBRKnowledgeError}{\ProtoRBRKnowledgeError_{\IOPSubscript}}
+\newcommand{\RBRKnowledgeErrorIdx}[1]{\ProtoRBRKnowledgeError_{\IOPSubscript,#1}}
+\newcommand{\IOPRBRExtractor}{\IOPExtractor^{\RBRSuperscript}}
+\newcommand{\IOPMaliciousRBRProver}{\IOPMaliciousProver^{\RBRSuperscript}}
+
+%%%%% negative hyper-geometric distribution
+\newcommand{\NHGSubscript}{\scriptscriptstyle\mathrm{NHG}}
+\newcommand{\NHGTotalNumber}{N}
+\newcommand{\NHGGoodNumber}{B}
+\newcommand{\NHGTargetNumber}{b}
+\newcommand{\NHGSampledGood}{\RandomVariableX_{\NHGSubscript}}
+\newcommand{\NHGSampledBad}{\RandomVariableY_{\NHGSubscript}}
+
+%%%%% error bounds for random oracle properties
+\newcommand{\ROOWExpression}[2]{\frac{#2}{2^{#1}}}
+\newcommand{\ROOWEntropyExpression}[1]{\frac{\ROQueryBound}{2^{#1}}}
+\newcommand{\ROOWEntropyExpressionVector}[2]{\left(\frac{\ROQueryBound}{2^{#1}}\right)^{#2}}
+\newcommand{\ROPExpression}[1]{\frac{1}{2^{#1}}}
+\newcommand{\ROCRExpression}[2]{\frac{1}{2} \cdot \frac{(#2-1) \cdot #2}{2^{#1}}}
+\newcommand{\ROCommonExpression}[2]{\frac{1}{2} \cdot \frac{#2^2}{2^{#1}}}
+
+%%%%% error bounds for commitments
+\newcommand{\CMBindingExpression}[2]{\frac{1}{2} \cdot \frac{#2^2}{2^{#1}}}
+\newcommand{\CMExtractabilityExpression}[2]{\CMBindingExpression{#1}{#2}}
+\newcommand{\CMMultiExtractabilityExpression}[3]{\frac{1}{2} \cdot \frac{#2^2}{2^{#1}} + \frac{#3 \cdot #2}{2^{#1}}}
+\newcommand{\CMHidingExpressionFinite}[2]{\frac{#2}{2^{#1}}}
+\newcommand{\CMHidingExpressionInfinite}[1]{3 \sqrt{\ROOutputSize \CMMessageLength #1} \cdot 2^{-\frac{#1 - \ROOutputSize}{2}}}
+
+\newcommand{\MTBindingExpression}[2]{\frac{1}{2} \cdot \frac{#2^2}{2^{#1}}}
+\newcommand{\MTHonestBindingExpression}[3]{\frac{1}{2} \cdot \frac{(#2+2 \cdot #3)^{2}}{2^{#1}}}
+\newcommand{\MTExtractabilityExpression}[4]{\ROCRExpression{#1}{#2} + \frac{2 \cdot (#4+1) \cdot #3}{2^{#1}}}
+\newcommand{\MTExtractabilityShortExpression}[2]{\frac{1}{2} \cdot \frac{#2^2}{2^{#1}}}
+\newcommand{\MTExtractabilityCondition}[3]{#1 \geq 4 \cdot (#3+1) \cdot #2}
+\newcommand{\MTMultiExtractabilityShortExpression}[2]{2 \cdot \frac{#2^2}{2^{#1}}}
+\newcommand{\MTMultiExtractabilityCondition}[3]{6 \cdot #2 \cdot (#3+1) \leq #1}
+\newcommand{\MTMultiMultiExtractabilityShortExpression}[2]{2 \cdot \frac{#2^2}{2^{#1}}}
+\newcommand{\MTMultiMultiExtractabilityCondition}[3]{6 \cdot #2 \cdot (#3+1) \leq #1}
+\newcommand{\MTRootPrivacyError}{\frac{\MTMessageLength \cdot \ROQueryBound}{2^{\MTSaltSize}} + \frac{\MTMessageLength \cdot \ROQueryBound}{2^{2\ROOutputSize}}}
+\newcommand{\MTPathPrivacyError}{\sum_{\MTLayer \in [\MTDepth]} \MTZKRootError(\ROOutputSize,2^{\MTDepth-\MTLayer},\MTSaltSize,\ROQueryBound)}
+\newcommand{\MTProofPrivacyError}{\MTMessageIndexSetSize \cdot \MTPathPrivacyError}
+\newcommand{\MTProofPrivacyExpression}{\frac{\MTMessageIndexSetSize \cdot \MTMessageLength \cdot \ROQueryBound}{2^{\MTSaltSize}} + \frac{\MTMessageIndexSetSize \cdot \MTMessageLength \cdot \ROQueryBound}{2^{2\ROOutputSize}}}
+
+%%%%% error bounds for NARGs
+\newcommand{\FSErrorExpression}[1][\ROQueryBound]{\frac{#1^2}{2^{\SecurityParameter}}}
+\newcommand{\BCSSimplifiedError}{3 \cdot \frac{\ROQueryBound^2}{2^{\SecurityParameter}}}
+\newcommand{\FSSPZKExpression}{\SPZKError(\InstanceSize)+\frac{\ROQueryBound}{2^{\RandSaltSize}}}
+\newcommand{\FSIPSoundnessExpression}{\IPSRSoundnessError(\PrivacyParameter,\ROQueryBound,\InstanceSize)+\FSErrorExpression}
+\newcommand{\FSIPKnowledgeExpression}{\IPSRKnowledgeError(\PrivacyParameter,\ROQueryBound,\InstanceSize)+\FSErrorExpression}
+\newcommand{\FSIPZKExpression}{\IPZKError(\InstanceSize)+\frac{\ROQueryBound}{2^{\RandSaltSize}}}
+\newcommand{\MicaliSoundnessExpression}{(\ROQueryBound +1)\cdot\PCPSoundnessError(\InstanceSize) \MaybeNewline +\MTMultiExtractionError(\SecurityParameter,\ROQueryBound,\PCPProofLength,\ROQueryBound+1,1)}
+\newcommand{\MicaliKnowledgeExpression}{(\ROQueryBound+1)\cdot\PCPKnowledgeError(\InstanceSize) \MaybeNewline +\MTMultiExtractionError(\SecurityParameter,\ROQueryBound,\PCPProofLength,\ROQueryBound+1,1)}
+\newcommand{\MicaliZKExpression}{\PCPZKError(\InstanceSize) \MaybeNewline +\MTZKProofError(\SecurityParameter,\PCPProofLength(\InstanceSize),\PrivacyParameter,\PCPQueryComplexity(\InstanceSize),\ROQueryBound)\MaybeNewline +\frac{\ROQueryBound}{2^{\RandSaltSize}}}
+\newcommand{\BCSAdditiveError}{\MTMultiMultiExtractionError(\SecurityParameter,\ROQueryBound,\IOPProofLength,(\ROQueryBound+1)\cdot\IOPRoundComplexity,\IOPRoundComplexity) \MaybeNewline + \FSErrorExpression}
+\newcommand{\BCSSoundnessExpression}{\IOPSRSoundnessError(\SecurityParameter+\RandSaltSize,\ROQueryBound,\InstanceSize)\MaybeNewline+\BCSAdditiveError}
+\newcommand{\BCSKnowledgeExpression}{\IOPSRKnowledgeError(\SecurityParameter+\RandSaltSize,\ROQueryBound,\InstanceSize)\MaybeNewline+\BCSAdditiveError}
+\newcommand{\BCSZKExpression}{\IOPZKError(\InstanceSize) \MaybeNewline +\MTZKProofError(\SecurityParameter,\IOPProofLength(\InstanceSize),\PrivacyParameter,\IOPQueryComplexity(\InstanceSize),\ROQueryBound) \MaybeNewline + \frac{\ROQueryBound}{2^{\RandSaltSize}}}
+\newcommand{\COSErrorExpression}[1][\ROQueryBound]{\MTHonestBindingExpression{\SecurityParameter}{\ROIndexTreeQueryBound}{\IOPProofLength_{\IndexRoundSubscript}}+\frac{1}{2} \cdot \frac{\ROIndexHashQueryBound^2}{2^{\SecurityParameter}}}
+\newcommand{\COSAdditiveError}{\MTMultiMultiExtractionError(\SecurityParameter,\ROQueryBound,\IOPProofLength,(\ROQueryBound+1)\cdot\IOPRoundComplexity,\IOPRoundComplexity) \MaybeNewline + \FSErrorExpression \MaybeNewline + \frac{4 \cdot \IOPProofLength_{\IndexRoundSubscript}^2}{2^{\SecurityParameter}}}
+\newcommand{\COSSoundnessExpression}{\HIOPSRSoundnessError(\SecurityParameter+\RandSaltSize,\ROQueryBound,\IndexSize,\InstanceSize)\MaybeNewline + \COSAdditiveError}
+\newcommand{\COSKnowledgeExpression}{\HIOPSRKnowledgeError(\SecurityParameter+\RandSaltSize,\ROQueryBound,\IndexSize,\InstanceSize) \MaybeNewline +\COSAdditiveError}
+\newcommand{\COSZKExpression}{\HIOPZKError(\IndexSize,\InstanceSize) \MaybeNewline +\MTZKProofError(\SecurityParameter,\IOPProofLength(\IndexSize,\InstanceSize),\PrivacyParameter,\IOPQueryComplexity(\IndexSize,\InstanceSize),\ROQueryBound) \MaybeNewline + \frac{\ROQueryBound}{2^{\RandSaltSize}}}
+\newcommand{\COSSimplifiedError}{4 \cdot \frac{\ROQueryBound^{2}}{2^{\SecurityParameter}}}
+\newcommand{\COSCondition}{2\cdot \IOPProofLength_{\IndexRoundSubscript} \leq \ROQueryBound}
+
+%%%%% error bounds for IARGs
+\newcommand{\KilianSoundnessErrorExpression}{\PCPSoundnessError(\InstanceSize)+\MTExtractionError(\SecurityParameter,\ROQueryBound,\PCPProofLength)}
+\newcommand{\IBCSSoundnessErrorExpression}{\IOPSoundnessError(\InstanceSize)+\MTMultiMultiExtractionError(\SecurityParameter,\ROQueryBound,\IOPProofLength,\IOPRoundComplexity,\IOPRoundComplexity)}
+
+%%%%% errors bounds from special soundness
+\newcommand{\IPKowledgeErrorMainFromSS}{\prod_{\RoundIndex \in [\IPRoundComplexity]} \left( 1 - \frac{\SSArity_{\RoundIndex}-1}{\IPRandomnessCardinality{\RoundIndex}} \right)}
+\newcommand{\IPKowledgeErrorFromSS}{1-\IPKowledgeErrorMainFromSS}
+\newcommand{\IPKowledgeErrorSimpleFromSS}{\sum_{\RoundIndex \in [\IPRoundComplexity]} \frac{\SSArity_{\RoundIndex}-1}{\IPRandomnessCardinality{\RoundIndex}}}
+\newcommand{\IPSRKowledgeErrorMainFromSS}{\IPKowledgeErrorMainFromSS}
+\newcommand{\IPSRKowledgeErrorFromSS}{(\SRBudget+1) \cdot \left(1-\IPSRKowledgeErrorMainFromSS \right)}
+
+%%%%% maximum error up to instance size bound
+\newcommand{\MaxSoundness}[1]{\max\, \big\{ #1 \;\big\vert\;\Instance \in \Bits^{*} \text{ with } \SomeSize{\Instance} \leq \InstanceSize \text{ and } \Instance \notin \GetLanguage{\Relation} \big\}}
+\newcommand{\MaxKnowledge}[1]{\max\, \big\{ #1 \;\big\vert\;\Instance \in \Bits^{*} \text{ with } \SomeSize{\Instance} \leq \InstanceSize \big\}}
+\newcommand{\MaxZK}[1]{\max\, \big\{ #1 \;\big\vert\; \Instance,\Witness \in \Bits^{*} \text{ with } \SomeSize{\Instance} \leq \InstanceSize \text{ and } (\Instance,\Witness) \in \Relation \big\}}
+
+%%%%% maximum error up to index and instance size bound
+\newcommand{\MaxIndexedSoundness}[1]{\max\, \big\{ #1 \;\big\vert\;\Index,\Instance \in \Bits^{*} \text{ with } \SomeSize{\Index} \leq \IndexSize \text{ and }\SomeSize{\Instance} \leq \InstanceSize \text{ and } (\Index,\Instance) \notin \GetLanguage{\IndexedRelation} \big\}}
+\newcommand{\MaxIndexedKnowledge}[1]{\max\, \left\{ #1 \;\middle\vert\;
+\begin{array}{l}
+\Index,\Instance \in \Bits^{*} \text{ with } \\
+\SomeSize{\Index} \leq \IndexSize \,,\, \SomeSize{\Instance} \leq \InstanceSize
+\end{array}
+\right\}}
+\newcommand{\MaxIndexedZK}[1]{\max\, \big\{ #1 \;\big\vert\;\Index,\Instance,\Witness \in \Bits^{*} \text{ with } \SomeSize{\Index} \leq \IndexSize \text{ and } \SomeSize{\Instance} \leq \InstanceSize \text{ and } (\Index,\Instance,\Witness) \in \IndexedRelation \big\}}
+
+%%%%% long executions
+\newcommand{\ShortExecution}[2]{#1 \gets #2}
+\newcommand{\LongExecution}[2]{#1 \gets \\ \quad#2}
+\newcommand{\LongExecutionOver}[3]{#1 \xleftarrow{#3} \\ \quad#2}
+\newcommand{\LongExecutionOverBelow}[4]{#1 \xleftarrow[#4]{#3} \\ \quad#2}
+\newcommand{\ShortExecutionOverBelow}[4]{#1 \xleftarrow[#4]{#3} #2}
+\newcommand{\ShortExecutionOver}[3]{#1 \xleftarrow{#3} #2}
+\newcommand{\LongExecutionBelow}[3]{#1 \xgetsbelow{#3} \\ \quad#2}
+\newcommand{\ShortExecutionBelow}[3]{#1 \xgetsbelow{#3} #2}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frontmatter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\maketitlepage
+
+%%%%% license statement
+\thispagestyle{empty}
+\vspace*{\fill}
+\doclicenseThis
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\cleardoublepage
+\thispagestyle{plain.scrheadings}
+\phantomsection
+\bookmark[page=3]{Contents}
+\setcounter{tocdepth}{0}
+\hypersetup{bookmarksdepth=3}
+\tableofcontents
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{前言}
+\label{section:foreword}
+
+\textbf{简洁证明系统}是一种非凡的工具。我们用一个简单的例子来简要解释它们是什么。假设爱丽丝有一个做了一些有趣事情的公共程序 $P$，比如会依次输出 $\pi$ 的十进制数字，首先是 $3$，然后是 $1$，然后是 $4$，依此类推。爱丽丝在她的笔记本电脑上运行这个程序，程序输出了 $\pi$ 的第一百万位小数，这正好是 $5$。她非常兴奋，于是告诉了她所有的朋友。爱丽丝的一个朋友鲍勃有点怀疑。他检查了程序 $P$ 的代码，确认它确实是在正确地计算 $\pi$ 的数字。但他担心爱丽丝只是猜测了第一百万位数字是什么而并没有实际运行程序。鲍勃决定自己验证一下这个计算。他设置好他的笔记本电脑运行 $P$ ，并等待它重新确认爱丽丝的发现。
+
+当鲍勃等待他的笔记本电脑从头开始重新运行整个计算时，他开始觉得这毫无意义。如果他们的朋友卡罗尔也不信任他们中的任何一个，她也将不得不重新运行整个计算以说服自己 $P$ 确实正确运行了。如果大卫不信任他们三个人中的任何一个，他也将不得不重新运行整个计算。这是大量的重复劳动。他们所有人都在一遍又一遍地重做相同的计算。
+
+有没有更好的方法？简洁证明系统提供了一个非凡的解决方案。它使得爱丽丝能够计算出程序 $P$ 正确运行并且其输出如所声称的那样的证明。这个证明是\textbf{简洁的}，意味着它很短且验证速度很快。在实践中，简洁证明只有几千字节长，验证只需几毫秒。这里应当停下来对此感到惊叹：无论爱丽丝计算的是 $\pi$ 的第一百万位还是第一十亿位数字，证明她计算是正确的证明总是只有几千字节长且只需几毫秒就能验证。
+
+令人惊奇的是，这适用于任意程序 $P$，即使它需要爱丽丝提供辅助输入。爱丽丝可以运行程序并发布其输出以及程序正确运行的简洁证明。然后，只需几毫秒的工作，鲍勃、卡罗尔、大卫以及其他任何人都可以检查这个证明，并确信爱丽丝正确地运行了这个程序。他们无需重新运行计算。这个简洁证明甚至可以是\textbf{零知识}的，意思是证明不会透露爱丽丝的辅助输入的任何信息，但它仍然可以让所有人相信程序确实在这个输入上正确运行了。
+
+近年来，简洁证明系统的研究已经发展成为一个庞大的研究领域，许多研究者都贡献了许多美妙的想法。推动这一快速进展的原因之一是这些工具的商业化应用，例如对去中心化系统扩容。另一个原因是这一领域为新的技术创新提供了肥沃的土壤。有多种构造简洁证明的方法，给研究者提供了许多探索的方向。同时，工程师们也有强烈的需求希望构造编程框架，使得非专家也能轻松使用这些工具。总体而言，这是一个由研究者和开发者组成的充满活力的社区，这一领域的工作既令人兴奋又充满乐趣。
+
+本书涵盖了一种特定的简洁证明系统构造方法，称为\textbf{基于哈希的证明}。这些证明系统在概念上是最简单的，不需要复杂的数学知识，因此对广泛的读者群体都具有吸引力。此外，这些证明系统的安全性依赖于哈希函数的相对简单的性质。对于标准的密码学哈希函数，这些性质被认为即使在敌手拥有大规模量子计算机的情况下也能成立。因此，这些证明系统是\textbf{后量子}的：即使在构建出大规模量子计算机之后，它们仍将保持安全。
+
+基于哈希的证明系统的理论已经相当成熟且被透彻理解。然而，直到现在，还没有一本书提供所有的详细信息。这就是本书的目的。本书开始部分精确定义了构成简洁证明系统的元素。接下来，本书转向从几个抽象的信息论对象构建简洁证明系统。一个广泛使用的例子是从一个重要对象——\textbf{交互式预言机证明（Interactive Oracle Proof，简称 IOP）}构造简洁证明系统。该构造完全依赖于哈希函数。书中逐步构造必要的工具，然后清晰描述了该构造及其安全性证明。
+
+本书是对证明系统领域的重大贡献。它适合喜欢对材料进行清晰且精确处理的读者。我相信，一旦你读了这本书，你会想要了解更多关于这个领域的知识。本书是进入简洁证明世界的一个很好的起点，带你踏上一段有趣的旅程。
+
+%\vspace{1cm}
+
+\begin{flushright}
+Dan Boneh \\
+2024年4月 \\
+斯坦福大学
+\end{flushright}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{序言}
+\label{section:preface}
+
+\epigraph{``证明对我们的生活至关重要，而对于所有基本的事物，我们应该有所预料，对证明是什么的回答将永远是一个发展中的过程。 ``}{Silvio Micali, \textit{计算可靠证明}}
+
+本书讨论的是\textbf{密码学证明}，即用于证明和验证计算的正确执行的简洁且零知识的（稍后将详细介绍）协议。密码学证明是计算机科学中的一个基本对象，处于密码学和计算复杂性理论的交汇之处。由于实际应用的推动，在学术界和工业界受到了极大的关注。密码学证明结合了计算理论中一些最优美的思想和最强大的工具，是深奥的数学思想在新技术中起关键作用的一个显著例子。
+
+本书提供了一个基于（理想）哈希函数构造的密码学证明的严格介绍，既是学生自学的教材，也是从业者的参考书。这包括了基于（理想）哈希函数的简洁非交互论证（SNARGs）的著名构造。例如，STARKs（可扩展透明知识论证）就是此类SNARGs的一个例子。
+
+\parhead{最新版本}
+本书的最新版本可以在以下网站找到：
+\begin{center}
+\url{https://hash-based-snargs-book.github.io/}
+\end{center}
+该网站还链接了本书源代码的Git库，包括最新的更正和补充内容。我们非常欢迎对本书的评论（无论正面或负面的！），以及任何的更正或建议。您可以直接在GitHub上的库里提交issues或PR，或者直接通过电子邮件联系我们。
+
+\parhead{许可证}
+本书的源代码（以及本书本身）是根据\textsf{Creative Commons Attribution-ShareAlike 4.0 International License}（CC BY-SA 4.0）许可的。简而言之，您可以分享和改编本书的源代码，前提是您给予适当的署名并注明任何更改；此外，从本书衍生的材料必须具有相同的许可证（或与之兼容的许可证）。有关此许可证的更多信息，请参见\url{https://creativecommons.org/licenses/by-sa/4.0/}。
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section[nonumber=true]{动机}
+
+\parhead{重新执行问题}
+计算机科学的一个基本目标是\textbf{计算完整性}：
+\begin{center}
+一方如何验证另一方正确地执行了一个给定的计算？
+\end{center}
+实现这一目标的一种自然方法是\textbf{重新执行计算}，并检查这得到的结果是否与声称的结果相同。
+
+例如，考虑一个计算任务：计算1亿以内的质数个数。Alice通过质数计数算法（例如埃拉托色尼筛法）确定答案是{50,847,534}，并发布计算声明“1亿以内的质数个数是{50,847,534}”。Bob如何检查Alice的计算声明是否正确？一个选择是Bob重新运行Alice使用的算法（或其他质数计数算法），并检查1亿以内的质数是否确实是{50,847,534}。
+
+然而，在许多情况下，重新执行\textbf{不是一个选项}。
+\begin{itemize}
+  \item 一方可能无法承担（或没有足够的资源）重新执行与计算声明相关的计算。例如，使用最先进的质数计数算法在2022年计算$10^{29}$以内的质数个数要花费90多核年和超过1TB的峰值内存使用；\footnote{参见\url{https://oeis.org/A006880}和\url{https://www.mersenneforum.org/showthread.php?t=20473}}这样的计算不易重新执行。
+  \item 此外，计算可能涉及无法与他人共享的私有输入，因此无法重新执行计算。以下是一个涉及RSA密钥对的例子。回忆一下，RSA密钥对包括一个包含两个质数（从合适的分布中抽样）的私钥和一个包含它们乘积的公钥；这样的密钥对用于加密方案和基于RSA假设的数字签名方案。考虑声明“我知道两个质数，它们的乘积是RSA公钥$N$”。揭示这两个质数可以让其他人轻松验证该声明。然而，这样做会泄露与公钥对应的私匙。
+\end{itemize}
+于是我们面临重新执行问题：
+\begin{center}
+如何在不重新执行的情况下确保计算完整性？
+\end{center}
+乍一看这似乎是不可能的。计算复杂性中的分层定理指出，一般来说，没有办法减少确定性计算输出所使用的时间或空间。\footnote{例如，确定性多带图灵机分层定理指出，对于每个时间可构造函数$t(n)$，复杂性类$\DTIME(t(n))$严格大于复杂性类$\DTIME(o(\frac{t(n)}{\log t(n)}))$。换句话说，有些计算任务的输出可以在时间$t(n)$内确定，但不能在时间$o(\frac{t(n)}{\log t(n)})$内确定。其他资源和计算模型也存在其他分层定理。} 在不重新执行的情况下确保计算完整性似乎是一个难以实现的目标。
+
+\parhead{避免重新执行}
+令人惊讶的是，通过要求提出计算声明的一方同时提供该声明的计算完整性的\textbf{密码学证明}，就可以避免重新执行。（特别地，这规避了前面提到的限制，以及在此尚未提及的其他限制。）非正式地，一方可以通过\textbf{证明者算法}生成密码学证明来认证计算的正确性。随后，任何人都可以通过\textbf{验证算法}检查密码学证明，而非重新执行原始计算。安全性适用于资源适当受限的敌手（稍后会详细介绍）。
+
+但是，密码学证明的验证如何“优于”重新执行呢？这是由于密码学证明可以实现的优良性质。
+\begin{itemize}
+  \item \textbf{简洁性。} 验证算法可以比重新执行原始计算\emph{快得多}。这种特性，称为简洁性，使得计算能力弱的一方可以验证计算复杂的计算的正确性。
+  \item \textbf{零知识。} 密码学证明不会泄露任何计算中使用的私有输入的信息。这种特性称为零知识，使得其他人可以验证涉及秘密的计算的正确性。（这些秘密只有执行计算并生成密码学证明的一方知道。）
+\end{itemize}
+满足（某种形式的）简洁性的密码学证明通常称为\textbf{简洁证明}，如果是非交互式的，则称为\textbf{SNARG}。一个流行的概念是zkSNARK，即\textbf{零知识简洁非交互知识论证}。这些概念将在本书中引入并定义。
+
+\parhead{应用}
+密码学证明通常用于学术研究，设计密码学原语、协议和系统。更令人兴奋的是，密码学证明已经在学术界之外找到了应用：它们在许多无法重新执行的场景中得到了广泛的实际应用。截至写作时，它们是应用密码学中最热门的话题之一。
+
+例如，密码学证明在设计安全分布式系统（如区块链）中起着关键作用。它们被用于实现可扩展性和隐私的目标，简要介绍如下。
+\begin{itemize}
+
+  \item \textbf{可扩展性。}
+  简洁性性质通过将昂贵的计算移出网络节点，从而增加对等网络中的交易吞吐量。
+
+  智能合约系统（例如，以太坊）中的计算既慢又昂贵：每个计算步骤都由网络中的每个节点重新执行，因此网络受限于最慢的节点，用户为每个计算步骤支付高昂的价格。
+
+  一类称为“基于证明的rollups”的架构将计算移出链外，用户将其计算请求发送给聚合者，聚合者定期生成关于用户计算批次的密码学证明；然后智能合约系统验证密码学证明并授权一个反映批次中所有计算的状态转换。简洁性确保检查密码学证明比检查它所证明的计算便宜得多。因此，让网络中的每个节点仅检查密码学证明要便宜得多，并且使系统能够扩展到更多的用户和更大的计算。
+
+  \item \textbf{隐私。}
+  零知识性质允许设计具有强用户隐私的对等网络。非正式地，零知识性质使得网络中的一方能够广播关于涉及其私有输入的计算的密码学证明。例如，计算可能授权从一方向另一方转移数字资产，但不透露这些方的身份或数字资产的类型和数量。这种隐私保护功能对密码货币和其他去中心化金融应用至关重要，因为交易通常涉及高度敏感的信息，不应向整个网络公开。
+
+\end{itemize}
+这些及其他应用在学术界、工业界和政府的多个社区中引起了对密码学证明的极大兴趣。这种更广泛的兴趣需要关于密码学证明的材料更易于访问和系统化，以有效地满足超出少数专家的受众的需求。
+
+nd{document}

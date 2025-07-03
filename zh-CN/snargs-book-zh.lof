@@ -1,0 +1,21 @@
+\babel@toc {american}{}\relax 
+\contentsline {figure}{\numberline {1}{\ignorespaces 本书的各部分。}}{xi}{figure.caption.30}%
+\contentsline {figure}{\numberline {2}{\ignorespaces 本书中的变换。}}{xii}{figure.caption.31}%
+\contentsline {figure}{\numberline {1.1}{\ignorespaces 3个事件的两两和三重交互。}}{3}{figure.caption.56}%
+\contentsline {figure}{\numberline {7.1}{\ignorespaces SP 的交互示意图}}{40}{figure.caption.117}%
+\contentsline {figure}{\numberline {9.1}{\ignorespaces SP上 FS 变换示意图}}{45}{figure.caption.126}%
+\contentsline {figure}{\numberline {12.1}{\ignorespaces IP 的示意图。}}{56}{figure.caption.127}%
+\contentsline {figure}{\numberline {13.1}{\ignorespaces 公开随机 IP 的快速 FS 转换示意图}}{64}{figure.caption.150}%
+\contentsline {figure}{\numberline {17.1}{\ignorespaces PCP 的示意图。}}{77}{figure.caption.155}%
+\contentsline {figure}{\numberline {18.1}{\ignorespaces Kilian transformation\xspace 转换示意图}}{83}{figure.caption.172}%
+\contentsline {figure}{\numberline {19.1}{\ignorespaces Micali transformation\xspace 变换示意图}}{87}{figure.caption.179}%
+\contentsline {figure}{\numberline {27.1}{\ignorespaces 对 $\ell =1,\dots ,8$ 的二叉树族（见定义 \ref {definition:binary-tree-arbitrary-number-of-leaves-alt-1}）。其中 $T_{1},T_{2},T_{4},T_{8}$ 与 \Cref {chapter:merkle-commitment} 中定义的完美二叉树一致。}}{116}{figure.caption.236}%
+\contentsline {figure}{\numberline {27.2}{\ignorespaces 路径剪枝示例（\(\ell =8\) 的树 \(T_3\)）：上左 \(\{5,6\}\)、上右 \(\{3,6\}\)、下 \(\{1,3,5,6\}\)。黄色为待认证叶，蓝色为剪枝后需保留的节点。}}{117}{figure.caption.243}%
+\contentsline {figure}{\numberline {27.3}{\ignorespaces “好情况”示例：\(\ell =16\)，\(I=\{1,2,3,4\}\) 时，剪枝后保留的顶点。}}{119}{figure.caption.248}%
+\contentsline {figure}{\numberline {27.4}{\ignorespaces “差情况”示例：\(\ell =16\)，\(I=\{2,7,12,14\}\) 时，剪枝后保留的顶点。}}{119}{figure.caption.248}%
+\contentsline {figure}{\numberline {28.1}{\ignorespaces SP 的 $a$-分叉示意图。}}{123}{figure.caption.257}%
+\contentsline {figure}{\numberline {28.2}{\ignorespaces public-coin IP 的一个 $(a_{1},a_{2})$-记录树示意图。}}{124}{figure.caption.260}%
+\contentsline {figure}{\numberline {30.1}{\ignorespaces 预处理 NARG 和 IARG 图示}}{139}{figure.caption.275}%
+\contentsline {figure}{\numberline {30.2}{\ignorespaces 全息概率性证明图示}}{140}{figure.caption.276}%
+\contentsline {figure}{\numberline {30.3}{\ignorespaces Diagram of the COS transformation}}{148}{figure.caption.291}%
+\providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

@@ -84,6 +84,79 @@
       \verb https://www.slmath.org/workshops/1037
       \endverb
     \endentry
+    \entry{FiatS86}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{hash=f5bfb67a9bf9effc7ef349b81997386d}{%
+           family={Fiat},
+           familyi={F\bibinitperiod},
+           given={Amos},
+           giveni={A\bibinitperiod}}}%
+        {{hash=71b77dd8ab33fe646ef25cded49e9881}{%
+           family={Shamir},
+           familyi={S\bibinitperiod},
+           given={Adi},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{3a893a83aa5e797024efdb1a12959269}
+      \strng{fullhash}{3a893a83aa5e797024efdb1a12959269}
+      \strng{fullhashraw}{3a893a83aa5e797024efdb1a12959269}
+      \strng{bibnamehash}{3a893a83aa5e797024efdb1a12959269}
+      \strng{authorbibnamehash}{3a893a83aa5e797024efdb1a12959269}
+      \strng{authornamehash}{3a893a83aa5e797024efdb1a12959269}
+      \strng{authorfullhash}{3a893a83aa5e797024efdb1a12959269}
+      \strng{authorfullhashraw}{3a893a83aa5e797024efdb1a12959269}
+      \field{labelalpha}{FS86}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of CRYPTO 1986 (6th International Cryptology Conference)}
+      \field{series}{CRYPTO~1986}
+      \field{title}{How to prove yourself: practical solutions to identification and signature problems}
+      \field{year}{1986}
+      \field{pages}{186\bibrangedash 194}
+      \range{pages}{9}
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/3-540-47721-7_12
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/3-540-47721-7_12
+      \endverb
+    \endentry
+    \entry{Merkle89-tree}{inproceedings}{}{}
+      \name{author}{1}{}{%
+        {{hash=7ce153cbcf9fe4d00b9e06666f55de7a}{%
+           family={Merkle},
+           familyi={M\bibinitperiod},
+           given={Ralph\bibnamedelima C.},
+           giveni={R\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+      }
+      \strng{namehash}{7ce153cbcf9fe4d00b9e06666f55de7a}
+      \strng{fullhash}{7ce153cbcf9fe4d00b9e06666f55de7a}
+      \strng{fullhashraw}{7ce153cbcf9fe4d00b9e06666f55de7a}
+      \strng{bibnamehash}{7ce153cbcf9fe4d00b9e06666f55de7a}
+      \strng{authorbibnamehash}{7ce153cbcf9fe4d00b9e06666f55de7a}
+      \strng{authornamehash}{7ce153cbcf9fe4d00b9e06666f55de7a}
+      \strng{authorfullhash}{7ce153cbcf9fe4d00b9e06666f55de7a}
+      \strng{authorfullhashraw}{7ce153cbcf9fe4d00b9e06666f55de7a}
+      \field{labelalpha}{Mer89}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of CRYPTO 1989 (9th International Cryptology Conference)}
+      \field{series}{CRYPTO~1989}
+      \field{title}{A certified digital signature}
+      \field{year}{1989}
+      \field{pages}{218\bibrangedash 238}
+      \range{pages}{21}
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/0-387-34805-0_21
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/0-387-34805-0_21
+      \endverb
+    \endentry
     \entry{ThalerBook}{misc}{}{}
       \name{author}{1}{}{%
         {{hash=3a3494692023101d1ccddbb75d675624}{%

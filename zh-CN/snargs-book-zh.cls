@@ -52,6 +52,7 @@
 \RequirePackage{amsmath}
 \RequirePackage{amsthm}
 \RequirePackage{mathtools}
+\RequirePackage{extpfeil}
 \RequirePackage{graphicx}
 \RequirePackage{braket}
 \RequirePackage{bm}
@@ -68,20 +69,17 @@
 \RequirePackage{xfrac}
 \RequirePackage{mathdots}
 \RequirePackage{xpatch}
-\RequirePackage{bookmark}
 \RequirePackage{xcolor}
 \RequirePackage{afterpage}
 \RequirePackage{pagecolor}
+\RequirePackage{bookmark}
 \RequirePackage[type={CC},modifier={by-sa},version={4.0}]{doclicense}
 \RequirePackage[classfont=sanserif,langfont=roman]{complexity}
 \RequirePackage{paralist}
-\RequirePackage[nameinlink]{cleveref}
-  \creflabelformat{equation}{#2\textup{#1}#3}
-  \newcommand*{\fullref}[1]{\hyperref[{#1}]{\autoref*{#1}: \nameref*{#1}}}
 \RequirePackage{enumitem}
   \setlist[itemize]{leftmargin=2em}
   \setlist[enumerate]{leftmargin=2em}
-\RequirePackage{mathabx}
+%\RequirePackage{mathabx} % Commented out due to symbol font limit
 \RequirePackage{centernot}
 \setcounter{secnumdepth}{3}
 \RequirePackage{chngcntr}
@@ -90,6 +88,7 @@
 \RequirePackage{fontspec}
 \RequirePackage{luatexja-fontspec} % 用于支持中文字体
 \RequirePackage[backend=biber,style=alphabetic,maxnames=99,maxalphanames=99,sorting=anyt,backref=true,url=true]{biblatex}
+\RequirePackage{tikz}
 \RequirePackage{tcolorbox}
   \tcbuselibrary{skins}
   \tcbuselibrary{theorems}
@@ -103,17 +102,30 @@
 \RequirePackage[quiet]{marginnote}
 \RequirePackage{morefloats}
 
-\setlength\epigraphwidth{.6\textwidth}
+% Load cleveref late to avoid conflicts
+\RequirePackage[nameinlink]{cleveref}
+  \creflabelformat{equation}{#2\textup{#1}#3}
+  \newcommand*{\fullref}[1]{\hyperref[{#1}]{\autoref*{#1}: \nameref*{#1}}}
 
 \hypersetup{% setup for pdf bookmarks
-    pdflang=en-US,%
-    unicode=true,%
-	pdfborder={0 0 0},%
-	bookmarksopen=true,%
-    bookmarksopenlevel=0,%
-	bookmarksnumbered=true,%
-    linktoc=all,%
+    pdfauthor={Alessandro Chiesa, Eylon Yogev, Kurt Pan},
+    pdftitle={使用哈希函数构造密码学证明},
+    pdfsubject={Cryptographic Proofs via Hash Functions},
+    pdfkeywords={cryptography, proofs, hash functions},
+    pdfcreator={LuaLaTeX},
+    pdfproducer={LuaLaTeX},
+    bookmarksnumbered=true,
+    bookmarksopen=true,
+    pdfpagemode=UseOutlines,
+    colorlinks=true,
+    linkcolor=darkblue,
+    citecolor=darkblue,
+    urlcolor=darkblue,
+    pdfborder={0 0 0},
+    plainpages=false,
 }
+
+\setlength\epigraphwidth{.6\textwidth}
 
 \allowdisplaybreaks
 
@@ -409,15 +421,22 @@
 \newtheorem{lemma}[theorem]{引理}
 \newtheorem{claim}[theorem]{论断}
 
+
 \definecolor{theorembackgroundcolor}{HTML}{e0f3e0}
 \definecolor{theoremlinecolor}{HTML}{707a70}
 \theoremstyle{definition} % non-italics
-\newtheorem{remark}[theorem]{Remark}
-\newtheorem{construction}[theorem]{Construction}
+\newtheorem{remark}[theorem]{注}
+\newtheorem{construction}[theorem]{构造}
+
+\renewenvironment{proof}[1][\proofname]{%
+  \noindent\textbf{证明.}\hskip 1em\ignorespaces%
+}{%
+  \hfill$\square$%
+}
 \definecolor{constructioncolor}{HTML}{e0f3e0}
-\crefname{ImportantTheorem}{theorem}{theorems}
-\crefname{ImportantDefinition}{definition}{definitions}
-\crefname{ImportantConstruction}{construction}{constructions}
+\crefname{ImportantTheorem}{定理}{定理}
+\crefname{ImportantDefinition}{定义}{定义}
+\crefname{ImportantConstruction}{构造}{构造}
 
 % general "Important" theorem style
 \tcbset{
@@ -444,17 +463,17 @@
     }%
 }
 
-\NewTcbTheorem[number within=section,crefname={definition}{definitions}]{ImportantDefinition}{Definition}{%
+\NewTcbTheorem[number within=section,crefname={定义}{定义}]{ImportantDefinition}{定义}{%
     theostyle,%
     fontupper=\itshape,% italics in definition env
 }{definition}
 
-\NewTcbTheorem[number within=section,crefname={theorem}{theorems}]{ImportantTheorem}{Theorem}{%
+\NewTcbTheorem[number within=section,crefname={定理}{定理}]{ImportantTheorem}{定理}{%
     theostyle,%
     fontupper=\itshape,% italics in theorem env
 }{theorem}
 
-\NewTcbTheorem[number within=section,crefname={construction}{constructions}]{ImportantConstruction}{Construction}{%
+\NewTcbTheorem[number within=section,crefname={构造}{构造}]{ImportantConstruction}{构造}{%
     theostyle,%
 }{construction}
 
@@ -777,9 +796,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% TOC %%%%%
 
-\addto\captionsamerican{% change headings to lowercase "figures" and "tables" lettering
-    \renewcommand{\listfigurename}{List of figures}
-    \renewcommand{\listtablename}{List of tables}
+\addto\captionsamerican{% change headings to Chinese
+    \renewcommand{\contentsname}{目录}
+    \renewcommand{\listfigurename}{图列表}
+    \renewcommand{\listtablename}{表列表}
+    \renewcommand{\bibname}{参考文献}
 }
 
 \AfterTOCHead[toc]{% additional vertical white space after toc heading
@@ -796,8 +817,9 @@
 \setlength{\tnwpart}{1.85em}
 \setlength{\tnwchapter}{\tnwpart}
 \setlength{\tnwsection}{\tnwchapter}
-\addtolength{\tnwsection}{1em}
-
+\newlength{\tmpdim}
+\setlength{\tmpdim}{\dimexpr\tnwsection-\tnwchapter\relax}
+\addtolength{\tnwsection}{\tmpdim}
 \setlength{\tipart}{\dimexpr-1.85em + 5mm\relax} % adjustment to colored boxes
 \setlength{\tichapter}{\dimexpr5mm + 1.85em\relax} % adjustment to colored boxes
 \setlength{\tisection}{5em}
@@ -818,8 +840,7 @@
     \tcbox[% part entries in green boxes
         boxrule=0mm,%
         colframe=overviewbg,%
-
-colback=overviewbg,%
+        colback=overviewbg,%
         arc=2mm,%
         sharp corners,%
         rounded corners,%
