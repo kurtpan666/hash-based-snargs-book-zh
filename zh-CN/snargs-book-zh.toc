@@ -16,8 +16,8 @@
 \contentsline {section}{\nonumberline 全书结构}{xi}{section*.25}%
 \contentsline {paragraph}{\nonumberline 所需背景}{xi}{paragraph*.27}%
 \contentsline {paragraph}{\nonumberline 章节安排}{xi}{paragraph*.29}%
-\contentsline {section}{\nonumberline 如何使用本书}{xii}{section*.32}%
-\contentsline {paragraph}{\nonumberline 目标读者}{xii}{paragraph*.34}%
+\contentsline {section}{\nonumberline 如何使用本书}{xi}{section*.32}%
+\contentsline {paragraph}{\nonumberline 目标读者}{xi}{paragraph*.34}%
 \contentsline {section}{\nonumberline 致谢}{xii}{section*.35}%
 \vspace {1.15\baselineskip }
 \contentsline {chapter}{\numberline {1}数学背景}{1}{chapter.1}%

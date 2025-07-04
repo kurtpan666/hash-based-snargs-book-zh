@@ -800,6 +800,8 @@
     \renewcommand{\contentsname}{目录}
     \renewcommand{\listfigurename}{图列表}
     \renewcommand{\listtablename}{表列表}
+    \renewcommand{\figurename}{图}
+    \renewcommand{\tablename}{表}
     \renewcommand{\bibname}{参考文献}
 }
 
